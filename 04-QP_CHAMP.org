@@ -1,5 +1,9 @@
 #+TITLE: Quantum Package and Champ
 
+@@html: <img src="./images/QP.png" width="100px" /> @@ $\longrightarrow$
+@@html: <img src="./images/TREXIO.png" width="100px" /> @@ $\longrightarrow$
+@@html: <img src="./images/Champ.png" width="100px" /> @@
+
 * Introduction
 
   We will first use Quantum Package (QP) to generate two single-determinant

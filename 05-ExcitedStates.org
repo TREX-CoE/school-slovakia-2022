@@ -1,5 +1,10 @@
 #+TITLE: Excited states with Quantum Package and CHAMP
 
+@@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
+@@html:<img src="./images/QP.png" width="100px" />@@ $\longrightarrow$
+@@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
+@@html:<img src="./images/Champ.png" width="100px" />@@
+
 * Introduction
 
   We will import a Hartree-Fock wavefunction from a TREXIO file into
@@ -19,14 +24,14 @@ pip install trexio
   #+end_src
 
   You can now import the single-determinant wave function from the provided TREXIO file:
-  
+
   #+begin_src bash
 qp_import_trexio.py COH2.trexio -o COH2
 qp set_file COH2
   #+end_src
 
   Specify you want to run a two-state calculation:
-  
+
   #+begin_src bash
 qp set determinants n_states 2
   #+end_src
@@ -47,7 +52,7 @@ qp set determinants n_det_max 2000
   to first perform a CIS, and then continue with a CIPSI in the FCI
   space.
 
-    #+begin_src 
+    #+begin_src
 qp run cis | tee COH2.cis.out
 qp set determinants read_wf true
 qp run fci | tee COH2.fci.out
@@ -59,9 +64,9 @@ qp run fci | tee COH2.fci.out
   Now, we have obtained a more reasonable excitation energy, around 4
   eV. We can export the wavefunctions in the TREX file:
 
-  #+begin_src 
+  #+begin_src
 qp set trexio trexio_file  COH2.trexio
 qp run export_trexio
   #+end_src
 
- 
+

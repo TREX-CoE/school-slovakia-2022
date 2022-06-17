@@ -1,8 +1,13 @@
 #+TITLE: Introduction to Quantum Package
 
+#+ATTR_HTML: :width 100px
+#+ATTR_LATEX: :width 100px
+  [[./images/QP.png]]
+
   Quantum Package (QP) is an open-source environment for developing
   easily quantum chemistry programs. It was initially designed for code
   developers, but it is relatively simple to use.
+
 
   Before doing anything with quantum package, the environment needs to
   be set up

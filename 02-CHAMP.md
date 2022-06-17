@@ -1,6 +1,6 @@
 # QMC Hands-on Summer Workshop
 
-
+[!Champ logo](./images/Champ.png)]
 
 ### CHAMP
 The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum Monte Carlo suite of programs for electronic structure calculations of atomic and molecular systems.
