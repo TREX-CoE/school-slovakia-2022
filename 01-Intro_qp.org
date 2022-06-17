@@ -1,10 +1,17 @@
 #+TITLE: Introduction to Quantum Package
 #+AUTHOR: Anthony Scemama
+#+LANGUAGE:  en
+#+HTML_LINK_HOME: index.html
+#+HTML_LINK_UP: index.html
+#+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
+
 
 #+ATTR_HTML: :width 100px
 #+ATTR_LATEX: :width 100px
   [[./images/QP.png]]
 
+* Environment
+  
   Quantum Package (QP) is an open-source environment for developing
   easily quantum chemistry programs. It was initially designed for code
   developers, but it is relatively simple to use.
@@ -21,6 +28,8 @@ source $QP_ROOT/quantum_package.rc
   #+begin_src 
 $QP_ROOT/bin/qpsh
   #+end_src
+
+* The EZFIO database
 
   QP stores input and output data in a database, called the /EZFIO directory/.
   To interact with the database, QP provides multiple shell functions,
@@ -56,6 +65,8 @@ qp create_ezfio --basis=cc-pvdz h2o.xyz
    #+begin_src 
 qp set_file other.ezfio
    #+end_src
+
+* =qp= commands
 
    To get the documentation of the =qp= command, you can use
    #+begin_src bash

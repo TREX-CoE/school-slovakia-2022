@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-17 Fri 17:35 -->
+<!-- 2022-06-17 Fri 17:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -193,6 +193,12 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
+<link rel="stylesheet" type="text/css" href="org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script type="text/javascript" src="org-html-themes/src/lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="org-html-themes/src/lib/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <script type="text/javascript">
 // @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
@@ -239,14 +245,18 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
-<div id="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="04-QP_CHAMP.org"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
 <h1 class="title">Excited states with Quantum Package and CHAMP</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcc799bc">1. Introduction</a></li>
-<li><a href="#org49f686f">2. CIPSI calculation</a></li>
+<li><a href="#org1cf536d">1. Introduction</a></li>
+<li><a href="#orga60bfb3">2. CIPSI calculation</a></li>
 </ul>
 </div>
 </div>
@@ -257,8 +267,8 @@
 <img src="./images/Champ.png" width="100px" />
 </p>
 
-<div id="outline-container-orgcc799bc" class="outline-2">
-<h2 id="orgcc799bc"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org1cf536d" class="outline-2">
+<h2 id="org1cf536d"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction from a TREXIO file into
@@ -275,15 +285,16 @@ The expected excitation energy is around 4 eV.
 </div>
 
 
-<div id="outline-container-org49f686f" class="outline-2">
-<h2 id="org49f686f"><span class="section-number-2">2</span> CIPSI calculation</h2>
+<div id="outline-container-orga60bfb3" class="outline-2">
+<h2 id="orga60bfb3"><span class="section-number-2">2</span> CIPSI calculation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You first need to install the <code>trexio</code> Python module:
 </p>
-<pre class="example">
-pip install trexio
+<div class="org-src-container">
+<pre class="src src-bash">pip install trexio
 </pre>
+</div>
 
 <p>
 You can now import the single-determinant wave function from the provided TREXIO file:
@@ -327,11 +338,12 @@ to first perform a CIS, and then continue with a CIPSI in the FCI
 space.
 </p>
 
-<pre class="example">
-qp run cis | tee COH2.cis.out
+<div class="org-src-container">
+<pre class="src src-bash">qp run cis | tee COH2.cis.out
 qp set determinants read_wf true
 qp run fci | tee COH2.fci.out
 </pre>
+</div>
 
 <p>
 <code>read_wf = true</code> specifies that the wave function stored in the
@@ -343,16 +355,17 @@ Now, we have obtained a more reasonable excitation energy, around 4
 eV. We can export the wavefunctions in the TREX file:
 </p>
 
-<pre class="example">
-qp set trexio trexio_file  COH2.trexio
+<div class="org-src-container">
+<pre class="src src-bash">qp set trexio trexio_file  COH2.trexio
 qp run export_trexio
 </pre>
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-17 Fri 17:35</p>
+<p class="date">Created: 2022-06-17 Fri 17:44</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

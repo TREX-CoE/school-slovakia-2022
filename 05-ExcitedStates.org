@@ -1,5 +1,9 @@
 #+TITLE: Excited states with Quantum Package and CHAMP
 #+AUTHOR: Anthony Scemama, Claudia Filippi
+#+LANGUAGE:  en
+#+HTML_LINK_HOME: index.html
+#+HTML_LINK_UP: 04-QP_CHAMP.org
+#+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 
 @@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
 @@html:<img src="./images/QP.png" width="100px" />@@ $\longrightarrow$
@@ -20,7 +24,7 @@
 * CIPSI calculation
 
   You first need to install the =trexio= Python module:
-  #+begin_src
+  #+begin_src bash
 pip install trexio
   #+end_src
 
@@ -53,7 +57,7 @@ qp set determinants n_det_max 2000
   to first perform a CIS, and then continue with a CIPSI in the FCI
   space.
 
-    #+begin_src
+    #+begin_src bash
 qp run cis | tee COH2.cis.out
 qp set determinants read_wf true
 qp run fci | tee COH2.fci.out
@@ -65,7 +69,7 @@ qp run fci | tee COH2.fci.out
   Now, we have obtained a more reasonable excitation energy, around 4
   eV. We can export the wavefunctions in the TREX file:
 
-  #+begin_src
+  #+begin_src bash
 qp set trexio trexio_file  COH2.trexio
 qp run export_trexio
   #+end_src
