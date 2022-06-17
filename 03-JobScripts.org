@@ -1,0 +1,22 @@
+#+TITLE: Submitting job scripts
+
+* Example of a script to submit a job
+
+#+begin_src bash :tangle job_qp.sh
+#!/bin/bash
+#SBATCH -N 1 -n 1  --exclusive
+
+source ~scemama/environment.sh
+
+qp set_file COH2
+qp run fci > COH2.fci.out
+#+end_src
+
+
+The =environment.sh= contains
+
+#+begin_src bash
+module load openblas
+source ~scemama/qp2/quantum_package.rc
+source ~filippi/intel/oneapi/setvars.sh
+#+end_src
