@@ -6,9 +6,9 @@
 <!-- 2022-06-17 Fri 16:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quantum Package and Champ</title>
+<title>Introduction to CHAMP</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Anthony Scemama, Claudia Filippi" />
+<meta name="author" content="Ravindra Shinde, Claudia Filippi" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -232,389 +232,372 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="03-JobScripts.org"> UP </a>
+ <a accesskey="h" href="01-Intro_qp.html"> UP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">Quantum Package and Champ</h1>
+<h1 class="title">Introduction to CHAMP</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org14314c5">1. Introduction</a></li>
-<li><a href="#org949bc8a">2. Geometry, Basis set, Pseudo-potential</a>
+<li><a href="#org08986ee">1. CHAMP</a>
 <ul>
-<li><a href="#org2441032">2.1. BFD Pseudopotential</a></li>
-<li><a href="#org2c8c42b">2.2. Double-Zeta basis set</a></li>
+<li><a href="#orgf21764c">1.1. Requirements</a></li>
+<li><a href="#orgeecedbe">1.2. Installation of required libraries/packages</a>
+<ul>
+<li><a href="#org6ffc722">1.2.1. Install or load cmake</a></li>
+<li><a href="#org8b557c7">1.2.2. Installation using Intel oneAPI compilers</a></li>
+<li><a href="#org0465cf5">1.2.3. Installation using GNU Compiler</a></li>
 </ul>
 </li>
-<li><a href="#org3f8413f">3. Hartree-Fock calculation</a></li>
-<li><a href="#org724fdff">4. DFT calculation</a></li>
-<li><a href="#orgfe8450a">5. QMC runs</a>
-<ul>
-<li><a href="#orgdc81972">5.1. Check that the QMC setup is OK</a></li>
-<li><a href="#orgace7d50">5.2. Introduce a Jastrow factor</a>
-<ul>
-<li><a href="#org58166db">5.2.1. Add a simple Jastrow factor</a></li>
 </ul>
 </li>
-<li><a href="#orgbea7890">5.3. Optimize the Jastrow</a></li>
-<li><a href="#org3f05fd9">5.4. Run Diffusion Monte Carlo</a></li>
-</ul>
-</li>
+<li><a href="#org6f9f78b">2. Setup of input files</a></li>
+<li><a href="#org3e062af">3. Example 01: H<sub>2</sub>0 with HF</a></li>
 </ul>
 </div>
 </div>
-<p>
- <img src="./images/QP.png" width="100px" />  \(\longrightarrow\)
- <img src="./images/TREXIO.png" width="100px" />  \(\longrightarrow\)
- <img src="./images/Champ.png" width="100px" /> 
-</p>
 
-<div id="outline-container-org14314c5" class="outline-2">
-<h2 id="org14314c5"><span class="section-number-2">1</span> Introduction</h2>
+<div class="figure">
+<p><img src="./images/Champ.png" alt="Champ.png" width="100px" />
+</p>
+</div>
+
+
+<div id="outline-container-org08986ee" class="outline-2">
+<h2 id="org08986ee"><span class="section-number-2">1</span> CHAMP</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-We will first use Quantum Package (QP) to generate two single-determinant
-wave functions for the water molecule. A first one with Hartree-Fock
-orbitals, and a second one with PBE Kohn-Sham orbitals.
-Then, we will export these wave functions into the <a href="https://github.com/trex-coe/trexio">TREXIO</a> format,
-which is a general format for storing arbitrary wave functions. All
-TREX codes are compatible with this format.
+The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum
+Monte Carlo suite of programs for electronic structure calculations of
+atomic and molecular systems.
+</p>
+</div>
+
+<div id="outline-container-orgf21764c" class="outline-3">
+<h3 id="orgf21764c"><span class="section-number-3">1.1</span> Requirements</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>Cmake &gt;= 3.20</li>
+<li>gfortran/gcc &gt;= 9.3.0 or Intel Fortran 2020 onward / Intel OneAPI</li>
+<li>BLAS/LAPACK (OpenBLAS) or Intel MKL</li>
+<li>OpenMPI &gt;= 3.0 or Intel MPI</li>
+<li>[Optional] TREXIO library &gt;= 2.0.0</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgeecedbe" class="outline-3">
+<h3 id="orgeecedbe"><span class="section-number-3">1.2</span> Installation of required libraries/packages</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-org6ffc722" class="outline-4">
+<h4 id="org6ffc722"><span class="section-number-4">1.2.1</span> Install or load cmake</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt-get install -y cmake
+</pre>
+</div>
+<p>
+or
 </p>
 
 <p>
-In a second step, we will use CHAMP to run a VMC calculation with
-both wave functions. We will then optimize a Jastrow factor and run
-DMC calculations.
+Download and extract the latest cmake for the precompiled binary
 </p>
+<div class="org-src-container">
+<pre class="src src-bash">wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
+tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
+<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PATH</span>=cmake-3.24.0-rc1-linux-x86_64/bin:$<span style="color: #a0522d;">PATH</span>
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org949bc8a" class="outline-2">
-<h2 id="org949bc8a"><span class="section-number-2">2</span> Geometry, Basis set, Pseudo-potential</h2>
+<div id="outline-container-org8b557c7" class="outline-4">
+<h4 id="org8b557c7"><span class="section-number-4">1.2.2</span> Installation using Intel oneAPI compilers</h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgb630ed0"></a>Installation without sudo access<br />
+<div class="outline-text-5" id="text-1-2-2-1">
+<p>
+Download Intel oneAPI basekit and HPCkit for free from
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262.sh
+chmod a+x ./l_BaseKit_p_2022.2.0.262.sh
+sh ./l_BaseKit_p_2022.2.0.262.sh
+
+wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18679/l_HPCKit_p_2022.2.0.191.sh
+chmod a+x ./l_HPCKit_p_2022.2.0.191.sh
+sh ./l_HPCKit_p_2022.2.0.191.sh
+</pre>
+</div>
+
+<p>
+After installation export the path to your bashrc.
+</p>
+</div>
+</li>
+
+<li><a id="org32c59a8"></a>Prerequisites for Intel oneAPI with sudo access<br />
+<div class="outline-text-5" id="text-1-2-2-2">
+<div class="org-src-container">
+<pre class="src src-bash">wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+sudo add-apt-repository <span style="color: #8b2252;">"deb https://apt.repos.intel.com/oneapi all main"</span>
+sudo apt-get update
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org5213f0d"></a>Install the components<br />
+<div class="outline-text-5" id="text-1-2-2-3">
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt-get install -y intel-oneapi-common-vars
+sudo apt-get install -y intel-oneapi-compiler-fortran-2021.3.0
+sudo apt-get install -y intel-oneapi-mkl-2021.3.0
+sudo apt-get install -y intel-oneapi-mkl-devel-2021.3.0
+sudo apt-get install -y intel-oneapi-mpi-2021.3.0
+sudo apt-get install -y intel-oneapi-mpi-devel-2021.3.0
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org8f3cd77"></a>Compile script for CHAMP using Intel libraries<br />
+<div class="outline-text-5" id="text-1-2-2-4">
+<div class="org-src-container">
+<pre class="src src-bash">cmake -S. -Bbuild -DCMAKE_Fortran_COMPILER=mpiifort -DBLAS_LIBRARIES=<span style="color: #8b2252;">"-qmkl=parallel"</span>
+cmake --build build -j 8
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-org0465cf5" class="outline-4">
+<h4 id="org0465cf5"><span class="section-number-4">1.2.3</span> Installation using GNU Compiler</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<div class="warning">
+<ul class="org-ul">
+<li>Make sure that the installed version of cmake is higher than 3.20</li>
+<li>Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0</li>
+</ul>
+
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="org65544f5"></a>Install or load compilers<br />
+<div class="outline-text-5" id="text-1-2-3-1">
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install -y gfortran
+sudo apt-get install -y gcc
+sudo apt install -y openmpi-bin
+sudo apt install -y libopenmpi-dev
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgfde6638"></a>Install or load BLAS/LAPACK<br />
+<div class="outline-text-5" id="text-1-2-3-2">
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install -y libblacs-mpi-dev
+sudo apt install -y liblapack-dev
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgb9630dd"></a>Compile script for CHAMP<br />
+<div class="outline-text-5" id="text-1-2-3-3">
+<p>
+Get the <a href="https://github.com/filippi-claudia/champ/releases/tag/v2.1.1">stable version of CHAMP v.2.1.1</a>
+</p>
+
+<div class="warning">
+<p>
+Make sure that the BLAS installation is proper. Otherwise, the code might give erroneous results at runtime.
+</p>
+
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">cmake -H. -B build -DCMAKE_Fortran_COMPILER=/usr/bin/mpif90 -DBLA_VENDOR=OpenBLAS
+cmake --build build
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6f9f78b" class="outline-2">
+<h2 id="org6f9f78b"><span class="section-number-2">2</span> Setup of input files</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-For QMC, we need to use pseudopotentials optimized specifically for
-for QMC, and basis sets optimized to be used with these
-pseudopotentials. Here, we use the Burkatzki-Filippi-Dolg ones.
+The tutorial folder is located at: <code>/lustre/home/filippi/Tutorial-QMC-School</code>
 </p>
 
 <p>
-QP can read basis sets and pseudopotentials from files if the files
-exist in the current directory. Otherwise, it will try to look into
-its own database of basis sets and pseudopotentials.
+There are two folders inside
 </p>
+<ol class="org-ol">
+<li><code>example01_H2O_HF</code></li>
+<li><code>example01_H2O_DFT</code></li>
+</ol>
+
+<p>
+Each example directory will contain a setup folder, where you can
+generate the necessary input files for CHAMP from a single trexio
+file (in HDF5 format)
+</p>
+
+<p>
+The scripts for conversion are also included in the folder.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #483d8b;">cd</span> 01_champ_tools/example01_H2O_HF/setup
+</pre>
 </div>
 
-<div id="outline-container-org2441032" class="outline-3">
-<h3 id="org2441032"><span class="section-number-3">2.1</span> BFD Pseudopotential</h3>
-<div class="outline-text-3" id="text-2-1">
 <p>
-Store the pseudopotential parameters in a file named <code>PSEUDO</code>:
+Check the contents of the conversion script
 </p>
+
 <div class="org-src-container">
-<pre class="src src-text">H GEN 0 0
-3
- 1.000000000000 1 25.000000000000
-25.000000000000 3 10.821821902641
--8.228005709676 2  9.368618758833
+<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
+python ../../trex2champ.py --trex <span style="color: #8b2252;">"trexio_H2O_HF.hdf5"</span> <span style="color: #8b2252;">\</span>
+                           --motype  <span style="color: #8b2252;">"RHF"</span> <span style="color: #8b2252;">\</span>
+                           --backend <span style="color: #8b2252;">"HDF5"</span> <span style="color: #8b2252;">\</span>
+                           --basis_prefix <span style="color: #8b2252;">"GRID"</span> <span style="color: #8b2252;">\</span>
+                           --lcao <span style="color: #8b2252;">\</span>
+                           --geom <span style="color: #8b2252;">\</span>
+                           --basis <span style="color: #8b2252;">\</span>
+                           --ecp <span style="color: #8b2252;">\</span>
+                           --det
+</pre>
+</div>
 
-O GEN 2 1
-3
-6.00000000 1 9.29793903
-55.78763416 3 8.86492204
--38.81978498 2 8.62925665
-1
-38.41914135 2 8.71924452
+<p>
+Execute this script to generate the files:
+</p>
 
+<div class="org-src-container">
+<pre class="src src-bash">./script_water.sh
+</pre>
+</div>
+
+<p>
+Move or copy the following files into the pool folder
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/pool
+</pre>
+</div>
+
+<pre class="example">
+champ_v2_trexio_H2O_HF_geom.xyz
+champ_v2_trexio_H2O_HF_with_g.bfinfo
+ECP.gauss_ecp.dat.H
+ECP.gauss_ecp.dat.O
+GRID.basis.H
+GRID.basis.O
+</pre>
+
+<p>
+The remaining files should be kept in the <code>01_champ_tools/example01_H2O_HF</code> directory.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/
+</pre>
+</div>
+
+<pre class="example">
+champ_v2_trexio_H2O_HF_orbitals.lcao
+champ_v2_TREXIO_trexio_H2O_HF_determinants.det
+jastrow.jas
+run_champ.sh
+vmc_h2o_hf.inp
+pool/
+setup/
 </pre>
 </div>
 </div>
-</div>
 
-<div id="outline-container-org2c8c42b" class="outline-3">
-<h3 id="org2c8c42b"><span class="section-number-3">2.2</span> Double-Zeta basis set</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-Store the basis set parameters in a file named <code>BASIS</code>:
-</p>
-<div class="org-src-container">
-<pre class="src src-text">HYDROGEN
-s 3
-1 6.46417546   0.063649375945
-2 1.13891461   0.339233210576
-3 0.28003249   0.702654522063
-s 1
-1 0.05908405   1.00000000
-p 1
-1 0.51368060   1.00000000
-
-OXYGEN
-s 9
-1 0.125346     0.055741
-2 0.268022     0.304848
-3 0.573098     0.453752
-4 1.225429     0.295926
-5 2.620277     0.019567
-6 5.602818     -0.128627
-7 11.980245     0.012024
-8 25.616801     0.000407
-9 54.775216     -0.000076
-s 1
-1 0.258551     1.000000
-p 9
-1 0.083598     0.044958
-2 0.167017     0.150175
-3 0.333673     0.255999
-4 0.666627     0.281879
-5 1.331816     0.242835
-6 2.660761     0.161134
-7 5.315785     0.082308
-8 10.620108     0.039899
-9 21.217318     0.004679
-p 1
-1 0.267865     1.000000
-d 1
-1 1.232753     1.000000
-
-</pre>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org3f8413f" class="outline-2">
-<h2 id="org3f8413f"><span class="section-number-2">3</span> Hartree-Fock calculation</h2>
+<div id="outline-container-org3e062af" class="outline-2">
+<h2 id="org3e062af"><span class="section-number-2">3</span> Example 01: H<sub>2</sub>0 with HF</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-Create the EZFIO directory with the geometry, basis and
-pseudopotential parameters:
+The input file <code>vmc_h2o_hf.inp</code> looks like:
 </p>
+<pre class="example">
+%module general
+    title           'H2O HF calculation'
+    pool            './pool/'
+    pseudopot       ECP
+    basis           GRID
+    mode            'vmc_one_mpi1'
+%endmodule
 
-<div class="org-src-container">
-<pre class="src src-bash">qp create_ezfio -p PSEUDO -b BASIS h2o.xyz -o h2o_hf
+
+load molecule        $pool/champ_v2_trexio_H2O_HF_geom.xyz
+
+load basis_num_info  $pool/champ_v2_trexio_H2O_HF_with_g.bfinfo
+load orbitals        champ_v2_trexio_H2O_HF_orbitals.lcao
+load determinants    champ_v2_TREXIO_trexio_H2O_HF_determinants.det
+load jastrow         jastrow.jas
+
+%module electrons
+    nup           4
+    nelec         8
+%endmodule
+
+
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      20000
+    vmc_nblkeq    1
+    vmc_nconf_new 0
+%endmodule
 </pre>
-</div>
 
 <p>
-Run the Hartree-Fock calculation
+The included jastrow file is
 </p>
 
-<div class="org-src-container">
-<pre class="src src-bash">qp run scf | tee h2o_hf.out
+<pre class="example">
+jastrow_parameter   1
+  0  1  0           norda,nordb,nordc
+   0.60000000   0.00000000     scalek,a21
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   1.00000000   (b(iparmj),iparmj=1,nparmb)
+ (c(iparmj),iparmj=1,nparmc)
+ (c(iparmj),iparmj=1,nparmc)
+end
 </pre>
-</div>
-
-<p>
-Export the wave function into TREXIO format
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp set trexio trexio_file h2o_hf.trexio
-qp run export_trexio
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org724fdff" class="outline-2">
-<h2 id="org724fdff"><span class="section-number-2">4</span> DFT calculation</h2>
-<div class="outline-text-2" id="text-4">
-<p>
-Create the EZFIO directory with the geometry, basis and
-pseudopotential parameters:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp create_ezfio -p PSEUDO -b BASIS h2o.xyz -o h2o_dft
-</pre>
-</div>
-
-<p>
-Specifiy you want to use the PBE functional.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp set dft_keywords exchange_functional pbe
-qp set dft_keywords correlation_functional pbe
-</pre>
-</div>
-
-<p>
-The default DFT grid is very fine. We can specify we want a coarser
-grid to accelerate the calculations:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp set becke_numerical_grid grid_type_sgn 1
-</pre>
-</div>
-
-<p>
-Run the Kohn-Sham calculation
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp run ks_scf | tee h2o_dft.out
-</pre>
-</div>
-
-<p>
-Export the wave function into TREXIO format
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp set trexio trexio_file h2o_dft.trexio
-qp run export_trexio
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgfe8450a" class="outline-2">
-<h2 id="orgfe8450a"><span class="section-number-2">5</span> QMC runs</h2>
-<div class="outline-text-2" id="text-5">
-</div>
-<div id="outline-container-orgdc81972" class="outline-3">
-<h3 id="orgdc81972"><span class="section-number-3">5.1</span> Check that the QMC setup is OK</h3>
-<div class="outline-text-3" id="text-5-1">
-<p>
-First, we can compute with QP the energies of the single-determinant
-wave functions with the 2 different sets of MOs.
-</p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-right" />
-</colgroup>
-<tbody>
-<tr>
-<td class="org-left">HF MOs</td>
-<td class="org-right">-16.950384201283956</td>
-</tr>
-
-<tr>
-<td class="org-left">DFT MOs</td>
-<td class="org-right">-16.946588410898347</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-<div id="outline-container-orgace7d50" class="outline-3">
-<h3 id="orgace7d50"><span class="section-number-3">5.2</span> Introduce a Jastrow factor</h3>
-<div class="outline-text-3" id="text-5-2">
-<p>
-The Jastrow factor depends on the electronic (\(\mathbf{r}\)) and
- nuclear (\(\mathbf{R}\)) coordinates. Its defined as \(\exp(J(\mathbf{r},\mathbf{R}))\), where
-</p>
-
-\begin{eqnarray*}
-J &=& J_{en}J_{ee}J_{een} \\
-  &=& \exp[f_{en}(R_{i\alpha})+f_{ee}(R_{ij})+f_{een}(R_{i\alpha},R_{j\alpha},R_{ij})]
-\end{eqnarray*}
-
-<p>
-Electron-nucleus and electron-electron: \(R={1-e^{-\kappa r} \over \kappa}\)
-</p>
-
-<p>
-\[
- f_{en} = \sum_{i=1}^{N_{\rm elec}} \sum_{\alpha=1}^{N_{\rm nuc}}
- \left( {a_1 R_{i\alpha} \over 1+a_2R_{i\alpha}} + \sum_{p=2}^{N^a_{\rm ord}} a_{p+1} R_{i\alpha}^p \right)
- \]
-</p>
-
-<p>
-\[
- f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
- \]
-</p>
-
-<p>
-Electron-electron-nucleus: \(\displaystyle R=e^{-\kappa r}\)
-</p>
-
-<p>
-\[
- f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}} \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0 c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
- \]
-</p>
-
-<p>
-where \(m={p-k-l \over 2}\)
-</p>
-
-<ul class="org-ul">
-<li>Typically \(N^a_{\rm ord}=N^b_{\rm ord}=5\). If \(f_{een}\) is included, \(N^c_{\rm ord}=5\).</li>
-<li>Dependence among \(\{c_n\}\)
-\(\rightarrow\) \(f_{een}\) does not contribute to cusp-conditions</li>
-<li>\(f_{en}\) and \(f_{een}\): different \(\{a_n\}\) and \(\{c_n\}\) for different atom types</li>
-</ul>
-</div>
-
-<div id="outline-container-org58166db" class="outline-4">
-<h4 id="org58166db"><span class="section-number-4">5.2.1</span> Add a simple Jastrow factor</h4>
-<div class="outline-text-4" id="text-5-2-1">
-<ul class="org-ul">
-<li>\(N^a_{\rm ord}=1\)</li>
-<li>\(N^b_{\rm ord}=1\)</li>
-</ul>
-</div>
-</div>
-</div>
-
-
-
-
-
-
-<div id="outline-container-orgbea7890" class="outline-3">
-<h3 id="orgbea7890"><span class="section-number-3">5.3</span> Optimize the Jastrow</h3>
-</div>
-<div id="outline-container-org3f05fd9" class="outline-3">
-<h3 id="org3f05fd9"><span class="section-number-3">5.4</span> Run Diffusion Monte Carlo</h3>
-<div class="outline-text-3" id="text-5-4">
-<p>
-Run for HF and DFT orbitals and check the energies.
-</p>
-</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Anthony Scemama, Claudia Filippi</p>
+<p class="author">Author: Ravindra Shinde, Claudia Filippi</p>
 <p class="date">Created: 2022-06-17 Fri 16:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

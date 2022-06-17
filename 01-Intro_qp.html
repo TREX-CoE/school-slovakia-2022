@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-17 Fri 15:45 -->
+<!-- 2022-06-17 Fri 16:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Quantum Package</title>
@@ -266,9 +266,9 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc2f8751">1. Environment</a></li>
-<li><a href="#org820a284">2. The EZFIO database</a></li>
-<li><a href="#org5ccb7c4">3. <code>qp</code> commands</a></li>
+<li><a href="#org7d1ebf6">1. Environment</a></li>
+<li><a href="#orgc62ae03">2. The EZFIO database</a></li>
+<li><a href="#orgda0ae7a">3. <code>qp</code> commands</a></li>
 </ul>
 </div>
 </div>
@@ -278,11 +278,11 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-orgc2f8751" class="outline-2">
-<h2 id="orgc2f8751"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-org7d1ebf6" class="outline-2">
+<h2 id="org7d1ebf6"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Quantum Package (QP) is an open-source environment for developing
+<a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> is an open-source environment for developing
 easily quantum chemistry programs. It was initially designed for code
 developers, but it is relatively simple to use.
 </p>
@@ -297,7 +297,7 @@ be set up
 </pre>
 </div>
 <p>
-where <code>$QP_ROOT</code> is the path to the \(qp2\) directory.
+where <code>$QP_ROOT</code> is the path to the <code>qp2</code> directory.
 </p>
 
 <p>
@@ -309,8 +309,8 @@ $QP_ROOT/bin/qpsh
 </div>
 </div>
 
-<div id="outline-container-org820a284" class="outline-2">
-<h2 id="org820a284"><span class="section-number-2">2</span> The EZFIO database</h2>
+<div id="outline-container-orgc62ae03" class="outline-2">
+<h2 id="orgc62ae03"><span class="section-number-2">2</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP stores input and output data in a database, called the <i>EZFIO directory</i>.
@@ -320,7 +320,7 @@ scripts and programs.
 
 <p>
 Let us take an example to show how to use QP. First, we need to
-create a file with a geometry in <code>xyz</code> or <code>z-matrix</code> format. Let us
+create a file with a geometry in <i>xyz</i> or <i>z-matrix</i> format. Let us
 take the water molecule, and write the coordinates in the file
 <code>h2o.xyz</code>:
 </p>
@@ -358,8 +358,8 @@ qp set_file other.ezfio
 </div>
 </div>
 
-<div id="outline-container-org5ccb7c4" class="outline-2">
-<h2 id="org5ccb7c4"><span class="section-number-2">3</span> <code>qp</code> commands</h2>
+<div id="outline-container-orgda0ae7a" class="outline-2">
+<h2 id="orgda0ae7a"><span class="section-number-2">3</span> <code>qp</code> commands</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 To get the documentation of the <code>qp</code> command, you can use
@@ -429,16 +429,19 @@ and set using <code>qp set</code>
 qp set determinants n_det_max 2000
 </pre>
 
+<div class="note">
 <p>
-Note: You can use Tab-completion with the <code>qp</code> command, which makes
+You can use Tab-completion with the <code>qp</code> command, which makes
 the shell interaction more user-friendly.
 </p>
+
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-17 Fri 15:45</p>
+<p class="date">Created: 2022-06-17 Fri 16:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
