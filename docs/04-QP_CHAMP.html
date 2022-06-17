@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-06-17 Fri 17:35 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quantum Package and Champ</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Anthony Scemama, Claudia Filippi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Quantum Package and Champ</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2d10433">1. Introduction</a></li>
+<li><a href="#orga8dc091">2. Geometry, Basis set, Pseudo-potential</a>
+<ul>
+<li><a href="#org6989da2">2.1. BFD Pseudopotential</a></li>
+<li><a href="#org27896ad">2.2. Double-Zeta basis set</a></li>
+</ul>
+</li>
+<li><a href="#orgfb267f0">3. Hartree-Fock calculation</a></li>
+<li><a href="#org67c17c8">4. DFT calculation</a></li>
+<li><a href="#org344bfcb">5. QMC runs</a>
+<ul>
+<li><a href="#orge4907ed">5.1. Check that the QMC setup is OK</a></li>
+<li><a href="#org847123a">5.2. Introduce a Jastrow factor</a>
+<ul>
+<li><a href="#org250dfd6">5.2.1. Add a simple Jastrow factor</a></li>
+</ul>
+</li>
+<li><a href="#org067f0ea">5.3. Optimize the Jastrow</a></li>
+<li><a href="#org23d2c82">5.4. Run Diffusion Monte Carlo</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+ <img src="./images/QP.png" width="100px" />  \(\longrightarrow\)
+ <img src="./images/TREXIO.png" width="100px" />  \(\longrightarrow\)
+ <img src="./images/Champ.png" width="100px" /> 
+</p>
+
+<div id="outline-container-org2d10433" class="outline-2">
+<h2 id="org2d10433"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+We will first use Quantum Package (QP) to generate two single-determinant
+wave functions for the water molecule. A first one with Hartree-Fock
+orbitals, and a second one with PBE Kohn-Sham orbitals.
+Then, we will export these wave functions into the <a href="https://github.com/trex-coe/trexio">TREXIO</a> format,
+which is a general format for storing arbitrary wave functions. All
+TREX codes are compatible with this format.
+</p>
+
+<p>
+In a second step, we will use CHAMP to run a VMC calculation with
+both wave functions. We will then optimize a Jastrow factor and run
+DMC calculations.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga8dc091" class="outline-2">
+<h2 id="orga8dc091"><span class="section-number-2">2</span> Geometry, Basis set, Pseudo-potential</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+For QMC, we need to use pseudopotentials optimized specifically for
+for QMC, and basis sets optimized to be used with these
+pseudopotentials. Here, we use the Burkatzki-Filippi-Dolg ones.
+</p>
+
+<p>
+QP can read basis sets and pseudopotentials from files if the files
+exist in the current directory. Otherwise, it will try to look into
+its own database of basis sets and pseudopotentials.
+</p>
+</div>
+
+<div id="outline-container-org6989da2" class="outline-3">
+<h3 id="org6989da2"><span class="section-number-3">2.1</span> BFD Pseudopotential</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Store the pseudopotential parameters in a file named <code>PSEUDO</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">H GEN 0 0
+3
+ 1.000000000000 1 25.000000000000
+25.000000000000 3 10.821821902641
+-8.228005709676 2  9.368618758833
+
+O GEN 2 1
+3
+6.00000000 1 9.29793903
+55.78763416 3 8.86492204
+-38.81978498 2 8.62925665
+1
+38.41914135 2 8.71924452
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org27896ad" class="outline-3">
+<h3 id="org27896ad"><span class="section-number-3">2.2</span> Double-Zeta basis set</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Store the basis set parameters in a file named <code>BASIS</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">HYDROGEN
+s 3
+1 6.46417546   0.063649375945
+2 1.13891461   0.339233210576
+3 0.28003249   0.702654522063
+s 1
+1 0.05908405   1.00000000
+p 1
+1 0.51368060   1.00000000
+
+OXYGEN
+s 9
+1 0.125346     0.055741
+2 0.268022     0.304848
+3 0.573098     0.453752
+4 1.225429     0.295926
+5 2.620277     0.019567
+6 5.602818     -0.128627
+7 11.980245     0.012024
+8 25.616801     0.000407
+9 54.775216     -0.000076
+s 1
+1 0.258551     1.000000
+p 9
+1 0.083598     0.044958
+2 0.167017     0.150175
+3 0.333673     0.255999
+4 0.666627     0.281879
+5 1.331816     0.242835
+6 2.660761     0.161134
+7 5.315785     0.082308
+8 10.620108     0.039899
+9 21.217318     0.004679
+p 1
+1 0.267865     1.000000
+d 1
+1 1.232753     1.000000
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfb267f0" class="outline-2">
+<h2 id="orgfb267f0"><span class="section-number-2">3</span> Hartree-Fock calculation</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Create the EZFIO directory with the geometry, basis and
+pseudopotential parameters:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp create_ezfio -p PSEUDO -b BASIS h2o.xyz -o h2o_hf
+</pre>
+</div>
+
+<p>
+Run the Hartree-Fock calculation
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp run scf | tee h2o_hf.out
+</pre>
+</div>
+
+<p>
+Export the wave function into TREXIO format
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set trexio trexio_file h2o_hf.trexio
+qp run export_trexio
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org67c17c8" class="outline-2">
+<h2 id="org67c17c8"><span class="section-number-2">4</span> DFT calculation</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Create the EZFIO directory with the geometry, basis and
+pseudopotential parameters:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp create_ezfio -p PSEUDO -b BASIS h2o.xyz -o h2o_dft
+</pre>
+</div>
+
+<p>
+Specifiy you want to use the PBE functional.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set dft_keywords exchange_functional pbe
+qp set dft_keywords correlation_functional pbe
+</pre>
+</div>
+
+<p>
+The default DFT grid is very fine. We can specify we want a coarser
+grid to accelerate the calculations:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set becke_numerical_grid grid_type_sgn 1
+</pre>
+</div>
+
+<p>
+Run the Kohn-Sham calculation
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp run ks_scf | tee h2o_dft.out
+</pre>
+</div>
+
+<p>
+Export the wave function into TREXIO format
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set trexio trexio_file h2o_dft.trexio
+qp run export_trexio
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org344bfcb" class="outline-2">
+<h2 id="org344bfcb"><span class="section-number-2">5</span> QMC runs</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orge4907ed" class="outline-3">
+<h3 id="orge4907ed"><span class="section-number-3">5.1</span> Check that the QMC setup is OK</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+First, we can compute with QP the energies of the single-determinant
+wave functions with the 2 different sets of MOs.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">HF MOs</td>
+<td class="org-right">-16.950384201283956</td>
+</tr>
+
+<tr>
+<td class="org-left">DFT MOs</td>
+<td class="org-right">-16.946588410898347</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org847123a" class="outline-3">
+<h3 id="org847123a"><span class="section-number-3">5.2</span> Introduce a Jastrow factor</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+The Jastrow factor depends on the electronic (\(\mathbf{r}\)) and
+ nuclear (\(\mathbf{R}\)) coordinates. Its defined as \(\exp(J(\mathbf{r},\mathbf{R}))\), where
+</p>
+
+\begin{eqnarray*}
+J &=& J_{en}J_{ee}J_{een} \\
+  &=& \exp[f_{en}(R_{i\alpha})+f_{ee}(R_{ij})+f_{een}(R_{i\alpha},R_{j\alpha},R_{ij})]
+\end{eqnarray*}
+
+<p>
+Electron-nucleus and electron-electron: \(R={1-e^{-\kappa r} \over \kappa}\)
+</p>
+
+<p>
+\[
+ f_{en} = \sum_{i=1}^{N_{\rm elec}} \sum_{\alpha=1}^{N_{\rm nuc}}
+ \left( {a_1 R_{i\alpha} \over 1+a_2R_{i\alpha}} + \sum_{p=2}^{N^a_{\rm ord}} a_{p+1} R_{i\alpha}^p \right)
+ \]
+</p>
+
+<p>
+\[
+ f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
+ \]
+</p>
+
+<p>
+Electron-electron-nucleus: \(\displaystyle R=e^{-\kappa r}\)
+</p>
+
+<p>
+\[
+ f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}} \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0 c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
+ \]
+</p>
+
+<p>
+where \(m={p-k-l \over 2}\)
+</p>
+
+<ul class="org-ul">
+<li>Typically \(N^a_{\rm ord}=N^b_{\rm ord}=5\). If \(f_{een}\) is included, \(N^c_{\rm ord}=5\).</li>
+<li>Dependence among \(\{c_n\}\)
+\(\rightarrow\) \(f_{een}\) does not contribute to cusp-conditions</li>
+<li>\(f_{en}\) and \(f_{een}\): different \(\{a_n\}\) and \(\{c_n\}\) for different atom types</li>
+</ul>
+</div>
+
+<div id="outline-container-org250dfd6" class="outline-4">
+<h4 id="org250dfd6"><span class="section-number-4">5.2.1</span> Add a simple Jastrow factor</h4>
+<div class="outline-text-4" id="text-5-2-1">
+<ul class="org-ul">
+<li>\(N^a_{\rm ord}=1\)</li>
+<li>\(N^b_{\rm ord}=1\)</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div id="outline-container-org067f0ea" class="outline-3">
+<h3 id="org067f0ea"><span class="section-number-3">5.3</span> Optimize the Jastrow</h3>
+</div>
+<div id="outline-container-org23d2c82" class="outline-3">
+<h3 id="org23d2c82"><span class="section-number-3">5.4</span> Run Diffusion Monte Carlo</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+Run for HF and DFT orbitals and check the energies.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Anthony Scemama, Claudia Filippi</p>
+<p class="date">Created: 2022-06-17 Fri 17:35</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

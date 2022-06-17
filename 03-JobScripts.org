@@ -1,4 +1,5 @@
 #+TITLE: Submitting job scripts
+#+AUTHOR: Anthony Scemama
 
 * Example of a script to submit a job
 

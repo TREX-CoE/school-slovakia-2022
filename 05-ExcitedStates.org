@@ -1,4 +1,5 @@
 #+TITLE: Excited states with Quantum Package and CHAMP
+#+AUTHOR: Anthony Scemama, Claudia Filippi
 
 @@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
 @@html:<img src="./images/QP.png" width="100px" />@@ $\longrightarrow$

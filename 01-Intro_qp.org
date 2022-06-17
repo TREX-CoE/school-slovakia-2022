@@ -1,4 +1,5 @@
 #+TITLE: Introduction to Quantum Package
+#+AUTHOR: Anthony Scemama
 
 #+ATTR_HTML: :width 100px
 #+ATTR_LATEX: :width 100px
