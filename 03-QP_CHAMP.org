@@ -156,4 +156,29 @@ qp run export_trexio
  | DFT MOs | -16.946588410898347 |
 
 
+** Add a simple Jastrow factor
+
+ The Jastrow factor depends on the electronic ($\mathbf{r}$) and
+  nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
+
+\newcommand{\Jeen}{J_{\text{een}}}
+\newcommand{\Nel}{N_{\text{elec}}}
+\newcommand{\Nat}{N_{\text{nucl}}}
+\newcommand{\Nord}{N_{\text{nord}}}
+\newcommand{\lmax}{p-k-2\delta_{k,0}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bR}{\mathbf{R}}
+\[
+  \Jeen (\br,\bR) = \sum_{\alpha=1}^{\Nat} \sum_{i=1}^{\Nel} \sum_{j=1}^{i-1}
+\sum_{p=2}^{\Nord} \sum_{k=0}^{p-1}
+\sum_{l=0}^{\lmax} c_{lkp\alpha}
+\left( {r}_{ij} \right)^k
+\left[ \left( {R}_{i\alpha} \right)^l + \left( {R}_{j\alpha} \right)^l \right]
+\left( {R}_{i\,\alpha} \, {R}_{j\alpha} \right)^{(p-k-l)/2} 
+\]
+
+
+** Optimize the Jastrow
+
+
  
