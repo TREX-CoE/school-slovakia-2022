@@ -155,39 +155,52 @@ qp run export_trexio
  | HF MOs  | -16.950384201283956 |
  | DFT MOs | -16.946588410898347 |
 
-
-** Add a simple Jastrow factor
-
+** Introduce a Jastrow factor
+   
  The Jastrow factor depends on the electronic ($\mathbf{r}$) and
   nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
 
  \begin{eqnarray*}
- J &=& J_{en}J_{ee}J_{een} \nonumber\\
+ J &=& J_{en}J_{ee}J_{een} \\
    &=& \exp[f_{en}(R_{i\alpha})+f_{ee}(R_{ij})+f_{een}(R_{i\alpha},R_{j\alpha},R_{ij})]
  \end{eqnarray*}
 
  Electron-nucleus and electron-electron: $R={1-e^{-\kappa r} \over \kappa}$
 
- \begin{eqnarray*}
+ \[
  f_{en} = \sum_{i=1}^{N_{\rm elec}} \sum_{\alpha=1}^{N_{\rm nuc}}
  \left( {a_1 R_{i\alpha} \over 1+a_2R_{i\alpha}} + \sum_{p=2}^{N^a_{\rm ord}} a_{p+1} R_{i\alpha}^p \right)
- \end{eqnarray*}
+ \]
 
- \begin{eqnarray*}
- f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1}
- \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
- \end{eqnarray*}
+ \[
+ f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
+ \]
 
- \begin{eqnarray*}
- f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}}
- \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0
- c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
- \end{eqnarray*}
+ Electron-electron-nucleus: $\displaystyle R=e^{-\kappa r}$
 
- where $m={p-k-l \over 2}$\\[2ex]
+ \[
+ f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}} \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0 c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
+ \]
+
+ where $m={p-k-l \over 2}$
+
+ - Typically $N^a_{\rm ord}=N^b_{\rm ord}=5$. If $f_{een}$ is included, $N^c_{\rm ord}=5$.
+ - Dependence among $\{c_n\}$
+       $\rightarrow$ $f_{een}$ does not contribute to cusp-conditions
+ - $f_{en}$ and $f_{een}$: different $\{a_n\}$ and $\{c_n\}$ for different atom types
+
+*** Add a simple Jastrow factor
+
+  - $N^a_{\rm ord}=1$
+  - $N^b_{\rm ord}=1$
+
+   
+
+
 
 
 ** Optimize the Jastrow
+** Run Diffusion Monte Carlo
 
-
+   Run for HF and DFT orbitals and check the energies.
  
