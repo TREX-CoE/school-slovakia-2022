@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-17 Fri 17:44 -->
+<!-- 2022-06-17 Fri 18:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts</title>
@@ -233,14 +233,50 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfeda0f2">1. Example of a script to submit a job</a></li>
+<li><a href="#orge54aad9">1. Environment</a></li>
+<li><a href="#orge93e2c8">2. Example of a QP job script</a></li>
+<li><a href="#orgef44057">3. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfeda0f2" class="outline-2">
-<h2 id="orgfeda0f2"><span class="section-number-2">1</span> Example of a script to submit a job</h2>
+<div id="outline-container-orge54aad9" class="outline-2">
+<h2 id="orge54aad9"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
+<div class="important" id="org1ca3971">
+<p>
+Some environment variables should be set for the codes to run
+properly. To set up the environment, you should source the
+<code>~scemama/environment.sh</code> file in your shell when you log in:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #483d8b;">source</span> ~scemama/environment.sh
+</pre>
+</div>
+
+</div>
+
+<p>
+This file contains the following commands:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">module load openblas                        # <span style="color: #b22222;">QP was compiled with OpenBlas</span>
+<span style="color: #483d8b;">source</span> ~scemama/qp2/quantum_package.rc      # <span style="color: #b22222;">QP environment</span>
+<span style="color: #483d8b;">source</span> ~filippi/intel/oneapi/setvars.sh     # <span style="color: #b22222;">Intel libraries</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge93e2c8" class="outline-2">
+<h2 id="orge93e2c8"><span class="section-number-2">2</span> Example of a QP job script</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+QP uses one process, and all possible threads on the node. You
+should request an exclusive node with one process:
+</p>
+
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
 #<span style="color: #b22222;">SBATCH -N 1 -n 1  --exclusive</span>
@@ -249,18 +285,31 @@
 
 qp set_file COH2
 qp run fci &gt; COH2.fci.out
+
 </pre>
 </div>
+</div>
+</div>
 
-
+<div id="outline-container-orgef44057" class="outline-2">
+<h2 id="orgef44057"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+<div class="outline-text-2" id="text-3">
 <p>
-The <code>environment.sh</code> contains
+CHAMP is parallelized with MPI, and doesn't use multi-threading. You
+should request a single node, with 12 processes (as there are 12
+cores per node).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">module load openblas
-<span style="color: #483d8b;">source</span> ~scemama/qp2/quantum_package.rc
-<span style="color: #483d8b;">source</span> ~filippi/intel/oneapi/setvars.sh
+<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
+#<span style="color: #b22222;">SBATCH -N 1 -n 12</span>
+
+<span style="color: #483d8b;">source</span> ~scemama/environment.sh                                                               
+
+<span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
+
+<span style="color: #a0522d;">OUTPUT</span>=${<span style="color: #a0522d;">INPUT</span>%.inp}.out
+mpirun -np 12 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d;">INPUT</span> -o $<span style="color: #a0522d;">OUTPUT</span> -e error
 </pre>
 </div>
 </div>
@@ -268,7 +317,7 @@ The <code>environment.sh</code> contains
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-17 Fri 17:44</p>
+<p class="date">Created: 2022-06-17 Fri 18:54</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

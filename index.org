@@ -1,4 +1,4 @@
-#+TITLE: Quantum Package and Champ tutorials
+#+TITLE: QMC Hands-on Summer Workshop
 #+AUTHOR: Claudia Filippi, Anthony Scemama
 #+LANGUAGE:  en
 #+HTML_LINK_HOME: index.html
