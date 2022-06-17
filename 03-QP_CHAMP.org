@@ -1,4 +1,4 @@
-#+TITLE: Introduction to Quantum Package
+#+TITLE: Quantum Package and Champ
 
 * Introduction
 
