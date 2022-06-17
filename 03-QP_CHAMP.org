@@ -161,21 +161,30 @@ qp run export_trexio
  The Jastrow factor depends on the electronic ($\mathbf{r}$) and
   nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
 
-\newcommand{\Jeen}{J_{\text{een}}}
-\newcommand{\Nel}{N_{\text{elec}}}
-\newcommand{\Nat}{N_{\text{nucl}}}
-\newcommand{\Nord}{N_{\text{nord}}}
-\newcommand{\lmax}{p-k-2\delta_{k,0}}
-\newcommand{\br}{\mathbf{r}}
-\newcommand{\bR}{\mathbf{R}}
-\[
-  \Jeen (\br,\bR) = \sum_{\alpha=1}^{\Nat} \sum_{i=1}^{\Nel} \sum_{j=1}^{i-1}
-\sum_{p=2}^{\Nord} \sum_{k=0}^{p-1}
-\sum_{l=0}^{\lmax} c_{lkp\alpha}
-\left( {r}_{ij} \right)^k
-\left[ \left( {R}_{i\alpha} \right)^l + \left( {R}_{j\alpha} \right)^l \right]
-\left( {R}_{i\,\alpha} \, {R}_{j\alpha} \right)^{(p-k-l)/2} 
-\]
+ \begin{eqnarray*}
+ J &=& J_{en}J_{ee}J_{een} \nonumber\\
+   &=& \exp[f_{en}(R_{i\alpha})+f_{ee}(R_{ij})+f_{een}(R_{i\alpha},R_{j\alpha},R_{ij})]
+ \end{eqnarray*}
+
+ Electron-nucleus and electron-electron: $R={1-e^{-\kappa r} \over \kappa}$
+
+ \begin{eqnarray*}
+ f_{en} = \sum_{i=1}^{N_{\rm elec}} \sum_{\alpha=1}^{N_{\rm nuc}}
+ \left( {a_1 R_{i\alpha} \over 1+a_2R_{i\alpha}} + \sum_{p=2}^{N^a_{\rm ord}} a_{p+1} R_{i\alpha}^p \right)
+ \end{eqnarray*}
+
+ \begin{eqnarray*}
+ f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1}
+ \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
+ \end{eqnarray*}
+
+ \begin{eqnarray*}
+ f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}}
+ \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0
+ c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
+ \end{eqnarray*}
+
+ where $m={p-k-l \over 2}$\\[2ex]
 
 
 ** Optimize the Jastrow
