@@ -33,7 +33,7 @@ sudo apt-get install -y cmake
      or
 
      Download and extract the latest cmake for the precompiled binary
- #+begin_src bash 
+ #+begin_src bash
 wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
 tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
 export PATH=cmake-3.24.0-rc1-linux-x86_64/bin:$PATH
@@ -44,7 +44,7 @@ export PATH=cmake-3.24.0-rc1-linux-x86_64/bin:$PATH
 **** Installation without sudo access
 
      Download Intel oneAPI basekit and HPCkit for free from
-     #+begin_src bash 
+     #+begin_src bash
 wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262.sh
 chmod a+x ./l_BaseKit_p_2022.2.0.262.sh
 sh ./l_BaseKit_p_2022.2.0.262.sh
@@ -143,15 +143,15 @@ cmake --build build -j 8
 
  #+begin_src bash
  #!/bin/bash
- python ../../trex2champ.py --trex "trexio_H2O_HF.hdf5" \
-                            --motype  "RHF" \
-                            --backend "HDF5" \
-                            --basis_prefix "GRID" \
-                            --lcao \
-                            --geom \
-                            --basis \
-                            --ecp \
-                            --det
+ python3 trex2champ.py --trex "trexio_H2O_HF.hdf5" \
+                       --motype  "RHF" \
+                       --backend "HDF5" \
+                       --basis_prefix "GRID" \
+                       --lcao \
+                       --geom \
+                       --basis \
+                       --ecp \
+                       --det
  #+end_src
 
  Execute this script to generate the files:

@@ -15,22 +15,22 @@
   wave functions for the water molecule. A first one with Hartree-Fock
   orbitals, and a second one with PBE Kohn-Sham orbitals.
   Then, we will export these wave functions into the [[https://github.com/trex-coe/trexio][TREXIO]] format,
-  which is a general format for storing arbitrary wave functions. All
-  TREX codes are compatible with this format.
-  
+  which is a general format for storing arbitrary wave functions.
+
   In a second step, we will use CHAMP to run a VMC calculation with
   both wave functions. We will then optimize a Jastrow factor and run
   DMC calculations.
-  
+
 * Geometry, Basis set, Pseudo-potential
 
  For QMC, we need to use pseudopotentials optimized specifically for
- for QMC, and basis sets optimized to be used with these
- pseudopotentials. Here, we use the Burkatzki-Filippi-Dolg ones.
+ QMC, and basis sets optimized to be used with these
+ pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] ones.
 
- QP can read basis sets and pseudopotentials from files if the files
- exist in the current directory. Otherwise, it will try to look into
- its own database of basis sets and pseudopotentials.
+ QP can read basis sets and pseudopotentials from files in GAMESS
+ format, if the files exist in the current directory. Otherwise, it
+ will try to look into its own database of basis sets and
+ pseudopotentials.
 
 ** BFD Pseudopotential
 
@@ -97,12 +97,12 @@ d 1
   #+end_src
 
 * Hartree-Fock calculation
-  
+
   Create the EZFIO directory with the geometry, basis and
   pseudopotential parameters:
-  
+
 #+begin_src bash
-qp create_ezfio -p PSEUDO -b BASIS h2o.xyz -o h2o_hf
+qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_hf
 #+end_src
 
   Run the Hartree-Fock calculation
@@ -112,19 +112,19 @@ qp run scf | tee h2o_hf.out
 #+end_src
 
   Export the wave function into TREXIO format
-  
+
 #+begin_src bash
 qp set trexio trexio_file h2o_hf.trexio
 qp run export_trexio
 #+end_src
 
 * DFT calculation
-  
+
   Create the EZFIO directory with the geometry, basis and
   pseudopotential parameters:
-  
+
 #+begin_src bash
-qp create_ezfio -p PSEUDO -b BASIS h2o.xyz -o h2o_dft
+qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_dft
 #+end_src
 
   Specifiy you want to use the PBE functional.
@@ -136,7 +136,7 @@ qp set dft_keywords correlation_functional pbe
 
   The default DFT grid is very fine. We can specify we want a coarser
   grid to accelerate the calculations:
-  
+
 #+begin_src  bash
 qp set becke_numerical_grid grid_type_sgn 1
 #+end_src
@@ -148,14 +148,14 @@ qp run ks_scf | tee h2o_dft.out
 #+end_src
 
   Export the wave function into TREXIO format
-  
+
 #+begin_src bash
 qp set trexio trexio_file h2o_dft.trexio
 qp run export_trexio
 #+end_src
 
 * QMC runs
-  
+
 ** Check that the QMC setup is OK
 
  First, we can compute with QP the energies of the single-determinant
@@ -164,8 +164,31 @@ qp run export_trexio
  | HF MOs  | -16.950384201283956 |
  | DFT MOs | -16.946588410898347 |
 
+ We will now convert the TREXIO files into input files suitable for
+ CHAMP:
+
+ #+begin_important
+ You need the resultsFile and trexio Python packages. They can be
+ installed with pip.
+ #+end_important
+
+ Create a new directory named =H2O_HF= and copy the TREXIO file
+ =h2o_hf.trexio= into it. Go inside this directory and run
+ 
+ #+begin_src bash
+python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
+                       --motype  "RHF" \
+                       --backend "HDF5" \
+                       --basis_prefix "GRID" \
+                       --lcao \
+                       --geom \
+                       --basis \
+                       --ecp \
+                       --det
+ #+end_src
+
 ** Introduce a Jastrow factor
-   
+
  The Jastrow factor depends on the electronic ($\mathbf{r}$) and
   nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
 
@@ -203,7 +226,7 @@ qp run export_trexio
   - $N^a_{\rm ord}=1$
   - $N^b_{\rm ord}=1$
 
-   
+
 
 
 
@@ -212,4 +235,4 @@ qp run export_trexio
 ** Run Diffusion Monte Carlo
 
    Run for HF and DFT orbitals and check the energies.
- 
+
