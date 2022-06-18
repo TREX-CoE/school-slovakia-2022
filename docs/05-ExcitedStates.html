@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-18 Sat 16:50 -->
+<!-- 2022-06-18 Sat 16:56 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -255,10 +255,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1a92aba">1. Introduction</a></li>
-<li><a href="#org3cab2ee">2. CIPSI 2-state calculations</a></li>
-<li><a href="#orge3a81cf">3. Export wave functions to CHAMP</a></li>
-<li><a href="#orgd3f930d">4. QMC wave function optimizations</a></li>
+<li><a href="#org0ec5a91">1. Introduction</a></li>
+<li><a href="#org8b5b566">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org4d8300c">3. Export wave functions to CHAMP</a></li>
+<li><a href="#org92364a5">4. QMC wave function optimizations</a></li>
 </ul>
 </div>
 </div>
@@ -269,8 +269,8 @@
 <img src="./images/Champ.png" width="100px" />
 </p>
 
-<div id="outline-container-org1a92aba" class="outline-2">
-<h2 id="org1a92aba"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org0ec5a91" class="outline-2">
+<h2 id="org0ec5a91"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction from a TREXIO file into
@@ -280,14 +280,17 @@ the TREXIO file, and we will run wave function optimization in
 CHAMP, followed by a Diffusion Monte Carlo calculation.
 </p>
 
+<div class="tip" id="org4909b61">
 <p>
 The expected excitation energy is around 4 eV.
 </p>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-org3cab2ee" class="outline-2">
-<h2 id="org3cab2ee"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-org8b5b566" class="outline-2">
+<h2 id="org8b5b566"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -318,8 +321,9 @@ Tell QP to stop when the number of determinants is larger than 5000
 </pre>
 </div>
 
+<div class="note" id="org0368921">
 <p>
-Remark: the excitation energy is around 10 eV. This is because the
+The excitation energy is around 10 eV. This is because the
 orbitals in the TREXIO file are symmetry adapted, so it is
 impossible to make a determinant from another symmetry enter in the
 determinant space.
@@ -327,10 +331,18 @@ determinant space.
 
 <p>
 To obtain a solution from another symmetry, we need to put at least
-one determinant of each symmetry. The simplest practical solution is
-to first perform a CIS, and then continue with a CIPSI in the FCI
-space.
+one determinant of each symmetry.
 </p>
+
+</div>
+
+<div class="tip" id="orge02237b">
+<p>
+The simplest practical solution is to first perform a CIS, and then
+continue with a CIPSI in the FCI space.
+</p>
+
+</div>
 
 <div class="org-src-container">
 <pre class="src src-bash">qp run cis | tee COH2.cis.out
@@ -351,8 +363,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-orge3a81cf" class="outline-2">
-<h2 id="orge3a81cf"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org4d8300c" class="outline-2">
+<h2 id="org4d8300c"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -443,13 +455,13 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-orgd3f930d" class="outline-2">
-<h2 id="orgd3f930d"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-org92364a5" class="outline-2">
+<h2 id="org92364a5"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-18 Sat 16:50</p>
+<p class="date">Created: 2022-06-18 Sat 16:56</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

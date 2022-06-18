@@ -18,7 +18,9 @@
   the TREXIO file, and we will run wave function optimization in
   CHAMP, followed by a Diffusion Monte Carlo calculation.
 
+  #+begin_tip
   The expected excitation energy is around 4 eV.
+  #+end_tip
 
 * CIPSI 2-state calculations
 
@@ -42,15 +44,20 @@ qp set determinants n_states 2
 qp set determinants n_det_max 5000
   #+end_src
 
-  Remark: the excitation energy is around 10 eV. This is because the
+  #+begin_note
+  The excitation energy is around 10 eV. This is because the
   orbitals in the TREXIO file are symmetry adapted, so it is
   impossible to make a determinant from another symmetry enter in the
   determinant space.
 
   To obtain a solution from another symmetry, we need to put at least
-  one determinant of each symmetry. The simplest practical solution is
-  to first perform a CIS, and then continue with a CIPSI in the FCI
-  space.
+  one determinant of each symmetry.
+  #+end_note
+
+  #+begin_tip
+  The simplest practical solution is to first perform a CIS, and then
+  continue with a CIPSI in the FCI space.
+  #+end_tip
 
     #+begin_src bash
 qp run cis | tee COH2.cis.out

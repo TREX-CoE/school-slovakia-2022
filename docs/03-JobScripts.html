@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-18 Sat 16:50 -->
+<!-- 2022-06-18 Sat 16:56 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts</title>
@@ -233,17 +233,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7714b2f">1. Environment</a></li>
-<li><a href="#org74792c8">2. Example of a QP job script</a></li>
-<li><a href="#org7fc3947">3. Example of a CHAMP job script</a></li>
+<li><a href="#orgca6676b">1. Environment</a></li>
+<li><a href="#orga534abc">2. Example of a QP job script</a></li>
+<li><a href="#orgb0f0254">3. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7714b2f" class="outline-2">
-<h2 id="org7714b2f"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-orgca6676b" class="outline-2">
+<h2 id="orgca6676b"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
-<div class="important" id="org3b730b9">
+<div class="important" id="org98c4cdb">
 <p>
 Some environment variables should be set for the codes to run
 properly. To set up the environment, you should source the
@@ -279,8 +279,8 @@ pip install resultsFile
 </div>
 </div>
 
-<div id="outline-container-org74792c8" class="outline-2">
-<h2 id="org74792c8"><span class="section-number-2">2</span> Example of a QP job script</h2>
+<div id="outline-container-orga534abc" class="outline-2">
+<h2 id="orga534abc"><span class="section-number-2">2</span> Example of a QP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP uses one process, and all possible threads on the node. You
@@ -301,8 +301,8 @@ qp run fci &gt; COH2.fci.out
 </div>
 </div>
 
-<div id="outline-container-org7fc3947" class="outline-2">
-<h2 id="org7fc3947"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+<div id="outline-container-orgb0f0254" class="outline-2">
+<h2 id="orgb0f0254"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 CHAMP is parallelized with MPI, and doesn't use multi-threading. You
@@ -327,7 +327,7 @@ mpirun -np 12 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-18 Sat 16:50</p>
+<p class="date">Created: 2022-06-18 Sat 16:56</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
