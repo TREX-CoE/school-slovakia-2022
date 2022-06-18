@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-17 Fri 16:55 -->
+<!-- 2022-06-18 Sat 14:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Quantum Package</title>
@@ -266,9 +266,9 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7d1ebf6">1. Environment</a></li>
-<li><a href="#orgc62ae03">2. The EZFIO database</a></li>
-<li><a href="#orgda0ae7a">3. <code>qp</code> commands</a></li>
+<li><a href="#orgc7f18e7">1. Environment</a></li>
+<li><a href="#org69e371a">2. The EZFIO database</a></li>
+<li><a href="#org9c711a4">3. qp commands</a></li>
 </ul>
 </div>
 </div>
@@ -278,8 +278,8 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org7d1ebf6" class="outline-2">
-<h2 id="org7d1ebf6"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-orgc7f18e7" class="outline-2">
+<h2 id="orgc7f18e7"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> is an open-source environment for developing
@@ -303,14 +303,15 @@ where <code>$QP_ROOT</code> is the path to the <code>qp2</code> directory.
 <p>
 An alternative, when using QP interactively is to run the QP shell:
 </p>
-<pre class="example">
-$QP_ROOT/bin/qpsh
+<div class="org-src-container">
+<pre class="src src-bash">$<span style="color: #a0522d;">QP_ROOT</span>/bin/qpsh
 </pre>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgc62ae03" class="outline-2">
-<h2 id="orgc62ae03"><span class="section-number-2">2</span> The EZFIO database</h2>
+<div id="outline-container-org69e371a" class="outline-2">
+<h2 id="org69e371a"><span class="section-number-2">2</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP stores input and output data in a database, called the <i>EZFIO directory</i>.
@@ -326,12 +327,11 @@ take the water molecule, and write the coordinates in the file
 </p>
 
 <div class="org-src-container">
-<pre class="src src-text">3                                                                                            
+<pre class="src src-text">3
 Water
 O       0.                     0.   0.
 H      -0.756950272703377558   0.  -0.585882234512562827
 H       0.756950272703377558   0.  -0.585882234512562827
-
 </pre>
 </div>
 
@@ -340,26 +340,36 @@ We can now create an EZFIO database containing the geometry and the
 basis set parameters for the cc-pVDZ basis set:
 </p>
 
-<pre class="example">
-qp create_ezfio --basis=cc-pvdz h2o.xyz
+<div class="org-src-container">
+<pre class="src src-bash">qp create_ezfio --basis=cc-pvdz h2o.xyz
 </pre>
+</div>
 
 <p>
-A directory named <code>h2o.ezfio</code> has been created. When running
-interactively with qpsh, the current EZFIO database is displayed in
-the terminal. You should see <code>|h2o.ezfio&gt;</code> in green before the
-command line. If you change directory, <code>|h2o.ezfio&gt;</code> will become
-red, meaning that the EZFIO database in inaccessible. To change
-EZFIO database, use
+A directory named <code>h2o.ezfio</code> has been created, and is selected
+as the currently used EZFIO directory in the current shell.
+To switch to another EZFIO database, use
 </p>
-<pre class="example">
-qp set_file other.ezfio
+<div class="org-src-container">
+<pre class="src src-bash">qp set_file other.ezfio
 </pre>
+</div>
+
+<div class="note">
+<p>
+When running interactively with <code>qpsh</code>, the current EZFIO database
+is displayed in the terminal. You should see <code>|h2o.ezfio&gt;</code> in green
+before the command line. If you change directory, <code>|h2o.ezfio&gt;</code>
+will become red, meaning that the EZFIO database in inaccessible.
+</p>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgda0ae7a" class="outline-2">
-<h2 id="orgda0ae7a"><span class="section-number-2">3</span> <code>qp</code> commands</h2>
+
+<div id="outline-container-org9c711a4" class="outline-2">
+<h2 id="org9c711a4"><span class="section-number-2">3</span> qp commands</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 To get the documentation of the <code>qp</code> command, you can use
@@ -369,22 +379,32 @@ To get the documentation of the <code>qp</code> command, you can use
 </pre>
 </div>
 
+<div class="tip">
 <p>
 Note: all QP commands come with a <code>--help</code> option for documentaion.
 </p>
+
+</div>
 
 <p>
 To run a Hartree-Fock calculation, we will run the <code>scf</code> program of
 QP. To run a QP program, use <code>qp run</code>:
 </p>
 
-<pre class="example">
-qp run scf | tee h2o.scf.out
+<div class="org-src-container">
+<pre class="src src-bash">qp run scf | tee h2o.scf.out
 </pre>
+</div>
 
+<div class="tip">
 <p>
 Here, we have copied the standard output into the file
 <code>h2o.scf.out</code> using the <code>tee</code> linux command.
+</p>
+
+</div>
+
+<p>
 The Hartree-Fock orbitals are now stored inside the EZFIO
 database. If you run again the <code>scf</code> code, you will notice that the
 SCF will converge in a single iteration because it takes the MOs
@@ -392,56 +412,77 @@ inside the database as an initial guess.
 </p>
 
 <p>
-Now we have a set of Hartree-Fock orbitals, we can run a CISD. But
-we don't want to include the single- and double-excitations from
-the \(1s\) orbitals. For that, we need to run
+Now we have a set of Hartree-Fock orbitals, we can run a CISD
+calculation. But we don't want to include the single- and
+double-excitations from the \(1s\) orbitals. For that, we need to run
 </p>
-<pre class="example">
-qp set_frozen_core
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set_frozen_core
 </pre>
+</div>
 
 <p>
 The output of this command tells that orbital 1 is labelled as
 <code>Core</code> and orbitals 2-24 are labelled as <code>Active</code>.
-We can now run the CISD
-</p>
-<pre class="example">
-qp run cisd | tee h2o.cisd.out
-</pre>
-
-<p>
-To modify the input parameters of the programs, you can use <code>qp edit</code>.
-This will open a temporary file with the editor defined by the
-<code>$EDITOR</code> environment variable, that you can modify to change the parameters.
+We can now run the CISD calculation using
 </p>
 
-<p>
-Alternatively, all the input parameters can be inspected using <code>qp
-   get</code>, for example:
-</p>
-<pre class="example">
-qp get determinants n_det_max
+<div class="org-src-container">
+<pre class="src src-bash">qp run cisd | tee h2o.cisd.out
 </pre>
-<p>
-and set using <code>qp set</code>
-</p>
-<pre class="example">
-qp set determinants n_det_max 2000
-</pre>
+</div>
 
-<div class="note">
 <p>
-You can use Tab-completion with the <code>qp</code> command, which makes
-the shell interaction more user-friendly.
+To modify the input parameters of the programs, you can use the
+interactive command <code>qp edit</code>. This will open a temporary file
+filled-in with data coming from the EZFIO database. When the file
+is saved and the editor is exited, the data is saved back into the EZFIO.
 </p>
+
+<div class="tip">
+<p>
+You can change the text editor used by <code>qp_edit</code> by setting the
+<code>$EDITOR</code> environment variable. For example:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">EDITOR</span>=emacs
+</pre>
+</div>
 
 </div>
+
+<p>
+Alternatively, all the input parameters can be inspected in the
+shell using <code>qp get</code>, for example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp get determinants n_det_max
+</pre>
+</div>
+
+<p>
+The parameters can be set in the shell using <code>qp set</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set determinants n_det_max 2000
+</pre>
+</div>
+
+<p>
+#+begin<sub>tip</sub>
+You can use Tab-completion with the <code>qp</code> command, which makes
+the shell interaction more user-friendly.
+#+end<sub>note</sub>
+</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-17 Fri 16:55</p>
+<p class="date">Created: 2022-06-18 Sat 14:51</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
