@@ -6,9 +6,9 @@
 <!-- 2022-06-18 Sat 16:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Introduction to Quantum Package</title>
+<title>Introduction to CHAMP</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Anthony Scemama" />
+<meta name="author" content="Ravindra Shinde, Claudia Filippi" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -221,256 +221,372 @@
     /*]]>*///-->
 // @license-end
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="index.html"> UP </a>
+ <a accesskey="h" href="01-Intro_qp.html"> UP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">Introduction to Quantum Package</h1>
+<h1 class="title">Introduction to CHAMP</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org60059e6">1. Environment</a></li>
-<li><a href="#org8ccaf44">2. The EZFIO database</a></li>
-<li><a href="#org38fc599">3. qp commands</a></li>
+<li><a href="#orge54da21">1. CHAMP</a>
+<ul>
+<li><a href="#org8552caa">1.1. Requirements</a></li>
+<li><a href="#org554684f">1.2. Installation of required libraries/packages</a>
+<ul>
+<li><a href="#orgdad422b">1.2.1. Install or load cmake</a></li>
+<li><a href="#org14a5d7a">1.2.2. Installation using Intel oneAPI compilers</a></li>
+<li><a href="#org22019a7">1.2.3. Installation using GNU Compiler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org97ab4c3">2. Setup of input files</a></li>
+<li><a href="#org628f021">3. Example 01: H<sub>2</sub>0 with HF</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org1916018" class="figure">
-<p><img src="./images/QP.png" alt="QP.png" width="100px" />
+<div id="orgcab7787" class="figure">
+<p><img src="./images/Champ.png" alt="Champ.png" width="100px" />
 </p>
 </div>
 
-<div id="outline-container-org60059e6" class="outline-2">
-<h2 id="org60059e6"><span class="section-number-2">1</span> Environment</h2>
+
+<div id="outline-container-orge54da21" class="outline-2">
+<h2 id="orge54da21"><span class="section-number-2">1</span> CHAMP</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-<a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> is an open-source environment for developing
-easily quantum chemistry programs. It was initially designed for code
-developers, but it is relatively simple to use.
+The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum
+Monte Carlo suite of programs for electronic structure calculations of
+atomic and molecular systems.
 </p>
+</div>
 
+<div id="outline-container-org8552caa" class="outline-3">
+<h3 id="org8552caa"><span class="section-number-3">1.1</span> Requirements</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>Cmake &gt;= 3.20</li>
+<li>gfortran/gcc &gt;= 9.3.0 or Intel Fortran 2020 onward / Intel OneAPI</li>
+<li>BLAS/LAPACK (OpenBLAS) or Intel MKL</li>
+<li>OpenMPI &gt;= 3.0 or Intel MPI</li>
+<li>[Optional] TREXIO library &gt;= 2.0.0</li>
+</ol>
+</div>
+</div>
 
-<p>
-Before doing anything with quantum package, the environment needs to
-be set up
-</p>
+<div id="outline-container-org554684f" class="outline-3">
+<h3 id="org554684f"><span class="section-number-3">1.2</span> Installation of required libraries/packages</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-orgdad422b" class="outline-4">
+<h4 id="orgdad422b"><span class="section-number-4">1.2.1</span> Install or load cmake</h4>
+<div class="outline-text-4" id="text-1-2-1">
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #483d8b;">source</span> $<span style="color: #a0522d;">QP_ROOT</span>/quantum_package.rc
+<pre class="src src-bash">sudo apt-get install -y cmake
 </pre>
 </div>
 <p>
-where <code>$QP_ROOT</code> is the path to the <code>qp2</code> directory.
+or
 </p>
 
 <p>
-An alternative, when using QP interactively is to run the QP shell:
+Download and extract the latest cmake for the precompiled binary
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">$<span style="color: #a0522d;">QP_ROOT</span>/bin/qpsh
+<pre class="src src-bash">wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
+tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
+<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PATH</span>=cmake-3.24.0-rc1-linux-x86_64/bin:$<span style="color: #a0522d;">PATH</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8ccaf44" class="outline-2">
-<h2 id="org8ccaf44"><span class="section-number-2">2</span> The EZFIO database</h2>
+<div id="outline-container-org14a5d7a" class="outline-4">
+<h4 id="org14a5d7a"><span class="section-number-4">1.2.2</span> Installation using Intel oneAPI compilers</h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="org581df8c"></a>Installation without sudo access<br />
+<div class="outline-text-5" id="text-1-2-2-1">
+<p>
+Download Intel oneAPI basekit and HPCkit for free from
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262.sh
+chmod a+x ./l_BaseKit_p_2022.2.0.262.sh
+sh ./l_BaseKit_p_2022.2.0.262.sh
+
+wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18679/l_HPCKit_p_2022.2.0.191.sh
+chmod a+x ./l_HPCKit_p_2022.2.0.191.sh
+sh ./l_HPCKit_p_2022.2.0.191.sh
+</pre>
+</div>
+
+<p>
+After installation export the path to your bashrc.
+</p>
+</div>
+</li>
+
+<li><a id="orge2f4a10"></a>Prerequisites for Intel oneAPI with sudo access<br />
+<div class="outline-text-5" id="text-1-2-2-2">
+<div class="org-src-container">
+<pre class="src src-bash">wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+sudo add-apt-repository <span style="color: #8b2252;">"deb https://apt.repos.intel.com/oneapi all main"</span>
+sudo apt-get update
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgb7fc184"></a>Install the components<br />
+<div class="outline-text-5" id="text-1-2-2-3">
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt-get install -y intel-oneapi-common-vars
+sudo apt-get install -y intel-oneapi-compiler-fortran-2021.3.0
+sudo apt-get install -y intel-oneapi-mkl-2021.3.0
+sudo apt-get install -y intel-oneapi-mkl-devel-2021.3.0
+sudo apt-get install -y intel-oneapi-mpi-2021.3.0
+sudo apt-get install -y intel-oneapi-mpi-devel-2021.3.0
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgf44fd24"></a>Compile script for CHAMP using Intel libraries<br />
+<div class="outline-text-5" id="text-1-2-2-4">
+<div class="org-src-container">
+<pre class="src src-bash">cmake -S. -Bbuild -DCMAKE_Fortran_COMPILER=mpiifort -DBLAS_LIBRARIES=<span style="color: #8b2252;">"-qmkl=parallel"</span>
+cmake --build build -j 8
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-org22019a7" class="outline-4">
+<h4 id="org22019a7"><span class="section-number-4">1.2.3</span> Installation using GNU Compiler</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<div class="warning" id="orgba7f821">
+<ul class="org-ul">
+<li>Make sure that the installed version of cmake is higher than 3.20</li>
+<li>Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0</li>
+</ul>
+
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="org93a781a"></a>Install or load compilers<br />
+<div class="outline-text-5" id="text-1-2-3-1">
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install -y gfortran
+sudo apt-get install -y gcc
+sudo apt install -y openmpi-bin
+sudo apt install -y libopenmpi-dev
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org6f8fc11"></a>Install or load BLAS/LAPACK<br />
+<div class="outline-text-5" id="text-1-2-3-2">
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install -y libblacs-mpi-dev
+sudo apt install -y liblapack-dev
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org8dda754"></a>Compile script for CHAMP<br />
+<div class="outline-text-5" id="text-1-2-3-3">
+<p>
+Get the <a href="https://github.com/filippi-claudia/champ/releases/tag/v2.1.1">stable version of CHAMP v.2.1.1</a>
+</p>
+
+<div class="warning" id="org4571b54">
+<p>
+Make sure that the BLAS installation is proper. Otherwise, the code might give erroneous results at runtime.
+</p>
+
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">cmake -H. -B build -DCMAKE_Fortran_COMPILER=/usr/bin/mpif90 -DBLA_VENDOR=OpenBLAS
+cmake --build build
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org97ab4c3" class="outline-2">
+<h2 id="org97ab4c3"><span class="section-number-2">2</span> Setup of input files</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-QP stores input and output data in a database, called the <i>EZFIO directory</i>.
-To interact with the database, QP provides multiple shell functions,
-scripts and programs.
+The tutorial folder is located at: <code>/lustre/home/filippi/Tutorial-QMC-School</code>
 </p>
 
 <p>
-Let us take an example to show how to use QP. First, we need to
-create a file with a geometry in <i>xyz</i> or <i>z-matrix</i> format. Let us
-take the water molecule, and write the coordinates in the file
-<code>h2o.xyz</code>:
+There are two folders inside
+</p>
+<ol class="org-ol">
+<li><code>example01_H2O_HF</code></li>
+<li><code>example01_H2O_DFT</code></li>
+</ol>
+
+<p>
+Each example directory will contain a setup folder, where you can
+generate the necessary input files for CHAMP from a single trexio
+file (in HDF5 format)
+</p>
+
+<p>
+The scripts for conversion are also included in the folder.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-text">3
-Water
-O       0.                     0.   0.
-H      -0.756950272703377558   0.  -0.585882234512562827
-H       0.756950272703377558   0.  -0.585882234512562827
+<pre class="src src-bash"><span style="color: #483d8b;">cd</span> 01_champ_tools/example01_H2O_HF/setup
 </pre>
 </div>
 
 <p>
-We can now create an EZFIO database containing the geometry and the
-basis set parameters for the cc-pVDZ basis set:
+Check the contents of the conversion script
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">qp create_ezfio --basis=cc-pvdz h2o.xyz
+<pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
+python3 trex2champ.py --trex <span style="color: #8b2252;">"trexio_H2O_HF.hdf5"</span> <span style="color: #8b2252;">\</span>
+                      --motype  <span style="color: #8b2252;">"RHF"</span> <span style="color: #8b2252;">\</span>
+                      --backend <span style="color: #8b2252;">"HDF5"</span> <span style="color: #8b2252;">\</span>
+                      --basis_prefix <span style="color: #8b2252;">"GRID"</span> <span style="color: #8b2252;">\</span>
+                      --lcao <span style="color: #8b2252;">\</span>
+                      --geom <span style="color: #8b2252;">\</span>
+                      --basis <span style="color: #8b2252;">\</span>
+                      --ecp <span style="color: #8b2252;">\</span>
+                      --det
 </pre>
 </div>
 
 <p>
-A directory named <code>h2o.ezfio</code> has been created, and is selected
-as the currently used EZFIO directory in the current shell.
-To switch to another EZFIO database, use
+Execute this script to generate the files:
 </p>
+
 <div class="org-src-container">
-<pre class="src src-bash">qp set_file other.ezfio
+<pre class="src src-bash">./script_water.sh
 </pre>
 </div>
 
-<div class="note" id="org9345535">
 <p>
-When running interactively with <code>qpsh</code>, the current EZFIO database
-is displayed in the terminal. You should see <code>|h2o.ezfio&gt;</code> in green
-before the command line. If you change directory, <code>|h2o.ezfio&gt;</code>
-will become red, meaning that the EZFIO database in inaccessible.
+Move or copy the following files into the pool folder
 </p>
 
+<div class="org-src-container">
+<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/pool
+</pre>
 </div>
+
+<pre class="example" id="orge600750">
+champ_v2_trexio_H2O_HF_geom.xyz
+champ_v2_trexio_H2O_HF_with_g.bfinfo
+ECP.gauss_ecp.dat.H
+ECP.gauss_ecp.dat.O
+GRID.basis.H
+GRID.basis.O
+</pre>
+
+<p>
+The remaining files should be kept in the <code>01_champ_tools/example01_H2O_HF</code> directory.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">ls 01_champ_tools/example01_H2O_HF/
+</pre>
+</div>
+
+<pre class="example" id="org8dd829e">
+champ_v2_trexio_H2O_HF_orbitals.lcao
+champ_v2_TREXIO_trexio_H2O_HF_determinants.det
+jastrow.jas
+run_champ.sh
+vmc_h2o_hf.inp
+pool/
+setup/
+</pre>
 </div>
 </div>
 
-
-<div id="outline-container-org38fc599" class="outline-2">
-<h2 id="org38fc599"><span class="section-number-2">3</span> qp commands</h2>
+<div id="outline-container-org628f021" class="outline-2">
+<h2 id="org628f021"><span class="section-number-2">3</span> Example 01: H<sub>2</sub>0 with HF</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-To get the documentation of the <code>qp</code> command, you can use
+The input file <code>vmc_h2o_hf.inp</code> looks like:
 </p>
-<div class="org-src-container">
-<pre class="src src-bash">qp --help
+<pre class="example" id="org06d4120">
+%module general
+    title           'H2O HF calculation'
+    pool            './pool/'
+    pseudopot       ECP
+    basis           GRID
+    mode            'vmc_one_mpi1'
+%endmodule
+
+
+load molecule        $pool/champ_v2_trexio_H2O_HF_geom.xyz
+
+load basis_num_info  $pool/champ_v2_trexio_H2O_HF_with_g.bfinfo
+load orbitals        champ_v2_trexio_H2O_HF_orbitals.lcao
+load determinants    champ_v2_TREXIO_trexio_H2O_HF_determinants.det
+load jastrow         jastrow.jas
+
+%module electrons
+    nup           4
+    nelec         8
+%endmodule
+
+
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      20000
+    vmc_nblkeq    1
+    vmc_nconf_new 0
+%endmodule
 </pre>
-</div>
-
-<div class="tip" id="org903eb51">
-<p>
-Note: all QP commands come with a <code>--help</code> option for documentaion.
-</p>
-
-</div>
 
 <p>
-To run a Hartree-Fock calculation, we will run the <code>scf</code> program of
-QP. To run a QP program, use <code>qp run</code>:
+The included jastrow file is
 </p>
 
-<div class="org-src-container">
-<pre class="src src-bash">qp run scf | tee h2o.scf.out
+<pre class="example" id="org2dd31ae">
+jastrow_parameter   1
+  0  1  0           norda,nordb,nordc
+   0.60000000   0.00000000     scalek,a21
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   0.00000000   (a(iparmj),iparmj=1,nparma)
+   0.00000000   1.00000000   (b(iparmj),iparmj=1,nparmb)
+ (c(iparmj),iparmj=1,nparmc)
+ (c(iparmj),iparmj=1,nparmc)
+end
 </pre>
-</div>
-
-<div class="tip" id="org0e52093">
-<p>
-Here, we have copied the standard output into the file
-<code>h2o.scf.out</code> using the <code>tee</code> linux command.
-</p>
-
-</div>
-
-<p>
-The Hartree-Fock orbitals are now stored inside the EZFIO
-database. If you run again the <code>scf</code> code, you will notice that the
-SCF will converge in a single iteration because it takes the MOs
-inside the database as an initial guess.
-</p>
-
-<p>
-Now we have a set of Hartree-Fock orbitals, we can run a CISD
-calculation. But we don't want to include the single- and
-double-excitations from the \(1s\) orbitals. For that, we need to run
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp set_frozen_core
-</pre>
-</div>
-
-<p>
-The output of this command tells that orbital 1 is labelled as
-<code>Core</code> and orbitals 2-24 are labelled as <code>Active</code>.
-We can now run the CISD calculation using
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp run cisd | tee h2o.cisd.out
-</pre>
-</div>
-
-<p>
-To modify the input parameters of the programs, you can use the
-interactive command <code>qp edit</code>. This will open a temporary file
-filled-in with data coming from the EZFIO database. When the file
-is saved and the editor is exited, the data is saved back into the EZFIO.
-</p>
-
-<div class="tip" id="org759ac8f">
-<p>
-You can change the text editor used by <code>qp_edit</code> by setting the
-<code>$EDITOR</code> environment variable. For example:
-</p>
-<div class="org-src-container">
-<pre class="src src-bash"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">EDITOR</span>=emacs
-</pre>
-</div>
-
-</div>
-
-<p>
-Alternatively, all the input parameters can be inspected in the
-shell using <code>qp get</code>, for example:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp get determinants n_det_max
-</pre>
-</div>
-
-<p>
-The parameters can be set in the shell using <code>qp set</code>:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">qp set determinants n_det_max 2000
-</pre>
-</div>
-
-<p>
-#+begin<sub>tip</sub>
-You can use Tab-completion with the <code>qp</code> command, which makes
-the shell interaction more user-friendly.
-#+end<sub>note</sub>
-</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Anthony Scemama</p>
+<p class="author">Author: Ravindra Shinde, Claudia Filippi</p>
 <p class="date">Created: 2022-06-18 Sat 16:01</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

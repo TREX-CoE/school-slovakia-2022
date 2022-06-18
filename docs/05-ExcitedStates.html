@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-18 Sat 10:44 -->
+<!-- 2022-06-18 Sat 16:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -255,8 +255,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga40bc1e">1. Introduction</a></li>
-<li><a href="#orgbd893ca">2. CIPSI calculation</a></li>
+<li><a href="#org6efe90c">1. Introduction</a></li>
+<li><a href="#org393c719">2. CIPSI 2-state calculations</a></li>
+<li><a href="#orge3d3f03">3. Export wave functions to CHAMP</a></li>
+<li><a href="#orgf499f6e">4. QMC wave function optimizations</a></li>
 </ul>
 </div>
 </div>
@@ -267,8 +269,8 @@
 <img src="./images/Champ.png" width="100px" />
 </p>
 
-<div id="outline-container-orga40bc1e" class="outline-2">
-<h2 id="orga40bc1e"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org6efe90c" class="outline-2">
+<h2 id="org6efe90c"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction from a TREXIO file into
@@ -284,20 +286,12 @@ The expected excitation energy is around 4 eV.
 </div>
 </div>
 
-
-<div id="outline-container-orgbd893ca" class="outline-2">
-<h2 id="orgbd893ca"><span class="section-number-2">2</span> CIPSI calculation</h2>
+<div id="outline-container-org393c719" class="outline-2">
+<h2 id="org393c719"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-You first need to install the <code>trexio</code> Python module:
-</p>
-<div class="org-src-container">
-<pre class="src src-bash">pip install trexio
-</pre>
-</div>
-
-<p>
-You can now import the single-determinant wave function from the provided TREXIO file:
+You can import the single-determinant wave function from the
+provided TREXIO file as:
 </p>
 
 <div class="org-src-container">
@@ -320,7 +314,7 @@ Tell QP to stop when the number of determinants is larger than 5000
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">qp set determinants n_det_max 2000
+<pre class="src src-bash">qp set determinants n_det_max 5000
 </pre>
 </div>
 
@@ -352,20 +346,110 @@ EZFIO database should be used as a starting point for the the CI calculation.
 
 <p>
 Now, we have obtained a more reasonable excitation energy, around 4
-eV. We can export the wavefunctions in the TREX file:
+eV. We are now ready to export the data for CHAMP.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge3d3f03" class="outline-2">
+<h2 id="orge3d3f03"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The excited states are of different symmetries, so we will generate
+two different setups in CHAMP, one for each state. To do that, we will
+save two different files, one with each state, and containing only
+the non-zero determinants.
+</p>
+
+<p>
+First, copy the <code>COH2</code> directory into <code>COH2_GS</code> and <code>COH2_ES</code>, one
+directory for each state:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">qp set trexio trexio_file  COH2.trexio
+<pre class="src src-bash">cp -r COH2 COH2_GS
+cp -r COH2 COH2_ES
+</pre>
+</div>
+
+<p>
+Then, we will use <code>qp_edit</code> to extract one state in each EZFIO
+directory:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set_file COH2_GS
+qp edit --state=1
+
+qp set_file COH2_ES
+qp edit --state=2
+</pre>
+</div>
+
+<p>
+The states have been extracted, but the EZFIO databases still
+contain the determinants with zero coefficients. We can remove them
+by running
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set_file COH2_GS
+qp run truncate_wf
+</pre>
+</div>
+
+<p>
+This last program is interactive and asks for the minimum weight of
+the kept configurations. Answer <code>1.e-10</code> to this question.
+</p>
+
+<p>
+Similarly, remove the negligible determinants from the excited
+state:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp set_file COH2_ES
+qp run truncate_wf
+</pre>
+</div>
+
+<p>
+We can now export the wave functions in two different TREXIO
+files. To do that, for each state we copy the initial TREXIO file
+and add the determinants information:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">cp COH2.trexio COH2_GS.trexio
+qp set_file COH2_GS
+qp set trexio trexio_file  COH2_GS.trexio
 qp run export_trexio
 </pre>
 </div>
+
+<div class="org-src-container">
+<pre class="src src-bash">cp COH2.trexio COH2_ES.trexio
+qp set_file COH2_ES
+qp set trexio trexio_file  COH2_ES.trexio
+qp run export_trexio
+</pre>
 </div>
+
+<p>
+Now, we are ready to run the QMC calculations for each state.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgf499f6e" class="outline-2">
+<h2 id="orgf499f6e"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-18 Sat 10:44</p>
+<p class="date">Created: 2022-06-18 Sat 16:01</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

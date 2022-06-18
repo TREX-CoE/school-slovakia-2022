@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-18 Sat 10:44 -->
+<!-- 2022-06-18 Sat 16:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts</title>
@@ -233,17 +233,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org099a340">1. Environment</a></li>
-<li><a href="#org5293f3d">2. Example of a QP job script</a></li>
-<li><a href="#org6ff7e78">3. Example of a CHAMP job script</a></li>
+<li><a href="#org92701e3">1. Environment</a></li>
+<li><a href="#org9eeadbe">2. Example of a QP job script</a></li>
+<li><a href="#orgefb46f9">3. Example of a CHAMP job script</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org099a340" class="outline-2">
-<h2 id="org099a340"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-org92701e3" class="outline-2">
+<h2 id="org92701e3"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
-<div class="important" id="orge18656a">
+<div class="important" id="org02ab10b">
 <p>
 Some environment variables should be set for the codes to run
 properly. To set up the environment, you should source the
@@ -263,14 +263,24 @@ This file contains the following commands:
 <div class="org-src-container">
 <pre class="src src-bash">module load openblas                        # <span style="color: #b22222;">QP was compiled with OpenBlas</span>
 <span style="color: #483d8b;">source</span> ~scemama/qp2/quantum_package.rc      # <span style="color: #b22222;">QP environment</span>
-<span style="color: #483d8b;">source</span> ~filippi/intel/oneapi/setvars.sh     # <span style="color: #b22222;">Intel libraries</span>
+<span style="color: #483d8b;">source</span> ~filippi/intel/oneapi/setvars.sh     # <span style="color: #b22222;">Intel libraries for CHAMP</span>
+</pre>
+</div>
+
+<p>
+It is important also that you install the following Python packages
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">pip install trexio
+pip install resultsFile
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5293f3d" class="outline-2">
-<h2 id="org5293f3d"><span class="section-number-2">2</span> Example of a QP job script</h2>
+<div id="outline-container-org9eeadbe" class="outline-2">
+<h2 id="org9eeadbe"><span class="section-number-2">2</span> Example of a QP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP uses one process, and all possible threads on the node. You
@@ -291,8 +301,8 @@ qp run fci &gt; COH2.fci.out
 </div>
 </div>
 
-<div id="outline-container-org6ff7e78" class="outline-2">
-<h2 id="org6ff7e78"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+<div id="outline-container-orgefb46f9" class="outline-2">
+<h2 id="orgefb46f9"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 CHAMP is parallelized with MPI, and doesn't use multi-threading. You
@@ -304,7 +314,7 @@ cores per node).
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
 #<span style="color: #b22222;">SBATCH -N 1 -n 12</span>
 
-<span style="color: #483d8b;">source</span> ~scemama/environment.sh                                                               
+<span style="color: #483d8b;">source</span> ~scemama/environment.sh
 
 <span style="color: #a0522d;">INPUT</span>=vmc_h2o_hf.inp
 
@@ -317,7 +327,7 @@ mpirun -np 12 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-18 Sat 10:44</p>
+<p class="date">Created: 2022-06-18 Sat 16:01</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
