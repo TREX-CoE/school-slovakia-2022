@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-19 Sun 21:20 -->
+<!-- 2022-06-19 Sun 21:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -255,10 +255,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd79cf3b">1. Introduction</a></li>
-<li><a href="#org638e3b8">2. CIPSI 2-state calculations</a></li>
-<li><a href="#orgeb9d058">3. Export wave functions to CHAMP</a></li>
-<li><a href="#org09ea0af">4. QMC wave function optimizations</a></li>
+<li><a href="#org090c4ab">1. Introduction</a></li>
+<li><a href="#org01d9f31">2. CIPSI 2-state calculations</a></li>
+<li><a href="#orgcc1623b">3. Export wave functions to CHAMP</a></li>
+<li><a href="#orgea025b0">4. QMC wave function optimizations</a></li>
 </ul>
 </div>
 </div>
@@ -266,11 +266,11 @@
 <img src="./images/TREXIO.png" width="100px" /> \(\longrightarrow\)
 <img src="./images/QP.png" width="100px" /> \(\longrightarrow\)
 <img src="./images/TREXIO.png" width="100px" /> \(\longrightarrow\)
-<img src="./images/Champ.png" height="100px" />
+ <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-orgd79cf3b" class="outline-2">
-<h2 id="orgd79cf3b"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org090c4ab" class="outline-2">
+<h2 id="org090c4ab"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction from a TREXIO file into
@@ -280,7 +280,7 @@ the TREXIO file, and we will run wave function optimization in
 CHAMP, followed by a Diffusion Monte Carlo calculation.
 </p>
 
-<div class="tip" id="orgf882fdd">
+<div class="tip" id="org6beb530">
 <p>
 The expected excitation energy is around 4 eV.
 </p>
@@ -289,8 +289,8 @@ The expected excitation energy is around 4 eV.
 </div>
 </div>
 
-<div id="outline-container-org638e3b8" class="outline-2">
-<h2 id="org638e3b8"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-org01d9f31" class="outline-2">
+<h2 id="org01d9f31"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -321,7 +321,7 @@ Tell QP to stop when the number of determinants is larger than 5000
 </pre>
 </div>
 
-<div class="note" id="org9ddfce6">
+<div class="note" id="orgeb9c287">
 <p>
 The excitation energy is around 10 eV. This is because the
 orbitals in the TREXIO file are symmetry adapted, so it is
@@ -336,7 +336,7 @@ one determinant of each symmetry.
 
 </div>
 
-<div class="tip" id="org50875d7">
+<div class="tip" id="org4707f0b">
 <p>
 The simplest practical solution is to first perform a CIS, and then
 continue with a CIPSI in the FCI space.
@@ -363,8 +363,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-orgeb9d058" class="outline-2">
-<h2 id="orgeb9d058"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-orgcc1623b" class="outline-2">
+<h2 id="orgcc1623b"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -455,13 +455,13 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-org09ea0af" class="outline-2">
-<h2 id="org09ea0af"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-orgea025b0" class="outline-2">
+<h2 id="orgea025b0"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-19 Sun 21:20</p>
+<p class="date">Created: 2022-06-19 Sun 21:29</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
