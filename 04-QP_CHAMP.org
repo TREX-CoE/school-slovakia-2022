@@ -21,11 +21,12 @@
   both wave functions. We will then optimize a Jastrow factor and run
   DMC calculations.
 
-* Geometry, Basis set, Pseudo-potential
+* Basis set, Pseudo-potential
 
  For QMC, we need to use pseudopotentials optimized specifically for
  QMC, and basis sets optimized to be used with these
- pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] ones.
+ pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] ones except 
+for hydrogen (the hydrogen pseudo on the website is too soft and not sufficiently accurate).
 
  QP can read basis sets and pseudopotentials from files in GAMESS
  format, if the files exist in the current directory. Otherwise, it
@@ -299,12 +300,10 @@ end
        $\rightarrow$ $f_{een}$ does not contribute to cusp-conditions
  - $f_{en}$ and $f_{een}$: different $\{a_n\}$ and $\{c_n\}$ for different atom types
 
-*** Add a simple Jastrow factor
+*** Add a simple e-e and e-n Jastrow factor
 
-  - $N^a_{\rm ord}=1$
-  - $N^b_{\rm ord}=1$
-
-
+  - $N^a_{\rm ord}=5$
+  - $N^b_{\rm ord}=5$
 
 
 
