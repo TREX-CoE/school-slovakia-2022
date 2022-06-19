@@ -204,7 +204,7 @@ qp run print_energy
 python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
                        --motype  "RHF" \
                        --backend "HDF5" \
-                       --basis_prefix "BFD-aug-cc-pVDZ" \
+                       --basis_prefix "BFD-cc-pVDZ" \
                        --lcao \
                        --geom \
                        --basis \
@@ -227,7 +227,7 @@ mv *.xyz *bfinfo BFD-* ECP* pool
     title           'H2O HF calculation'
     pool            './pool/'
     pseudopot       ECP
-    basis           BFD-aug-cc-pVDZ
+    basis           BFD-cc-pVDZ
     mode            'vmc_one_mpi1'
 %endmodule
 
@@ -514,5 +514,10 @@ grep '( 100) =' dmc*out
  #+begin_example
     ioptorb     1
  #+end_example
+
+* More examples to play with
+
+  Multiple files with geometries, basis sets and pseudopotentials can be downloaded here:
+  [[Examples/][./examples]]
 
 
