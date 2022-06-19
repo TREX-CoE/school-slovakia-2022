@@ -285,7 +285,7 @@ end
 
  \begin{eqnarray*}
  J &=& J_{en}J_{ee}J_{een} \\
-   &=& \exp[f_{en}(R_{i\alpha})+f_{ee}(R_{ij})+f_{een}(R_{i\alpha},R_{j\alpha},R_{ij})]
+   &=& \exp \Big[ f_{en}(R_{i\alpha})+f_{ee}(R_{ij})+f_{een}(R_{i\alpha},R_{j\alpha},R_{ij}) \Big]
  \end{eqnarray*}
 
  Electron-nucleus and electron-electron: $R={1-e^{-\kappa r} \over \kappa}$
@@ -358,6 +358,16 @@ end
 
   where you are telling CHAMP to optimize $a_i, 3\le i \le 6$ for e-n of O and
   H (4 parameters for both O and H), and $b_i, 2 \le i \le 6$ (5 parameters in total).
+
+  Now, in the input file, below the line where the =jastrow.start= file is specified,
+  specify the name of the info of the derivatives of the Jastrow.
+
+  #+begin_example
+load jastrow         jastrow.start
+load jastrow_der     jastrow.der
+  #+end_example
+
+
 
 ** Run Diffusion Monte Carlo
 
