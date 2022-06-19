@@ -194,7 +194,7 @@ qp run print_energy
 
  #+begin_important
  You need the resultsFile and trexio Python packages. They can be
- installed with pip.
+ installed with pip as described in [[./03-JobScripts.org][section 3]].
  #+end_important
 
  Create a new directory named =H2O_HF= and copy the TREXIO file
