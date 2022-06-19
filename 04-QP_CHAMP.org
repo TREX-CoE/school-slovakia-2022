@@ -25,7 +25,7 @@
 
  For QMC, we need to use pseudopotentials optimized specifically for
  QMC, and basis sets optimized to be used with these
- pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] ones except 
+ pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] ones except
 for hydrogen (the hydrogen pseudo on the website is too soft and not sufficiently accurate).
 
  QP can read basis sets and pseudopotentials from files in GAMESS
@@ -184,7 +184,7 @@ qp run print_energy
 
  These commands return the energy of the wavefunction contained in the
  EZFIO database. These values will be useful for checking that the QMC
- setup is OK. You should obtain the energies: 
+ setup is OK. You should obtain the energies:
 
  | HF MOs  | -16.9503842 |
  | DFT MOs | -16.9465884 |
@@ -199,12 +199,12 @@ qp run print_energy
 
  Create a new directory named =H2O_HF= and copy the TREXIO file
  =h2o_hf.trexio= into it. Go inside this directory and run
- 
+
  #+begin_src bash
 python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
                        --motype  "RHF" \
                        --backend "HDF5" \
-                       --basis_prefix "GRID" \
+                       --basis_prefix "BFD-aug-cc-pVDZ" \
                        --lcao \
                        --geom \
                        --basis \
@@ -217,7 +217,7 @@ python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
 
  #+begin_src bash
 mkdir pool
-mv *.xyz *bfinfo GRID* ECP* pool
+mv *.xyz *bfinfo BFD-* ECP* pool
  #+end_src
 
  You can now create an input file for CHAMP =vmc_h2o_hf.inp= :
@@ -227,7 +227,7 @@ mv *.xyz *bfinfo GRID* ECP* pool
     title           'H2O HF calculation'
     pool            './pool/'
     pseudopot       ECP
-    basis           GRID
+    basis           BFD-aug-cc-pVDZ
     mode            'vmc_one_mpi1'
 %endmodule
 
@@ -278,7 +278,7 @@ end
  The energies obtained with VMC without the Jastrow factor should be
  the same as those computed by QP at the beginning of this section.
 
-** Introduce a Jastrow factor and optimize it
+** Introduce and optimize a Jastrow factor
 
  The Jastrow factor depends on the electronic ($\mathbf{r}$) and
   nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
@@ -312,33 +312,52 @@ end
        $\rightarrow$ $f_{een}$ does not contribute to cusp-conditions
  - $f_{en}$ and $f_{een}$: different $\{a_n\}$ and $\{c_n\}$ for different atom types
 
-*** Add a simple e-e and e-n Jastrow factor 
+*** Add a simple e-e and e-n Jastrow factor
   - $N^a_{\rm ord}=5$
 
     Since we are using pseudopotentials (no e-n cusps), we always leave
     $a_1=a_2=0$ and add $a_3$ ($r_{i\alpha}^2$), $\ldots$, $a_6$
-    ($r_{i\alpha}^5$) equal to zero, which we then optimize. We do so for each 
+    ($r_{i\alpha}^5$) equal to zero, which we then optimize. We do so for each
     atom type.
 
   - $N^b_{\rm ord}=5$
 
-    We set $b_1=0.5$ (for up-down e-e cusp condition), and add 
-    $b_3$ ($r_{ij}^2$), $\ldots$, $b_6$ ($r_{ij}^5$) equal to zero, 
+    We set $b_1=0.5$ (for up-down e-e cusp condition), and add
+    $b_3$ ($r_{ij}^2$), $\ldots$, $b_6$ ($r_{ij}^5$) equal to zero,
     which we then optimize. $b_1$ is modified to 0.25 for up-up and
     down-down electrons.
 
-    #+begin_src 
+    The following file is your starting Jastrow factor =jastrow.start=:
+
+    #+begin_example
 jastrow_parameter   1
   5  5  0           norda,nordb,nordc
    0.60000000         scalek
    0.00000000   0.00000000 0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n O
    0.00000000   0.00000000 0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n H
-   0.50000000   1. 0. 0. 0. 0. (b(iparmj),iparmj=1,nparmb) ! e-e 
+   0.50000000   1. 0. 0. 0. 0. (b(iparmj),iparmj=1,nparmb) ! e-e
  (c(iparmj),iparmj=1,nparmc) ! e-e-n O
  (c(iparmj),iparmj=1,nparmc) ! e-e-n H
 end
- #+end_src
+ #+end_example
 
+*** Optimize the Jastrow factor
+
+  Create the file =jastrow.der=:
+
+  #+begin_example
+jasderiv
+4 4 5 0 0 0 0 nparma,nparmb,nparmc,nparmf
+  3 4 5 6 (iwjasa(iparm),iparm=1,nparma) ! e-n O
+  3 4 5 6 (iwjasa(iparm),iparm=1,nparma) ! e-n H
+2 3 4 5 6 (iwjasb(iparm),iparm=1,nparmb) ! e-e
+3 5 7 8 9         11 13 14 15 16     17 18 20 21 23 (c(iparmj),iparmj=1,nparmc)
+3 5 7 8 9         11 13 14 15 16     17 18 20 21 23 (c(iparmj),iparmj=1,nparmc)
+end
+  #+end_example
+
+  where you are telling CHAMP to optimize $a_i, 3\le i \le 6$ for e-n of O and
+  H (4 parameters for both O and H), and $b_i, 2 \le i \le 6$ (5 parameters in total).
 
 ** Run Diffusion Monte Carlo
 
