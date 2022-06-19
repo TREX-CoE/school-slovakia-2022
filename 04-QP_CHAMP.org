@@ -360,12 +360,32 @@ end
   H (4 parameters for both O and H), and $b_i, 2 \le i \le 6$ (5 parameters in total).
 
   Now, in the input file, below the line where the =jastrow.start= file is specified,
-  specify the name of the info of the derivatives of the Jastrow.
+  specify the name of the info of the derivatives of the Jastrow. You also
+  need to add a block with different options for the optimizer as follows.
 
   #+begin_example
 load jastrow         jastrow.start
 load jastrow_der     jastrow.der
+
+%module optwf
+    ioptwf        1
+    ioptci        0
+    ioptjas       1
+    ioptorb       0
+
+    method        'sr_n'
+    nopt_iter     20
+    nblk_max      4000
+
+    ncore         0
+    nextorb       100
+
+    sr_tau        0.05
+    sr_eps        0.001
+    sr_adiag      0.01
+%endmodule
   #+end_example
+
 
 
 
