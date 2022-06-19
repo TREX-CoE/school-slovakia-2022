@@ -98,15 +98,16 @@ qp run scf | tee h2o.scf.out
    SCF will converge in a single iteration because it takes the MOs
    stored inside the database as an initial guess.
 
-   Now we have a set of Hartree-Fock orbitals, we can run a CISD
-   calculation. But we don't want to include the single- and
-   double-excitations from the $1s$ orbitals. For that, we need to run
+   Now that we have a set of Hartree-Fock orbitals, we can run a
+   singles doubles configuration interaction (CISD) calculation. But
+   we don't want to include the single- and double-excitations from
+   the $1s$ orbitals. For that, we need to run
 
    #+begin_src bash
 qp set_frozen_core
    #+end_src
 
-   The output of this command tells that orbital 1 is labelled as
+   The output of this command shows that orbital 1 is labelled as
    =Core= and orbitals 2-24 are labelled as =Active=.
    We can now run the CISD calculation using
 
