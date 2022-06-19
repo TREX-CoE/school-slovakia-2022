@@ -388,8 +388,8 @@ load jastrow_der     jastrow.der
 
 
   Optimization doesn't require a long QMC simulation in the first SR steps.
-  You can reduce the number of blocks to 100, and the code will slowly increase
-  the number of blocks to ~nblk_max~.
+  You can reduce the number of blocks in =blocking_vmc= to 100, and the code 
+  will slowly increase the number of blocks to ~nblk_max~ in the =optwf= module.
 
   #+begin_example
 %module blocking_vmc
@@ -400,6 +400,8 @@ load jastrow_der     jastrow.der
 %endmodule
   #+end_example
 
+   If you ~grep 'total E' output~ , you will see the optimization progressing and
+   generating new Jastrow factors in =jastrow_optimal.1.iterX=.
 
 ** Run Diffusion Monte Carlo
 
