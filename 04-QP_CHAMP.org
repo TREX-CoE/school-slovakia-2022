@@ -390,7 +390,7 @@ load jastrow_der     jastrow.der
 
   Optimization doesn't require a long QMC simulation in the first SR steps.
   You can reduce the number of blocks in =blocking_vmc= to 100, and the code
-  will slowly increase the number of blocks to ~nblk_max~ in the =optwf= module.
+  will slowly increase the number of blocks to ~nblk_max~ in the ~optwf~ module.
 
   #+begin_example
 %module blocking_vmc
@@ -469,6 +469,39 @@ cat mc_configs_new* >> mc_configs
 \rm mc_configs_new*
   #+end_src
 
-  
+  To look at the energy, you can do
+
+  #+begin_src bash
+grep '( 100) =' dmc*out
+  #+end_src
+
+  In the last column, you have the correlation time.
+#+begin_warning
+  Make sure that you have chosen ~dmc_nstep~ about 20 times larger.
+#+end_warning
+
+  Also perform another calculation with a smaller time step.
+
+#+begin_warning
+   Make sure that you increase ~dmc_nstep~  by as much as you have decreased $\tau$.
+#+end_warning
+
+#+begin_note
+  You do not need to regenerate the file =mc_configs= containing the walkers.
+#+end_note
+
+  Repeat the optimization and DMC calculation with the DFT orbitals. Compare the
+  VMC and DMC energies.
+
+** Optimal one-determinant Jastrow-Slater wave function
+
+ Finally, starting from the DFT orbitals and the optimal two-body Jastrow optimize the
+ full wave function (Jastrow and orbitals).
+
+ To this aim, set ~ioptorb~ to ~1~ in the ~optwf~ module.
+
+ #+begin_example
+    ioptorb     1
+ #+end_example
 
 
