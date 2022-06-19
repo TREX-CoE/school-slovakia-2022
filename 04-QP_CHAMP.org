@@ -23,10 +23,10 @@
 
 * Basis set, Pseudo-potential
 
- For QMC, we need to use pseudopotentials optimized specifically for
+ For QMC calculations, we need to use pseudopotentials optimized specifically for
  QMC, and basis sets optimized to be used with these
- pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] ones except
-for hydrogen (the hydrogen pseudo on the website is too soft and not sufficiently accurate).
+ pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] (BFG) ones except
+ for hydrogen (the hydrogen pseudo on the website is too soft and not sufficiently accurate).
 
  QP can read basis sets and pseudopotentials from files in GAMESS
  format, if the files exist in the current directory. Otherwise, it
@@ -35,7 +35,7 @@ for hydrogen (the hydrogen pseudo on the website is too soft and not sufficientl
 
 ** Geometry
 
-  Create a file with the geometry of the water molecule:
+  Create a file called =h2o.xyz=: with the geometry of the water molecule:
 
   #+begin_src text
 3
