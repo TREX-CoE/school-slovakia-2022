@@ -316,8 +316,8 @@ end
   - $N^a_{\rm ord}=5$
 
     Since we are using pseudopotentials (no e-n cusps), we always leave
-    $a_1=a_2=0$ and add $a_3$ ($r_{i\alpha}^2$), $\ldots$, $a_6$
-    ($r_{i\alpha}^5$) equal to zero, which we then optimize. We do so for each
+    $a_1=a_2=0$ and add $a_3 (r_{i\alpha}^2), \ldots, a_6 (r_{i\alpha}^5)$
+    equal to zero, which we then optimize. We do so for each
     atom type.
 
   - $N^b_{\rm ord}=5$
@@ -404,7 +404,10 @@ load jastrow_der     jastrow.der
    If you ~grep 'total E' output~, you will see the optimization progressing and
    generating new Jastrow factors in =jastrow_optimal.1.iterX=.
 
-** Run Diffusion Monte Carlo
+   If you ~grep nblk output~ you will see that the code automatically increases the
+   maximum number of blocks.
+
+** Diffusion Monte Carlo
 
    Let us start to run a DMC simulation with the HF orbitals and the optimal
    Jastrow factor you have just generated.
@@ -412,9 +415,14 @@ load jastrow_der     jastrow.der
    Create a new directory and copy the wave function trexio info and the
    optimal Jastrow factor (for simplicity, pick the last one).
 
-   First, generate an input where you read the wave function files (careful to
-   load the new Jastrow factor) and perform a short VMC calculation to generate
-   the walkers for DMC.
+   First, generate an input file as before where you read the wave function
+   files (careful to load the new Jastrow factor) and perform a short VMC
+   calculation to generate the walkers for DMC.
+
+   To shorten the VMC run, you can choose a small ~vmc_nblk~ in the main input
+   file and modify ~vmc_nconf_new~ to be the number of walkers per core you wish.
+   Here, we use the same values as for the starting iterations of the Jastrow factor
+   optimization:
 
    #+begin_example
 %module blocking_vmc
@@ -425,14 +433,17 @@ load jastrow_der     jastrow.der
 %endmodule
    #+end_example
 
-    With this block, you have generated 100 walkers per core (~vmc_nconf_new~).
+    This will generate 100 walkers per core (~vmc_nconf_new~) by writing
+    the coordinates of a walker every $20 \times 200 / 100$ steps. Since
+    the correlation time is less than 2 step in VMC, your walkers will be
+    decorrelated.
 
     A bunch of =mc_configs_newX= files will appear in your directory, each
     containing 100 walkers.
 
    #+begin_src bash
 cat mc_configs_new* >> mc_configs
-\rm mc_configs_new*
+rm mc_configs_new*
    #+end_src
 
     =mc_configs= contains now all walkers.
@@ -465,8 +476,8 @@ cat mc_configs_new* >> mc_configs
    Some debug files are being created, that you can just erase.
 
   #+begin_src bash
-\rm problem*
-\rm mc_configs_new*
+rm problem*
+rm mc_configs_new*
   #+end_src
 
   To look at the energy, you can do

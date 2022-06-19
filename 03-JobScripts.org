@@ -53,6 +53,8 @@ qp run fci > COH2.fci.out
   should request a single node, with 12 processes (as there are 12
   cores per node).
 
+** Variational Monte Carlo run
+
  #+begin_src bash
 #!/bin/bash
 #SBATCH -N 1 -n 12
@@ -64,3 +66,18 @@ INPUT=vmc_h2o_hf.inp
 OUTPUT=${INPUT%.inp}.out
 mpirun -np 12 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $INPUT -o $OUTPUT -e error
  #+end_src
+
+** Diffusion Monte Carlo run
+
+ #+begin_src bash
+#!/bin/bash
+#SBATCH -N 1 -n 12
+
+source ~scemama/environment.sh
+
+INPUT=dmc_h2o_hf.inp
+
+OUTPUT=${INPUT%.inp}.out
+mpirun -np 12 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $INPUT -o $OUTPUT -e error
+ #+end_src
+
