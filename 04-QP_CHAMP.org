@@ -518,6 +518,6 @@ grep '( 100) =' dmc*out
 * More examples to play with
 
   Multiple files with geometries, basis sets and pseudopotentials can be downloaded here:
-  [[Examples/][./examples]]
+  [[./examples/][Examples]]
 
 
