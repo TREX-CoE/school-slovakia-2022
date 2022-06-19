@@ -518,6 +518,6 @@ grep '( 100) =' dmc*out
 * More examples to play with
 
   Multiple files with geometries, basis sets and pseudopotentials can be downloaded here:
-  [[./examples/][Examples]]
+  [[https://github.com/TREX-CoE/school-slovakia-2022/tree/master/docs/examples][Examples]]
 
 
