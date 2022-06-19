@@ -278,7 +278,7 @@ end
  The energies obtained with VMC without the Jastrow factor should be
  the same as those computed by QP at the beginning of this section.
 
-** Introduce a Jastrow factor
+** Introduce a Jastrow factor and optimize it
 
  The Jastrow factor depends on the electronic ($\mathbf{r}$) and
   nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
@@ -340,8 +340,6 @@ end
  #+end_src
 
 
-
-** Optimize the Jastrow
 ** Run Diffusion Monte Carlo
 
    Run for HF and DFT orbitals and check the energies.
