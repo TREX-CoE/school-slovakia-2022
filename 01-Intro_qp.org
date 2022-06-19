@@ -96,7 +96,7 @@ qp run scf | tee h2o.scf.out
    The Hartree-Fock orbitals are now stored inside the EZFIO
    database. If you run again the =scf= code, you will notice that the
    SCF will converge in a single iteration because it takes the MOs
-   inside the database as an initial guess.
+   stored inside the database as an initial guess.
 
    Now we have a set of Hartree-Fock orbitals, we can run a CISD
    calculation. But we don't want to include the single- and
