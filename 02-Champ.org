@@ -143,15 +143,16 @@ cmake --build build -j 8
 
  #+begin_src bash
  #!/bin/bash
- python3 trex2champ.py --trex "trexio_H2O_HF.hdf5" \
-                       --motype  "RHF" \
-                       --backend "HDF5" \
-                       --basis_prefix "GRID" \
-                       --lcao \
-                       --geom \
-                       --basis \
-                       --ecp \
-                       --det
+ python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py \
+			--trex 	"trexio_H2O_HF.hdf5" \
+			--motype 	"RHF" \
+			--backend	"HDF5" \
+			--basis_prefix  "BFD-aug-cc-pVDZ" \
+			--lcao \
+			--geom \
+			--basis \
+			--ecp \
+			--det
  #+end_src
 
  Execute this script to generate the files:
@@ -171,8 +172,8 @@ cmake --build build -j 8
  champ_v2_trexio_H2O_HF_with_g.bfinfo
  ECP.gauss_ecp.dat.H
  ECP.gauss_ecp.dat.O
- GRID.basis.H
- GRID.basis.O
+ BFD-aug-cc-pVDZ.basis.H
+ BFD-aug-cc-pVDZ.basis.O
  #+end_example
 
  The remaining files should be kept in the =01_champ_tools/example01_H2O_HF= directory.
@@ -183,8 +184,8 @@ cmake --build build -j 8
 
  #+begin_example
  champ_v2_trexio_H2O_HF_orbitals.lcao
- champ_v2_TREXIO_trexio_H2O_HF_determinants.det
- jastrow.jas
+ champ_v2_trexio_H2O_HF_determinants.det
+ jastrow.start
  run_champ.sh
  vmc_h2o_hf.inp
  pool/
@@ -199,8 +200,8 @@ cmake --build build -j 8
      title           'H2O HF calculation'
      pool            './pool/'
      pseudopot       ECP
-     basis           GRID
-     mode            'vmc_one_mpi1'
+     basis           BFD-aug-cc-pVDZ
+     mode            vmc
  %endmodule
 
 
@@ -208,8 +209,8 @@ cmake --build build -j 8
 
  load basis_num_info  $pool/champ_v2_trexio_H2O_HF_with_g.bfinfo
  load orbitals        champ_v2_trexio_H2O_HF_orbitals.lcao
- load determinants    champ_v2_TREXIO_trexio_H2O_HF_determinants.det
- load jastrow         jastrow.jas
+ load determinants    champ_v2_trexio_H2O_HF_determinants.det
+ load jastrow         jastrow.start
 
  %module electrons
      nup           4
@@ -219,7 +220,7 @@ cmake --build build -j 8
 
  %module blocking_vmc
      vmc_nstep     20
-     vmc_nblk      20000
+     vmc_nblk      100000
      vmc_nblkeq    1
      vmc_nconf_new 0
  %endmodule
