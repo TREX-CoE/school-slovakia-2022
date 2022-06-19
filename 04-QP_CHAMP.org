@@ -359,9 +359,10 @@ end
   where you are telling CHAMP to optimize $a_i, 3\le i \le 6$ for e-n of O and
   H (4 parameters for both O and H), and $b_i, 2 \le i \le 6$ (5 parameters in total).
 
-  Now, in the input file, below the line where the =jastrow.start= file is specified,
-  specify the name of the info of the derivatives of the Jastrow. You also
-  need to add a block with different options for the optimizer as follows.
+  Now, specify the name of the info of the derivatives of the Jastrow
+  in the input file, below the line where the =jastrow.start= file is
+  specified. You also need to add a block with different options for the
+  optimizer as follows.
 
   #+begin_example
 load jastrow         jastrow.start
@@ -388,7 +389,7 @@ load jastrow_der     jastrow.der
 
 
   Optimization doesn't require a long QMC simulation in the first SR steps.
-  You can reduce the number of blocks in =blocking_vmc= to 100, and the code 
+  You can reduce the number of blocks in =blocking_vmc= to 100, and the code
   will slowly increase the number of blocks to ~nblk_max~ in the =optwf= module.
 
   #+begin_example
@@ -400,10 +401,74 @@ load jastrow_der     jastrow.der
 %endmodule
   #+end_example
 
-   If you ~grep 'total E' output~ , you will see the optimization progressing and
+   If you ~grep 'total E' output~, you will see the optimization progressing and
    generating new Jastrow factors in =jastrow_optimal.1.iterX=.
 
 ** Run Diffusion Monte Carlo
 
-   Run for HF and DFT orbitals and check the energies.
+   Let us start to run a DMC simulation with the HF orbitals and the optimal
+   Jastrow factor you have just generated.
+
+   Create a new directory and copy the wave function trexio info and the
+   optimal Jastrow factor (for simplicity, pick the last one).
+
+   First, generate an input where you read the wave function files (careful to
+   load the new Jastrow factor) and perform a short VMC calculation to generate
+   the walkers for DMC.
+
+   #+begin_example
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      200
+    vmc_nblkeq    1
+    vmc_nconf_new 100
+%endmodule
+   #+end_example
+
+    With this block, you have generated 100 walkers per core (~vmc_nconf_new~).
+
+    A bunch of =mc_configs_newX= files will appear in your directory, each
+    containing 100 walkers.
+
+   #+begin_src bash
+cat mc_configs_new* >> mc_configs
+\rm mc_configs_new*
+   #+end_src
+
+    =mc_configs= contains now all walkers.
+
+    Generate a DMC input
+
+  #+begin_example
+%module blocking_dmc
+    dmc_nstep     60
+    dmc_nblk      40
+    dmc_nblkeq    1
+    dmc_nconf     100
+%endmodule
+
+%module dmc
+    tau           0.05
+    etrial      -17.240
+    icasula      -1
+%endmodule
+  #+end_example
+
+  You also need to change the ~mode~ keyword in the input file:
+
+  #+begin_example
+    mode            'dmc_one_mpi1'
+  #+end_example
+
+   within the  general module.
+
+   Some debug files are being created, that you can just erase.
+
+  #+begin_src bash
+\rm problem*
+\rm mc_configs_new*
+  #+end_src
+
+  
+
 
