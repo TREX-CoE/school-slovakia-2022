@@ -16,6 +16,10 @@ The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum
 Monte Carlo suite of programs for electronic structure calculations of
 atomic and molecular systems.
 
+#+begin_tip
+For the purpose of this workshop, we have installed CHAMP for you. You may skip directly to Section [[champ_examples]] for using CHAMP.
+#+end_tip
+
 ** Requirements
 
      1. Cmake >= 3.20
@@ -121,19 +125,33 @@ cmake --build build -j 8
  cmake --build build
   #+end_src
 
-* Setup of input files
+* <<champ_examples>> Setup of input files
 
  The tutorial folder is located at: =/lustre/home/filippi/Tutorial-QMC-School=
 
- There are two folders inside
+ There are several example folders inside
  1. =example01_H2O_HF=
- 2. =example01_H2O_DFT=
+ 2. =example02_H2O_DFT=
+ 3. =example03_H2O_HF_optjas2body=
+ 4. =example04_H2O_HF_dmc2body_tau0.05=
+ 5. =example05_H2O_HF_dmc2body_tau0.02=
+ 6. =example06_H2O_DFT_optjas2body=
+ 7. =example07_H2O_DFT_dmc2body_tau0.05=
+ 8. =example08_H2O_DFT_dmc2body_tau0.02=
+ 9. =example09_H2O_DFT_dmc2body_optall_tau0.02=
+ 10. =example09_H2O_DFT_dmc2body_optall_tau0.05=
+ 11. =example09_H2O_DFT_optall=
+ 12. =example10_COH2_ground_state=
+ 13. =example11_COH2_excited_state=
 
  Each example directory will contain a setup folder, where you can
  generate the necessary input files for CHAMP from a single trexio
  file (in HDF5 format)
 
  The scripts for conversion are also included in the folder.
+
+ * Example 01: H_{2}0 with HF molecular orbitals
+
 
  #+begin_src bash
  cd 01_champ_tools/example01_H2O_HF/setup
@@ -192,7 +210,7 @@ cmake --build build -j 8
  setup/
  #+end_example
 
-* Example 01: H_{2}0 with HF
+
 
  The input file =vmc_h2o_hf.inp= looks like:
  #+begin_example
