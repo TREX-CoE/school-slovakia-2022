@@ -6,8 +6,8 @@
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 # QMC Hands-on Summer Workshop
 
-#+ATTR_HTML: :width 100px
-#+ATTR_LATEX: :width 100px
+#+ATTR_HTML: :height 100px
+#+ATTR_LATEX: :height 100px
   [[./images/Champ.png]]
 
 

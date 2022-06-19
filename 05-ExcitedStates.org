@@ -8,7 +8,7 @@
 @@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
 @@html:<img src="./images/QP.png" width="100px" />@@ $\longrightarrow$
 @@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
-@@html:<img src="./images/Champ.png" width="100px" />@@
+@@html:<img src="./images/Champ.png" height="100px" />@@
 
 * Introduction
 
@@ -72,7 +72,7 @@ qp run fci | tee COH2.fci.out
   eV. We are now ready to export the data for CHAMP.
 
 * Export wave functions to CHAMP
-  
+
   The excited states are of different symmetries, so we will generate
   two different setups in CHAMP, one for each state. To do that, we will
   save two different files, one with each state, and containing only
@@ -95,7 +95,7 @@ qp edit --state=1
 
 qp set_file COH2_ES
 qp edit --state=2
-  #+end_src  
+  #+end_src
 
   The states have been extracted, but the EZFIO databases still
   contain the determinants with zero coefficients. We can remove them
@@ -108,7 +108,7 @@ qp run truncate_wf
 
   This last program is interactive and asks for the minimum weight of
   the kept configurations. Answer =1.e-10= to this question.
-  
+
   Similarly, remove the negligible determinants from the excited
   state:
 
@@ -120,7 +120,7 @@ qp run truncate_wf
   We can now export the wave functions in two different TREXIO
   files. To do that, for each state we copy the initial TREXIO file
   and add the determinants information:
-  
+
   #+begin_src bash
 cp COH2.trexio COH2_GS.trexio
 qp set_file COH2_GS
