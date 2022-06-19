@@ -21,7 +21,7 @@ For the purpose of this workshop, we have installed CHAMP for you. You may skip 
 #+end_tip
 
 ** Requirements
-
+   
      1. Cmake >= 3.20
      2. gfortran/gcc >= 9.3.0 or Intel Fortran 2020 onward / Intel OneAPI
      3. BLAS/LAPACK (OpenBLAS) or Intel MKL
