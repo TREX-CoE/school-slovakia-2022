@@ -202,7 +202,7 @@ qp run print_energy
 
  #+begin_src bash
 python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
-                       --motype  "RHF" \
+                       --motype  "Canonical" \
                        --backend "HDF5" \
                        --basis_prefix "BFD-cc-pVDZ" \
                        --lcao \
@@ -274,24 +274,6 @@ end
 
  Now reproduce the same steps for the TREXIO file containing the DFT
  orbitals in directory =H2O_DFT=.
-
- #+begin_warning
- When using DFT orbitals, the type of MOs should be changed into =Canonical=
- in the =trex2champ= conversion:
-
- #+begin_src bash
-python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
-                       --motype  "Canonical" \
-                       --backend "HDF5" \
-                       --basis_prefix "BFD-cc-pVDZ" \
-                       --lcao \
-                       --geom \
-                       --basis \
-                       --ecp \
-                       --det
- #+end_src
- #+end_warning
-
 
  The energies obtained with VMC without the Jastrow factor should be
  the same as those computed by QP at the beginning of this section.
