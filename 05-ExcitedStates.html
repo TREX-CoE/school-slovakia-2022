@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 20:15 -->
+<!-- 2022-06-20 Mon 20:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -266,13 +266,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgdda6711">1. Introduction</a></li>
-<li><a href="#org81dc242">2. CIPSI 2-state calculations</a></li>
-<li><a href="#org5fdf728">3. Export wave functions to CHAMP</a></li>
-<li><a href="#orgffa0ef2">4. QMC wave function optimizations</a>
+<li><a href="#orga0a9d42">1. Introduction</a></li>
+<li><a href="#orge236918">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org37eced9">3. Export wave functions to CHAMP</a></li>
+<li><a href="#orgdc53d60">4. QMC wave function optimizations</a>
 <ul>
-<li><a href="#org268b11d">4.1. Optimization of the ground state</a></li>
-<li><a href="#org1f674c9">4.2. Optimization of the excited state</a></li>
+<li><a href="#orgcc1984b">4.1. Optimization of the ground state</a></li>
+<li><a href="#org1287975">4.2. Optimization of the excited state</a></li>
 </ul>
 </li>
 </ul>
@@ -285,8 +285,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-orgdda6711" class="outline-2">
-<h2 id="orgdda6711"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orga0a9d42" class="outline-2">
+<h2 id="orga0a9d42"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -307,8 +307,8 @@ extrapolation from coupled cluster calculations) is 3.97 eV.
 </div>
 </div>
 
-<div id="outline-container-org81dc242" class="outline-2">
-<h2 id="org81dc242"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-orge236918" class="outline-2">
+<h2 id="orge236918"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -402,8 +402,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-org5fdf728" class="outline-2">
-<h2 id="org5fdf728"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org37eced9" class="outline-2">
+<h2 id="org37eced9"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -494,8 +494,8 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-orgffa0ef2" class="outline-2">
-<h2 id="orgffa0ef2"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-orgdc53d60" class="outline-2">
+<h2 id="orgdc53d60"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In this section, we will optimize a Jastrow factor for each state, and
@@ -503,10 +503,17 @@ we will the re-optimize the CI coefficients in the presence of the Jastrow.
 The setup of the CHAMP files is similar to what we have done in
 <a href="./04-QP_CHAMP.html">section 4</a>.
 </p>
+
+<div class="warning">
+<p>
+Here, we have 12 electrons, 6 up and 6 down.
+</p>
+
+</div>
 </div>
 
-<div id="outline-container-org268b11d" class="outline-3">
-<h3 id="org268b11d"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div id="outline-container-orgcc1984b" class="outline-3">
+<h3 id="orgcc1984b"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Create a new directory, and copy the <code>COH2_GS.trexio</code> TREXIO file inside it.
@@ -529,10 +536,10 @@ Convert the TREXIO file into CHAMP files:
 </div>
 
 <p>
-H<sub>2</sub>CO has three different atom types, so the jastrow factow file
+H<sub>2</sub>CO has three different atom types, so the Jastrow factor file
 will be slightly different from the file for water with one extra
-line for \(a\) parameters. You can start by saving the following in a file
-called <code>jastrow.simple</code>:
+line for \(a\) parameters. You can start by creating a file
+called <code>jastrow.start</code>:
 </p>
 
 <pre class="example">
@@ -550,9 +557,9 @@ end
 </pre>
 
 <p>
-Start by optimizing the Jastrow factor and perform a ``quick'' optimization.
-The following champ input file (<code>vmc_quick.inp</code>) contains the parameters for such a ``quick''
-optimization.
+Start by optimizing the Jastrow factor and perform a "quick"
+optimization.  The following champ input file (<code>vmc_quick.inp</code>)
+contains the parameters for such a "quick" optimization.
 </p>
 
 <pre class="example">
@@ -583,7 +590,7 @@ optimization.
 </pre>
 
 <p>
-Move the jastrow<sub>optimal.1.iter10</sub> to jastrow<sub>optimal.rough</sub><sub>GS</sub> and 
+Move the <code>jastrow_optimal.1.iter10</code> file to <code>jastrow_optimal.rough_GS</code> and 
 load this optimized Jastrow factor. You can now optimize also the CI
 coefficients together with the Jastrow factor by setting:
 </p>
@@ -593,7 +600,7 @@ ioptci        1
 </pre>
 
 <p>
-Use some more MC steps to perform a stricter optimization.
+Use some more Monte Carlo steps to perform a more strict optimization.
 </p>
 
 <pre class="example">
@@ -611,7 +618,7 @@ In your directory, you will now have <code>jastrow_optimal.1.iterX</code> and
 </p>
 
 <p>
-Set up a DMC calculations where you use the optimal Jastrow and 
+Set up a DMC calculation where you use the optimal Jastrow and 
 CI coefficients. Adjust the <code>etrial</code> to be a bit below the VMC energy.
 Recall that you will have to generate the <code>mc_configs</code> file.
 </p>
@@ -620,19 +627,19 @@ Recall that you will have to generate the <code>mc_configs</code> file.
 <p>
 Note: You could have also optimized the orbitals but we did not 
 do it here to keep the calculations short. If you are setting 
-<code>optorb=1</code>, load also the symmetry file
+<code>optorb=1</code>, load also the symmetry file.
 </p>
-
-</div>
 
 <pre class="example">
 load champ_v2_COH2_GS_symmetry.sym
 </pre>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-org1f674c9" class="outline-3">
-<h3 id="org1f674c9"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div id="outline-container-org1287975" class="outline-3">
+<h3 id="org1287975"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
@@ -643,7 +650,7 @@ Apply the same procedure as for the ground state.
 Repeat what you have done for the ground state. Start to perform
 a quick optimization of the Jastrow factor but do not start from
 zero's: start from the Jastrow factor you have for the ground 
-state, namely, jastrow<sub>optimal.rough</sub><sub>GS</sub>.
+state, namely, <code>jastrow_optimal.rough_GS</code>.
 </p>
 
 <p>
@@ -652,8 +659,11 @@ Do all step until when you obtain the DMC energy.
 
 <p>
 Compute the VMC and DMC excitation energies. Recall that if your 
-energies are \(E_{\rm GS}+\delta E_{\rm GS}\) and 
-\(E_{\rm ES}+\delta E_{\rm ES}\), the error on \(\Delta E= E_{\rm ES}-E_{\rm GS}\)
+energies are
+\[
+  E_{\rm GS}+\delta E_{\rm GS}  \text{ and } E_{\rm ES}+\delta E_{\rm ES},
+  \]
+the error on \(\Delta E= E_{\rm ES}-E_{\rm GS}\)
 is given by \(\sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2\).
 </p>
 </div>
@@ -662,7 +672,7 @@ is given by \(\sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2\).
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-20 Mon 20:15</p>
+<p class="date">Created: 2022-06-20 Mon 20:23</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
