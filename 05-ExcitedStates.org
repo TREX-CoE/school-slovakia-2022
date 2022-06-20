@@ -8,27 +8,25 @@
 @@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
 @@html:<img src="./images/QP.png" width="100px" />@@ $\longrightarrow$
 @@html:<img src="./images/TREXIO.png" width="100px" />@@ $\longrightarrow$
-@@html:<img src="./images/Champ.png" width="100px" />@@
+@@html: <img src="./images/Champ.png" height="80px" /> @@
 
 * Introduction
 
-  We will import a Hartree-Fock wavefunction from a TREXIO file into
-  Quantum Package (QP), and run a two-state CIPSI calculation with
-  these orbitals. The wavefunctions for the 2 states will be stored in
-  the TREXIO file, and we will run wave function optimization in
-  CHAMP, followed by a Diffusion Monte Carlo calculation.
+  We will import a Hartree-Fock wavefunction for the formaldehyde
+  (H_{2}CO) molecule from a TREXIO file into Quantum Package (QP), and
+  run a two-state CIPSI calculation with these orbitals. The
+  wavefunctions for the 2 states will be stored in the TREXIO file,
+  and we will run wave function optimization in CHAMP, followed by a
+  Diffusion Monte Carlo calculation.
 
+  #+begin_tip
   The expected excitation energy is around 4 eV.
+  #+end_tip
 
+* CIPSI 2-state calculations
 
-* CIPSI calculation
-
-  You first need to install the =trexio= Python module:
-  #+begin_src bash
-pip install trexio
-  #+end_src
-
-  You can now import the single-determinant wave function from the provided TREXIO file:
+  You can import the single-determinant wave function from the
+  provided [[https://github.com/TREX-CoE/school-slovakia-2022/raw/master/docs/TrexioFiles/COH2.trexio][TREXIO file COH2.trexio]] as:
 
   #+begin_src bash
 qp_import_trexio.py COH2.trexio -o COH2
@@ -44,18 +42,23 @@ qp set determinants n_states 2
   Tell QP to stop when the number of determinants is larger than 5000
 
   #+begin_src bash
-qp set determinants n_det_max 2000
+qp set determinants n_det_max 5000
   #+end_src
 
-  Remark: the excitation energy is around 10 eV. This is because the
+  #+begin_note
+  The excitation energy is around 10 eV. This is because the
   orbitals in the TREXIO file are symmetry adapted, so it is
   impossible to make a determinant from another symmetry enter in the
   determinant space.
 
   To obtain a solution from another symmetry, we need to put at least
-  one determinant of each symmetry. The simplest practical solution is
-  to first perform a CIS, and then continue with a CIPSI in the FCI
-  space.
+  one determinant of each symmetry.
+  #+end_note
+
+  #+begin_tip
+  The simplest practical solution is to first perform a CIS, and then
+  continue with a CIPSI in the FCI space.
+  #+end_tip
 
     #+begin_src bash
 qp run cis | tee COH2.cis.out
@@ -67,11 +70,74 @@ qp run fci | tee COH2.fci.out
   EZFIO database should be used as a starting point for the the CI calculation.
 
   Now, we have obtained a more reasonable excitation energy, around 4
-  eV. We can export the wavefunctions in the TREX file:
+  eV. We are now ready to export the data for CHAMP.
+
+* Export wave functions to CHAMP
+
+  The excited states are of different symmetries, so we will generate
+  two different setups in CHAMP, one for each state. To do that, we will
+  save two different files, one with each state, and containing only
+  the non-zero determinants.
+
+  First, copy the =COH2= directory into =COH2_GS= and =COH2_ES=, one
+  directory for each state:
 
   #+begin_src bash
-qp set trexio trexio_file  COH2.trexio
+cp -r COH2 COH2_GS
+cp -r COH2 COH2_ES
+  #+end_src
+
+  Then, we will use =qp_edit= to extract one state in each EZFIO
+  directory:
+
+  #+begin_src bash
+qp set_file COH2_GS
+qp edit --state=1
+
+qp set_file COH2_ES
+qp edit --state=2
+  #+end_src
+
+  The states have been extracted, but the EZFIO databases still
+  contain the determinants with zero coefficients. We can remove them
+  by running
+
+  #+begin_src bash
+qp set_file COH2_GS
+qp run truncate_wf
+  #+end_src
+
+  This last program is interactive and asks for the minimum weight of
+  the kept configurations. Answer =1.e-10= to this question.
+
+  Similarly, remove the negligible determinants from the excited
+  state:
+
+  #+begin_src bash
+qp set_file COH2_ES
+qp run truncate_wf
+  #+end_src
+
+  We can now export the wave functions in two different TREXIO
+  files. To do that, for each state we copy the initial TREXIO file
+  and add the determinants information:
+
+  #+begin_src bash
+cp COH2.trexio COH2_GS.trexio
+qp set_file COH2_GS
+qp set trexio trexio_file  COH2_GS.trexio
 qp run export_trexio
   #+end_src
 
+  #+begin_src bash
+cp COH2.trexio COH2_ES.trexio
+qp set_file COH2_ES
+qp set trexio trexio_file  COH2_ES.trexio
+qp run export_trexio
+  #+end_src
+
+  Now, we are ready to run the QMC calculations for each state.
+
+
+* QMC wave function optimizations
 

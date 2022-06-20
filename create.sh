@@ -1,6 +1,13 @@
 #!/bin/bash                                                                                                                   
-readonly ORG_FILES="*.org"
 readonly HTMLIZE=./docs/htmlize.el
+
+if [[ -z $1 ]] ; then
+   ORG_FILES="*.org"
+else
+   ORG_FILES=$1
+fi
+
+echo $ORG_FILES
 
 
 # Download the htmlize Emacs plugin if not present

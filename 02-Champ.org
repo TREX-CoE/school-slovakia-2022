@@ -6,8 +6,8 @@
 #+SETUPFILE: org-html-themes/org/theme-readtheorg-local.setup
 # QMC Hands-on Summer Workshop
 
-#+ATTR_HTML: :width 100px
-#+ATTR_LATEX: :width 100px
+#+ATTR_HTML: :height 100px
+#+ATTR_LATEX: :height 100px
   [[./images/Champ.png]]
 
 
@@ -16,8 +16,12 @@ The Cornell-Holland Ab-initio Materials Package (CHAMP) is a quantum
 Monte Carlo suite of programs for electronic structure calculations of
 atomic and molecular systems.
 
-** Requirements
+#+begin_tip
+For the purpose of this workshop, we have installed CHAMP for you. You may skip directly to Section [[champ_examples]] for using CHAMP.
+#+end_tip
 
+** Requirements
+   
      1. Cmake >= 3.20
      2. gfortran/gcc >= 9.3.0 or Intel Fortran 2020 onward / Intel OneAPI
      3. BLAS/LAPACK (OpenBLAS) or Intel MKL
@@ -32,8 +36,8 @@ sudo apt-get install -y cmake
     #+end_src
      or
 
-     Download and extract the latest cmake for the precompiled binary
- #+begin_src bash 
+     Download and extract the latest cmake for the pre-compiled binary
+ #+begin_src bash
 wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
 tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
 export PATH=cmake-3.24.0-rc1-linux-x86_64/bin:$PATH
@@ -44,7 +48,7 @@ export PATH=cmake-3.24.0-rc1-linux-x86_64/bin:$PATH
 **** Installation without sudo access
 
      Download Intel oneAPI basekit and HPCkit for free from
-     #+begin_src bash 
+     #+begin_src bash
 wget https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262.sh
 chmod a+x ./l_BaseKit_p_2022.2.0.262.sh
 sh ./l_BaseKit_p_2022.2.0.262.sh
@@ -54,7 +58,7 @@ chmod a+x ./l_HPCKit_p_2022.2.0.191.sh
 sh ./l_HPCKit_p_2022.2.0.191.sh
      #+end_src
 
-     After installation export the path to your bashrc.
+     After installation export the path to your =~/.bashrc=.
 
 **** Prerequisites for Intel oneAPI with sudo access
 
@@ -88,7 +92,7 @@ cmake --build build -j 8
 *** Installation using GNU Compiler
 
     #+begin_warning
-  - Make sure that the installed version of cmake is higher than 3.20
+  - Make sure that the installed version of Cmake is higher than 3.20
   - Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0
     #+end_warning
 
@@ -121,19 +125,33 @@ cmake --build build -j 8
  cmake --build build
   #+end_src
 
-* Setup of input files
+* <<champ_examples>> Setup of input files
 
  The tutorial folder is located at: =/lustre/home/filippi/Tutorial-QMC-School=
 
- There are two folders inside
+ There are several example folders inside
  1. =example01_H2O_HF=
- 2. =example01_H2O_DFT=
+ 2. =example02_H2O_DFT=
+ 3. =example03_H2O_HF_optjas2body=
+ 4. =example04_H2O_HF_dmc2body_tau0.05=
+ 5. =example05_H2O_HF_dmc2body_tau0.02=
+ 6. =example06_H2O_DFT_optjas2body=
+ 7. =example07_H2O_DFT_dmc2body_tau0.05=
+ 8. =example08_H2O_DFT_dmc2body_tau0.02=
+ 9. =example09_H2O_DFT_dmc2body_optall_tau0.02=
+ 10. =example09_H2O_DFT_dmc2body_optall_tau0.05=
+ 11. =example09_H2O_DFT_optall=
+ 12. =example10_COH2_ground_state=
+ 13. =example11_COH2_excited_state=
 
  Each example directory will contain a setup folder, where you can
- generate the necessary input files for CHAMP from a single trexio
+ generate the necessary input files for CHAMP from a single TREXIO
  file (in HDF5 format)
 
  The scripts for conversion are also included in the folder.
+
+ * Example 01: H_{2}0 with HF molecular orbitals
+
 
  #+begin_src bash
  cd 01_champ_tools/example01_H2O_HF/setup
@@ -143,15 +161,16 @@ cmake --build build -j 8
 
  #+begin_src bash
  #!/bin/bash
- python ../../trex2champ.py --trex "trexio_H2O_HF.hdf5" \
-                            --motype  "RHF" \
-                            --backend "HDF5" \
-                            --basis_prefix "GRID" \
-                            --lcao \
-                            --geom \
-                            --basis \
-                            --ecp \
-                            --det
+ python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py \
+			--trex 	"trexio_H2O_HF.hdf5" \
+			--motype 	"RHF" \
+			--backend	"HDF5" \
+			--basis_prefix  "BFD-aug-cc-pVDZ" \
+			--lcao \
+			--geom \
+			--basis \
+			--ecp \
+			--det
  #+end_src
 
  Execute this script to generate the files:
@@ -171,8 +190,8 @@ cmake --build build -j 8
  champ_v2_trexio_H2O_HF_with_g.bfinfo
  ECP.gauss_ecp.dat.H
  ECP.gauss_ecp.dat.O
- GRID.basis.H
- GRID.basis.O
+ BFD-aug-cc-pVDZ.basis.H
+ BFD-aug-cc-pVDZ.basis.O
  #+end_example
 
  The remaining files should be kept in the =01_champ_tools/example01_H2O_HF= directory.
@@ -183,15 +202,15 @@ cmake --build build -j 8
 
  #+begin_example
  champ_v2_trexio_H2O_HF_orbitals.lcao
- champ_v2_TREXIO_trexio_H2O_HF_determinants.det
- jastrow.jas
+ champ_v2_trexio_H2O_HF_determinants.det
+ jastrow.start
  run_champ.sh
  vmc_h2o_hf.inp
  pool/
  setup/
  #+end_example
 
-* Example 01: H_{2}0 with HF
+
 
  The input file =vmc_h2o_hf.inp= looks like:
  #+begin_example
@@ -199,8 +218,8 @@ cmake --build build -j 8
      title           'H2O HF calculation'
      pool            './pool/'
      pseudopot       ECP
-     basis           GRID
-     mode            'vmc_one_mpi1'
+     basis           BFD-aug-cc-pVDZ
+     mode            vmc
  %endmodule
 
 
@@ -208,8 +227,8 @@ cmake --build build -j 8
 
  load basis_num_info  $pool/champ_v2_trexio_H2O_HF_with_g.bfinfo
  load orbitals        champ_v2_trexio_H2O_HF_orbitals.lcao
- load determinants    champ_v2_TREXIO_trexio_H2O_HF_determinants.det
- load jastrow         jastrow.jas
+ load determinants    champ_v2_trexio_H2O_HF_determinants.det
+ load jastrow         jastrow.start
 
  %module electrons
      nup           4
@@ -219,7 +238,7 @@ cmake --build build -j 8
 
  %module blocking_vmc
      vmc_nstep     20
-     vmc_nblk      20000
+     vmc_nblk      100000
      vmc_nblkeq    1
      vmc_nconf_new 0
  %endmodule
