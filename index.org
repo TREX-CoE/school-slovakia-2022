@@ -6,7 +6,7 @@
 
 * Presentations
 
-    - [[./Presentations/xxx.pdf][Basic VMC and DMC]]
+    - [[./Presentations/lectures_filippi_1.pdf][Basic VMC and DMC]]
     - [[./Presentations/multidet.pdf][Multi-determinant wave functions]]
 
 * Hands-on

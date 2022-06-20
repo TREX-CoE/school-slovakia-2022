@@ -65,14 +65,14 @@ qp run fci > COH2.fci.out
 * Example of a CHAMP job script
 
   CHAMP is parallelized with MPI, and doesn't use multi-threading. You
-  should request a single node, with 12 processes (as there are 12
+  should request a single node, with 16 processes (as there are 16
   cores per node).
 
 ** Variational Monte Carlo run
 
  #+begin_src bash
 #!/bin/bash
-#SBATCH -N 1 -n 12
+#SBATCH -N 1 -n 16
 #SBATCH --account=reserved
 #SBATCH --partition=reserved
 
@@ -81,20 +81,20 @@ source ~scemama/environment.sh
 INPUT=vmc_h2o_hf.inp
 
 OUTPUT=${INPUT%.inp}.out
-mpirun -np 12 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $INPUT -o $OUTPUT -e error
+mpirun -np 16 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $INPUT -o $OUTPUT -e error
  #+end_src
 
 ** Diffusion Monte Carlo run
 
  #+begin_src bash
 #!/bin/bash
-#SBATCH -N 1 -n 12
+#SBATCH -N 1 -n 16
 
 source ~scemama/environment.sh
 
 INPUT=dmc_h2o_hf.inp
 
 OUTPUT=${INPUT%.inp}.out
-mpirun -np 12 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $INPUT -o $OUTPUT -e error
+mpirun -np 16 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $INPUT -o $OUTPUT -e error
  #+end_src
 
