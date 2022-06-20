@@ -290,6 +290,11 @@ load champ_v2_COH2_GS_symmetry.sym
   \[
   E_{\rm GS}+\delta E_{\rm GS}  \text{ and } E_{\rm ES}+\delta E_{\rm ES},
   \]
+  where $\delta E$ is the statistical error, 
   the error on $\Delta E= E_{\rm ES}-E_{\rm GS}$
-  is given by $\sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2$.
+  is given by
+  \[
+  \sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2.
+  \]
+  
 
