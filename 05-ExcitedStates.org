@@ -12,11 +12,12 @@
 
 * Introduction
 
-  We will import a Hartree-Fock wavefunction from a TREXIO file into
-  Quantum Package (QP), and run a two-state CIPSI calculation with
-  these orbitals. The wavefunctions for the 2 states will be stored in
-  the TREXIO file, and we will run wave function optimization in
-  CHAMP, followed by a Diffusion Monte Carlo calculation.
+  We will import a Hartree-Fock wavefunction for the formaldehyde
+  (H_{2}CO) molecule from a TREXIO file into Quantum Package (QP), and
+  run a two-state CIPSI calculation with these orbitals. The
+  wavefunctions for the 2 states will be stored in the TREXIO file,
+  and we will run wave function optimization in CHAMP, followed by a
+  Diffusion Monte Carlo calculation.
 
   #+begin_tip
   The expected excitation energy is around 4 eV.
@@ -25,7 +26,7 @@
 * CIPSI 2-state calculations
 
   You can import the single-determinant wave function from the
-  provided TREXIO file as:
+  provided [[https://github.com/TREX-CoE/school-slovakia-2022/raw/master/docs/TrexioFiles/COH2.trexio][TREXIO file COH2.trexio]] as:
 
   #+begin_src bash
 qp_import_trexio.py COH2.trexio -o COH2
@@ -139,3 +140,4 @@ qp run export_trexio
 
 
 * QMC wave function optimizations
+

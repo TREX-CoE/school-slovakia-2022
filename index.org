@@ -16,3 +16,14 @@
     3. [[./03-JobScripts.org][Job script examples]]
     4. [[./04-QP_CHAMP.org][Ground state QMC calculations]]
     5. [[./05-ExcitedStates.org][Excited state calculations]]
+    6. [[./06-Geometry.org][Geometry optimization]]
+
+#+begin_note
+    This web site is available here:
+
+    https://trex-coe.github.io/school-slovakia-2022/
+
+#+end_note
+
+    To go back to the main page, you ca click on the [[./inder.org][HOME]] button at
+    the top right of the web pages.
