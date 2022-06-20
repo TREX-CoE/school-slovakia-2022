@@ -281,7 +281,7 @@ end
 
  #+begin_src bash
 python3 ~filippi/Tutorial-QMC-School/trex2champ.py --trex "h2o_hf.trexio" \
-                       --motype  "RHF" \
+                       --motype  "Canonical" \
                        --backend "HDF5" \
                        --basis_prefix "BFD-cc-pVDZ" \
                        --lcao \
