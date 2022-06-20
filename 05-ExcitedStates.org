@@ -73,7 +73,7 @@ qp run fci | tee COH2.fci.out
 
   #+begin_src bash
 qp set determinants selection_factor 0.5
-  #+end_src bash
+  #+end_src
 
   #+begin_src bash
 qp run cis | tee COH2.cis.out

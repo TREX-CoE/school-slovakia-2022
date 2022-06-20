@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 20:52 -->
+<!-- 2022-06-20 Mon 20:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -255,10 +255,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd426f40">1. Introduction</a></li>
-<li><a href="#orge0e1fa1">2. CIPSI 2-state calculations</a></li>
-<li><a href="#org77d76fd">3. Export wave functions to CHAMP</a></li>
-<li><a href="#orgdb56f15">4. QMC wave function optimizations</a></li>
+<li><a href="#org0ce3a49">1. Introduction</a></li>
+<li><a href="#org70ef069">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org882c06b">3. Export wave functions to CHAMP</a></li>
+<li><a href="#org829904a">4. QMC wave function optimizations</a></li>
 </ul>
 </div>
 </div>
@@ -269,8 +269,8 @@
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-orgd426f40" class="outline-2">
-<h2 id="orgd426f40"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org0ce3a49" class="outline-2">
+<h2 id="org0ce3a49"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -281,7 +281,7 @@ and we will run wave function optimization in CHAMP, followed by a
 Diffusion Monte Carlo calculation.
 </p>
 
-<div class="tip" id="orgfab7632">
+<div class="tip" id="org4082d7a">
 <p>
 The expected excitation energy is around 4 eV.
 </p>
@@ -290,8 +290,8 @@ The expected excitation energy is around 4 eV.
 </div>
 </div>
 
-<div id="outline-container-orge0e1fa1" class="outline-2">
-<h2 id="orge0e1fa1"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-org70ef069" class="outline-2">
+<h2 id="org70ef069"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -331,7 +331,7 @@ and run the CIPSI in the Full-CI space:
 </pre>
 </div>
 
-<div class="note" id="org7795e05">
+<div class="note" id="orgc3f8897">
 <p>
 The extrapolated excitation energy is around 8 eV and we expect 4 ev, so
 we did not catch the correct state.  This is because the
@@ -347,7 +347,7 @@ one determinant of each symmetry.
 
 </div>
 
-<div class="tip" id="org05a3f2f">
+<div class="tip" id="org3f9378f">
 <p>
 The simplest practical solution is to first perform a CIS, and then
 continue with a CIPSI in the FCI space.
@@ -363,10 +363,11 @@ add less determinants at each iteration to have a finer selection.
 
 <div class="org-src-container">
 <pre class="src src-bash">qp set determinants selection_factor 0.5
-  #<span style="color: #b22222;">+end_src bash</span>
+</pre>
+</div>
 
-  #<span style="color: #b22222;">+begin_src bash</span>
-qp run cis | tee COH2.cis.out
+<div class="org-src-container">
+<pre class="src src-bash">qp run cis | tee COH2.cis.out
 qp set determinants read_wf true
 qp run fci | tee COH2.fci.out
 </pre>
@@ -384,8 +385,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-org77d76fd" class="outline-2">
-<h2 id="org77d76fd"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org882c06b" class="outline-2">
+<h2 id="org882c06b"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -476,13 +477,13 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-orgdb56f15" class="outline-2">
-<h2 id="orgdb56f15"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-org829904a" class="outline-2">
+<h2 id="org829904a"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-20 Mon 20:52</p>
+<p class="date">Created: 2022-06-20 Mon 20:54</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
