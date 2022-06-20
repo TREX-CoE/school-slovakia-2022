@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 18:55 -->
+<!-- 2022-06-20 Mon 19:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -266,10 +266,15 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd0d59f8">1. Introduction</a></li>
-<li><a href="#org9e83f17">2. CIPSI 2-state calculations</a></li>
-<li><a href="#orgba9c180">3. Export wave functions to CHAMP</a></li>
-<li><a href="#org64ea3ad">4. QMC wave function optimizations</a></li>
+<li><a href="#org62c31be">1. Introduction</a></li>
+<li><a href="#org00464eb">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org7dfcfa3">3. Export wave functions to CHAMP</a></li>
+<li><a href="#org346100d">4. QMC wave function optimizations</a>
+<ul>
+<li><a href="#org3bca217">4.1. Optimization of the ground state</a></li>
+<li><a href="#org6e09d2d">4.2. Optimization of the excited state</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -280,8 +285,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-orgd0d59f8" class="outline-2">
-<h2 id="orgd0d59f8"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org62c31be" class="outline-2">
+<h2 id="org62c31be"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -294,15 +299,16 @@ Diffusion Monte Carlo calculation.
 
 <div class="tip">
 <p>
-The expected excitation energy is around 4 eV.
+The theoretical best estimate of the excitation energy (complete basis set
+extrapolation from coupled cluster calculations) is 3.97 eV.
 </p>
 
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9e83f17" class="outline-2">
-<h2 id="org9e83f17"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-org00464eb" class="outline-2">
+<h2 id="org00464eb"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -396,8 +402,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-orgba9c180" class="outline-2">
-<h2 id="orgba9c180"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org7dfcfa3" class="outline-2">
+<h2 id="org7dfcfa3"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -488,13 +494,175 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-org64ea3ad" class="outline-2">
-<h2 id="org64ea3ad"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-org346100d" class="outline-2">
+<h2 id="org346100d"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+In this section, we will optimize a Jastrow factor for each state, and
+we will the re-optimize the CI coefficients in the presence of the Jastrow.
+The setup of the CHAMP files is similar to what we have done in
+<a href="./04-QP_CHAMP.html">section 4</a>.
+</p>
+</div>
+
+<div id="outline-container-org3bca217" class="outline-3">
+<h3 id="org3bca217"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Create a new directory, and copy the <code>COH2_GS.trexio</code> TREXIO file inside it.
+Convert the TREXIO file into CHAMP files:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py <span style="color: #8b2252;">\</span>
+                        --trex          <span style="color: #8b2252;">"COH2_GS.trexio"</span> <span style="color: #8b2252;">\</span>
+                        --motype        <span style="color: #8b2252;">"Canonical"</span> <span style="color: #8b2252;">\</span>
+                        --backend       <span style="color: #8b2252;">"HDF5"</span> <span style="color: #8b2252;">\</span>
+                        --basis_prefix  <span style="color: #8b2252;">"BFD-aug-cc-pVDZ"</span> <span style="color: #8b2252;">\</span>
+                        --lcao <span style="color: #8b2252;">\</span>
+                        --geom <span style="color: #8b2252;">\</span>
+                        --basis <span style="color: #8b2252;">\</span>
+                        --ecp <span style="color: #8b2252;">\</span>
+                        --sym <span style="color: #8b2252;">\</span>
+                        --det
+</pre>
+</div>
+
+<p>
+H<sub>2</sub>CO has three different atom types, so the jastrow factow file
+will be slightly different from the file for water with one extra
+line for \(a\) parameters. You can start with:
+</p>
+
+<pre class="example">
+jastrow_parameter   1
+  5  5  0           norda,nordb,nordc
+   0.60000000   0.00000000     scalek,a21
+   0.00000000   0.00000000  0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n C
+   0.00000000   0.00000000  0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n O
+   0.00000000   0.00000000  0. 0. 0. 0. (a(iparmj),iparmj=1,nparma) ! e-n H
+   0.50000000   1.00000000  0. 0. 0. 0. (b(iparmj),iparmj=1,nparmb)
+ (c(iparmj),iparmj=1,nparmc) ! e-e-n C
+ (c(iparmj),iparmj=1,nparmc) ! e-e-n O
+ (c(iparmj),iparmj=1,nparmc) ! e-e-n H
+end
+</pre>
+
+<p>
+Start by optimizing the Jastrow factor and perform a ``quick'' optimization.
+</p>
+
+<p>
+%module optwf
+    ioptwf        1
+    ioptci        0
+    ioptjas       1
+    ioptorb       0
+    method        'sr<sub>n</sub>'
+</p>
+
+<p>
+ncore         0
+nextorb       600
+nblk<sub>max</sub>      5000
+</p>
+
+<p>
+    nopt<sub>iter</sub>     10
+    sr<sub>tau</sub>        0.05
+    sr<sub>eps</sub>        0.01
+    sr<sub>adiag</sub>      0.01
+%endmodule
+</p>
+
+
+<p>
+%module blocking<sub>vmc</sub>
+    vmc<sub>nstep</sub>     20
+    vmc<sub>nblk</sub>      20
+    vmc<sub>nblkeq</sub>    1
+    vmc<sub>nconf</sub><sub>new</sub> 0
+%endmodule
+</p>
+
+<p>
+Move the jastrow<sub>optimal.1.iter10</sub> to jastrow<sub>optimal.rough</sub><sub>GS</sub> and 
+load this optimized Jastrow factor. You can now optimize also the CI
+coefficients together with the Jastrow factor by setting:
+</p>
+
+<p>
+ioptci        1
+</p>
+
+<p>
+Use some more MC steps to perform a stricter optimization.
+</p>
+
+<p>
+%module blocking<sub>vmc</sub>
+    vmc<sub>nstep</sub>     20
+    vmc<sub>nblk</sub>      500
+    vmc<sub>nblkeq</sub>    1
+    vmc<sub>nconf</sub><sub>new</sub> 0
+%endmodule
+</p>
+
+<p>
+   In your directory, you will now have jastrow<sub>optimal.1.iterX</sub> and
+det<sub>optimal.1.iterX</sub> files.
+</p>
+
+<p>
+Set up a DMC calculations where you use the optimal Jastrow and 
+CI coefficients. Adjust the etrial to be a bit below the VMC energy.
+Recall that you will have to generate the mc<sub>configs</sub> file.
+</p>
+
+<p>
+Note: You could have also optimized the orbitals but we did not 
+do it here to keep the calculations short. If you are setting 
+optorb=1, load also the symmetry file
+</p>
+
+<p>
+load champ<sub>v2</sub><sub>COH2</sub><sub>GS</sub><sub>symmetry.sym</sub>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6e09d2d" class="outline-3">
+<h3 id="org6e09d2d"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
+Apply the same procedure as for the ground state.
+</p>
+
+<p>
+Repeat what you have done for the ground state. Start to perform
+a quick optimization of the Jastrow factor but do not start from
+zero's: start from the Jastrow factor you have for the ground 
+state, namely, jastrow<sub>optimal.rough</sub><sub>GS</sub>.
+</p>
+
+<p>
+Do all step until when you obtain the DMC energy.
+</p>
+
+<p>
+Compute the VMC and DMC excitation energies. Recall that if your 
+energies are \(E_{\rm GS}+\delta E_{\rm GS}\) and 
+\(E_{\rm ES}+\delta E_{\rm ES}\), the error on \(\Delta E= E_{\rm ES}-E_{\rm GS}\)
+is given by \(\sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2\).
+</p>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-20 Mon 18:55</p>
+<p class="date">Created: 2022-06-20 Mon 19:57</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
