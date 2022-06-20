@@ -236,19 +236,23 @@ end
   load this optimized Jastrow factor. You can now optimize also the CI
   coefficients together with the Jastrow factor by setting:
 
+#+begin_example
     ioptci        1
+#+end_example
 
   Use some more MC steps to perform a stricter optimization.
 
+#+begin_example
 %module blocking_vmc
     vmc_nstep     20
     vmc_nblk      500
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule
+#+end_example
 
-   In your directory, you will now have jastrow_optimal.1.iterX and
-det_optimal.1.iterX files.
+   In your directory, you will now have =jastrow_optimal.1.iterX= and
+   =det_optimal.1.iterX= files.
 
    Set up a DMC calculations where you use the optimal Jastrow and 
    CI coefficients. Adjust the etrial to be a bit below the VMC energy.
