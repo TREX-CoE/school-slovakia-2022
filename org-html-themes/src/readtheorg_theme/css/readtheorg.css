@@ -595,7 +595,7 @@ a .fa,a #content .admonition-title,#content a .admonition-title{
     padding:6px 12px;
     margin-bottom:0px}
 
-#content .danger,#content .error,#content .exercise,#content .question{
+#content .danger,#content .error,#content .exercise,#content .important,#content .question{
     background:#fdf3f2}
 
 
@@ -617,11 +617,11 @@ a .fa,a #content .admonition-title,#content a .admonition-title{
 .wy-alert p:last-child,#content .note p:last-child,#content .attention p:last-child,#content .caution p:last-child,#content .danger p:last-child,#content .exercise p:last-child,#content .question p:last-child,#content .error p:last-child,#content .hint p:last-child,#content .important p:last-child,#content .tip p:last-child,#content .warning p:last-child,#content .seealso p:last-child,#content .admonitiontodo p:last-child{
     margin-bottom:0}
 
-#content .admonition-title.tip,#content .admonition-title.important,#content .admonition-title.hint{
+#content .admonition-title.tip,#content .admonition-title.hint{
     line-height: 1;
     background:#1abc9c}
 
-#content .important,#content .tip,#content .hint{
+#content .tip,#content .hint{
     background:#dbfaf4}
 
 #content .admonition-title.note,#content .admonition-title.seealso{
@@ -632,7 +632,7 @@ a .fa,a #content .admonition-title,#content a .admonition-title{
     line-height: 1;
     background:#F0B37E}
 
-#content .admonition-title.error,#content .admonition-title.danger,#content .admonition-title.exercise,#content .admonition-title.question{
+#content .admonition-title.important,#content .admonition-title.error,#content .admonition-title.danger,#content .admonition-title.exercise,#content .admonition-title.question{
     line-height: 1;
     background:#f29f97}
 

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 07:20 -->
+<!-- 2022-06-20 Mon 07:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Quantum Package</title>
@@ -266,9 +266,9 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org37dae57">1. Environment</a></li>
-<li><a href="#orge05b6f3">2. The EZFIO database</a></li>
-<li><a href="#orgd4d53c6">3. qp commands</a></li>
+<li><a href="#orgbf074ea">1. Environment</a></li>
+<li><a href="#org567a8ea">2. The EZFIO database</a></li>
+<li><a href="#org654494a">3. qp commands</a></li>
 </ul>
 </div>
 </div>
@@ -278,8 +278,8 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org37dae57" class="outline-2">
-<h2 id="org37dae57"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-orgbf074ea" class="outline-2">
+<h2 id="orgbf074ea"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> is an open-source environment for developing
@@ -287,31 +287,39 @@ easily quantum chemistry programs. It was initially designed for code
 developers, but it is relatively simple to use.
 </p>
 
-
+<div class="important">
 <p>
 Before doing anything with quantum package, the environment needs to
 be set up
 </p>
+
 <div class="org-src-container">
 <pre class="src src-bash">source $<span style="color: #a0522d;">QP_ROOT</span>/quantum_package.rc
 </pre>
 </div>
+
 <p>
 where <code>$QP_ROOT</code> is the path to the <code>qp2</code> directory.
 </p>
 
+</div>
+
+<div class="tip">
 <p>
 An alternative, when using QP interactively is to run the QP shell:
 </p>
+
 <div class="org-src-container">
 <pre class="src src-bash">$<span style="color: #a0522d;">QP_ROOT</span>/bin/qpsh
 </pre>
 </div>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-orge05b6f3" class="outline-2">
-<h2 id="orge05b6f3"><span class="section-number-2">2</span> The EZFIO database</h2>
+<div id="outline-container-org567a8ea" class="outline-2">
+<h2 id="org567a8ea"><span class="section-number-2">2</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP stores input and output data in a database, called the <i>EZFIO directory</i>.
@@ -368,8 +376,8 @@ will become red, meaning that the EZFIO database in inaccessible.
 </div>
 
 
-<div id="outline-container-orgd4d53c6" class="outline-2">
-<h2 id="orgd4d53c6"><span class="section-number-2">3</span> qp commands</h2>
+<div id="outline-container-org654494a" class="outline-2">
+<h2 id="org654494a"><span class="section-number-2">3</span> qp commands</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 To get the documentation of the <code>qp</code> command, you can use
@@ -381,7 +389,7 @@ To get the documentation of the <code>qp</code> command, you can use
 
 <div class="tip">
 <p>
-Note: all QP commands come with a <code>--help</code> option for documentaion.
+Note: all QP commands come with a <code>--help</code> option for documentation.
 </p>
 
 </div>
@@ -399,7 +407,7 @@ QP. To run a QP program, use <code>qp run</code>:
 <div class="tip">
 <p>
 Here, we have copied the standard output into the file
-<code>h2o.scf.out</code> using the <code>tee</code> linux command.
+<code>h2o.scf.out</code> using the <code>tee</code> Linux command.
 </p>
 
 </div>
@@ -472,18 +480,19 @@ The parameters can be set in the shell using <code>qp set</code>:
 </pre>
 </div>
 
+<div class="tip">
 <p>
-#+begin<sub>tip</sub>
 You can use Tab-completion with the <code>qp</code> command, which makes
 the shell interaction more user-friendly.
-#+end<sub>note</sub>
 </p>
+
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-20 Mon 07:20</p>
+<p class="date">Created: 2022-06-20 Mon 07:50</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
