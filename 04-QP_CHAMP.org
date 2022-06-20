@@ -25,7 +25,7 @@
 
  For QMC calculations, we need to use pseudopotentials optimized specifically for
  QMC, and basis sets optimized to be used with these
- pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] (BFG) ones except
+ pseudopotentials. Here, we use the [[http://burkatzki.com/pseudos/index.2.html][Burkatzki-Filippi-Dolg]] (BFD) ones except
  for hydrogen (the hydrogen pseudo on the website is too soft and not sufficiently accurate).
 
  QP can read basis sets and pseudopotentials from files in GAMESS
