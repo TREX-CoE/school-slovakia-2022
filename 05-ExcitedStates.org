@@ -163,6 +163,10 @@ qp run export_trexio
   The setup of the CHAMP files is similar to what we have done in
   [[./04-QP_CHAMP.org][section 4]].
 
+  #+begin_warning
+  Here, we have 12 electrons, 6 up and 6 down.
+  #+end_warning
+
 ** Optimization of the ground state
 
   Create a new directory, and copy the =COH2_GS.trexio= TREXIO file inside it.
