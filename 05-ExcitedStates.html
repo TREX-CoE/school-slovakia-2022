@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 19:57 -->
+<!-- 2022-06-20 Mon 20:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -266,13 +266,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org62c31be">1. Introduction</a></li>
-<li><a href="#org00464eb">2. CIPSI 2-state calculations</a></li>
-<li><a href="#org7dfcfa3">3. Export wave functions to CHAMP</a></li>
-<li><a href="#org346100d">4. QMC wave function optimizations</a>
+<li><a href="#orgdda6711">1. Introduction</a></li>
+<li><a href="#org81dc242">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org5fdf728">3. Export wave functions to CHAMP</a></li>
+<li><a href="#orgffa0ef2">4. QMC wave function optimizations</a>
 <ul>
-<li><a href="#org3bca217">4.1. Optimization of the ground state</a></li>
-<li><a href="#org6e09d2d">4.2. Optimization of the excited state</a></li>
+<li><a href="#org268b11d">4.1. Optimization of the ground state</a></li>
+<li><a href="#org1f674c9">4.2. Optimization of the excited state</a></li>
 </ul>
 </li>
 </ul>
@@ -285,8 +285,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-org62c31be" class="outline-2">
-<h2 id="org62c31be"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orgdda6711" class="outline-2">
+<h2 id="orgdda6711"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -307,8 +307,8 @@ extrapolation from coupled cluster calculations) is 3.97 eV.
 </div>
 </div>
 
-<div id="outline-container-org00464eb" class="outline-2">
-<h2 id="org00464eb"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-org81dc242" class="outline-2">
+<h2 id="org81dc242"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -322,7 +322,7 @@ qp set_file COH2
 </div>
 
 <p>
-Specify you want to run a two-state calculation:
+Specify that you want to run a two-state calculation:
 </p>
 
 <div class="org-src-container">
@@ -402,13 +402,13 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-org7dfcfa3" class="outline-2">
-<h2 id="org7dfcfa3"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org5fdf728" class="outline-2">
+<h2 id="org5fdf728"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
 two different setups in CHAMP, one for each state. To do that, we will
-save two different files, one with each state, and containing only
+save two different files, one for each state, and containing only
 the non-zero determinants.
 </p>
 
@@ -439,7 +439,7 @@ qp edit --state=2
 
 <p>
 The states have been extracted, but the EZFIO databases still
-contain the determinants with zero coefficients. We can remove them
+contain the determinants with almost zero coefficients. We can remove them
 by running
 </p>
 
@@ -494,8 +494,8 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-org346100d" class="outline-2">
-<h2 id="org346100d"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-orgffa0ef2" class="outline-2">
+<h2 id="orgffa0ef2"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In this section, we will optimize a Jastrow factor for each state, and
@@ -505,8 +505,8 @@ The setup of the CHAMP files is similar to what we have done in
 </p>
 </div>
 
-<div id="outline-container-org3bca217" class="outline-3">
-<h3 id="org3bca217"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div id="outline-container-org268b11d" class="outline-3">
+<h3 id="org268b11d"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Create a new directory, and copy the <code>COH2_GS.trexio</code> TREXIO file inside it.
@@ -531,7 +531,8 @@ Convert the TREXIO file into CHAMP files:
 <p>
 H<sub>2</sub>CO has three different atom types, so the jastrow factow file
 will be slightly different from the file for water with one extra
-line for \(a\) parameters. You can start with:
+line for \(a\) parameters. You can start by saving the following in a file
+called <code>jastrow.simple</code>:
 </p>
 
 <pre class="example">
@@ -550,40 +551,36 @@ end
 
 <p>
 Start by optimizing the Jastrow factor and perform a ``quick'' optimization.
+The following champ input file (<code>vmc_quick.inp</code>) contains the parameters for such a ``quick''
+optimization.
 </p>
 
-<p>
+<pre class="example">
 %module optwf
     ioptwf        1
     ioptci        0
     ioptjas       1
     ioptorb       0
-    method        'sr<sub>n</sub>'
-</p>
+    method        'sr_n'
 
-<p>
-ncore         0
-nextorb       600
-nblk<sub>max</sub>      5000
-</p>
+    ncore         0
+    nextorb       600
+    nblk_max      5000
 
-<p>
-    nopt<sub>iter</sub>     10
-    sr<sub>tau</sub>        0.05
-    sr<sub>eps</sub>        0.01
-    sr<sub>adiag</sub>      0.01
+    nopt_iter     10
+    sr_tau        0.05
+    sr_eps        0.01
+    sr_adiag      0.01
 %endmodule
-</p>
 
 
-<p>
-%module blocking<sub>vmc</sub>
-    vmc<sub>nstep</sub>     20
-    vmc<sub>nblk</sub>      20
-    vmc<sub>nblkeq</sub>    1
-    vmc<sub>nconf</sub><sub>new</sub> 0
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      20
+    vmc_nblkeq    1
+    vmc_nconf_new 0
 %endmodule
-</p>
+</pre>
 
 <p>
 Move the jastrow<sub>optimal.1.iter10</sub> to jastrow<sub>optimal.rough</sub><sub>GS</sub> and 
@@ -591,48 +588,51 @@ load this optimized Jastrow factor. You can now optimize also the CI
 coefficients together with the Jastrow factor by setting:
 </p>
 
-<p>
+<pre class="example">
 ioptci        1
-</p>
+</pre>
 
 <p>
 Use some more MC steps to perform a stricter optimization.
 </p>
 
-<p>
-%module blocking<sub>vmc</sub>
-    vmc<sub>nstep</sub>     20
-    vmc<sub>nblk</sub>      500
-    vmc<sub>nblkeq</sub>    1
-    vmc<sub>nconf</sub><sub>new</sub> 0
+<pre class="example">
+%module blocking_vmc
+    vmc_nstep     20
+    vmc_nblk      500
+    vmc_nblkeq    1
+    vmc_nconf_new 0
 %endmodule
-</p>
+</pre>
 
 <p>
-   In your directory, you will now have jastrow<sub>optimal.1.iterX</sub> and
-det<sub>optimal.1.iterX</sub> files.
+In your directory, you will now have <code>jastrow_optimal.1.iterX</code> and
+<code>det_optimal.1.iterX</code> files.
 </p>
 
 <p>
 Set up a DMC calculations where you use the optimal Jastrow and 
-CI coefficients. Adjust the etrial to be a bit below the VMC energy.
-Recall that you will have to generate the mc<sub>configs</sub> file.
+CI coefficients. Adjust the <code>etrial</code> to be a bit below the VMC energy.
+Recall that you will have to generate the <code>mc_configs</code> file.
 </p>
 
+<div class="tip">
 <p>
 Note: You could have also optimized the orbitals but we did not 
 do it here to keep the calculations short. If you are setting 
-optorb=1, load also the symmetry file
+<code>optorb=1</code>, load also the symmetry file
 </p>
 
-<p>
-load champ<sub>v2</sub><sub>COH2</sub><sub>GS</sub><sub>symmetry.sym</sub>
-</p>
+</div>
+
+<pre class="example">
+load champ_v2_COH2_GS_symmetry.sym
+</pre>
 </div>
 </div>
 
-<div id="outline-container-org6e09d2d" class="outline-3">
-<h3 id="org6e09d2d"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div id="outline-container-org1f674c9" class="outline-3">
+<h3 id="org1f674c9"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
@@ -662,7 +662,7 @@ is given by \(\sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2\).
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-20 Mon 19:57</p>
+<p class="date">Created: 2022-06-20 Mon 20:15</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
