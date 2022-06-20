@@ -184,7 +184,8 @@ python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py \
 
   H_{2}CO has three different atom types, so the jastrow factow file
   will be slightly different from the file for water with one extra
-  line for $a$ parameters. You can start with:
+  line for $a$ parameters. You can start by saving the following in a file
+  called =jastrow.simple=:
 
   #+begin_example
 jastrow_parameter   1
