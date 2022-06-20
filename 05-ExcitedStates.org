@@ -255,12 +255,14 @@ end
    =det_optimal.1.iterX= files.
 
    Set up a DMC calculations where you use the optimal Jastrow and 
-   CI coefficients. Adjust the etrial to be a bit below the VMC energy.
-   Recall that you will have to generate the mc_configs file.
+   CI coefficients. Adjust the ~etrial~ to be a bit below the VMC energy.
+   Recall that you will have to generate the ~mc_configs~ file.
 
+  #+begin_tip
    Note: You could have also optimized the orbitals but we did not 
    do it here to keep the calculations short. If you are setting 
    optorb=1, load also the symmetry file
+  #+end_tip
 
 load champ_v2_COH2_GS_symmetry.sym
 
