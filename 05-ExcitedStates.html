@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 18:32 -->
+<!-- 2022-06-20 Mon 18:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
@@ -266,10 +266,10 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org34c90da">1. Introduction</a></li>
-<li><a href="#org11e47c9">2. CIPSI 2-state calculations</a></li>
-<li><a href="#org2babe2b">3. Export wave functions to CHAMP</a></li>
-<li><a href="#orgdf1a401">4. QMC wave function optimizations</a></li>
+<li><a href="#orga519f17">1. Introduction</a></li>
+<li><a href="#orge1cb09d">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org8701d92">3. Export wave functions to CHAMP</a></li>
+<li><a href="#org600233c">4. QMC wave function optimizations</a></li>
 </ul>
 </div>
 </div>
@@ -280,8 +280,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-org34c90da" class="outline-2">
-<h2 id="org34c90da"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orga519f17" class="outline-2">
+<h2 id="orga519f17"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -301,8 +301,8 @@ The expected excitation energy is around 4 eV.
 </div>
 </div>
 
-<div id="outline-container-org11e47c9" class="outline-2">
-<h2 id="org11e47c9"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-orge1cb09d" class="outline-2">
+<h2 id="orge1cb09d"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -333,9 +333,19 @@ Tell QP to stop when the number of determinants is larger than 5000
 </pre>
 </div>
 
+<p>
+and run the CIPSI in the Full-CI space:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">qp run fci | tee COH2.fci.out
+</pre>
+</div>
+
 <div class="note">
 <p>
-The excitation energy is around 8 eV. This is because the
+The extrapolated excitation energy is around 8 eV and we expect 4 ev, so
+we did not catch the correct state.  This is because the
 orbitals in the TREXIO file are symmetry adapted, so it is
 impossible to make a determinant from another symmetry enter in the
 determinant space.
@@ -385,8 +395,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-org2babe2b" class="outline-2">
-<h2 id="org2babe2b"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org8701d92" class="outline-2">
+<h2 id="org8701d92"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -477,13 +487,13 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-orgdf1a401" class="outline-2">
-<h2 id="orgdf1a401"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-org600233c" class="outline-2">
+<h2 id="org600233c"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-20 Mon 18:32</p>
+<p class="date">Created: 2022-06-20 Mon 18:53</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
