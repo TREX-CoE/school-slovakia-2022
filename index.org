@@ -16,7 +16,6 @@
     3. [[./03-JobScripts.org][Job script examples]]
     4. [[./04-QP_CHAMP.org][Ground state QMC calculations]]
     5. [[./05-ExcitedStates.org][Excited state calculations]]
-    6. [[./06-Geometry.org][Geometry optimization]]
 
 #+begin_note
     This web site is available here:
