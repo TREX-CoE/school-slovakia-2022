@@ -6,9 +6,9 @@
 <!-- 2022-06-20 Mon 07:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>QMC Hands-on Summer Workshop</title>
+<title>Geometry optimization</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Claudia Filippi, Anthony Scemama" />
+<meta name="author" content="Claudia Filippi" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -232,66 +232,69 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href=""> UP </a>
+ <a accesskey="h" href="04-QP_CHAMP.org"> UP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">QMC Hands-on Summer Workshop</h1>
+<h1 class="title">Geometry optimization</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb810458">1. Presentations</a></li>
-<li><a href="#org75b8bf7">2. Hands-on</a></li>
+<li><a href="#orgba87df2">1. Introduction</a></li>
 </ul>
 </div>
 </div>
+<p>
+<img src="./images/TREXIO.png" width="100px" /> \(\longrightarrow\)
+<img src="./images/QP.png" width="100px" /> \(\longrightarrow\)
+<img src="./images/TREXIO.png" width="100px" /> \(\longrightarrow\)
+ <img src="./images/Champ.png" height="80px" /> 
+</p>
 
-<div id="outline-container-orgb810458" class="outline-2">
-<h2 id="orgb810458"><span class="section-number-2">1</span> Presentations</h2>
+
+
+<div id="outline-container-orgba87df2" class="outline-2">
+<h2 id="orgba87df2"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
-<ul class="org-ul">
-<li><a href="./Presentations/xxx.pdf">Basic VMC and DMC</a></li>
-<li><a href="./Presentations/multidet.pdf">Multi-determinant wave functions</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org75b8bf7" class="outline-2">
-<h2 id="org75b8bf7"><span class="section-number-2">2</span> Hands-on</h2>
-<div class="outline-text-2" id="text-2">
-<ol class="org-ol">
-<li><a href="./01-Intro_qp.html">Introduction to Quantum Package</a></li>
-<li><a href="./02-Champ.html">Introduction to CHAMP</a></li>
-<li><a href="./03-JobScripts.html">Job script examples</a></li>
-<li><a href="./04-QP_CHAMP.html">Ground state QMC calculations</a></li>
-<li><a href="./05-ExcitedStates.html">Excited state calculations</a></li>
-<li><a href="./06-Geometry.html">Geometry optimization</a></li>
-</ol>
-
-<div class="note">
 <p>
-This web site is available here:
-</p>
-
-<p>
-<a href="https://trex-coe.github.io/school-slovakia-2022/">https://trex-coe.github.io/school-slovakia-2022/</a>
-</p>
-
-</div>
-
-<p>
-To go back to the main page, you ca click on the <a href="./inder.html">HOME</a> button at
-the top right of the web pages.
+In this section, we will perform a gemetry optimization of
+thioformaldehyde ((H<sub>2</sub>CS) in the excited state.
+Now that you are experts in running excited state calculations with
+Quantum Package and CHAMP, you can run a two state calculation
+for thioformaldehyde using a given <a href="https://github.com/TREX-CoE/school-slovakia-2022/raw/master/docs/TrexioFiles/CSH2.trexio">TREXIO file CSH2.trexio</a> file
+containing molecular orbitals. 
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Claudia Filippi, Anthony Scemama</p>
+<p class="author">Author: Claudia Filippi</p>
 <p class="date">Created: 2022-06-20 Mon 07:20</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
