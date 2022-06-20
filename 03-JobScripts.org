@@ -32,6 +32,8 @@ source ~filippi/intel/oneapi/setvars.sh     # Intel libraries
 #+begin_src bash :tangle job_qp.sh
 #!/bin/bash
 #SBATCH -N 1 -n 1  --exclusive
+#SBATCH --account=reserved
+#SBATCH --partition=reserved
 
 source ~scemama/environment.sh
 
@@ -49,6 +51,8 @@ qp run fci > COH2.fci.out
  #+begin_src bash
 #!/bin/bash
 #SBATCH -N 1 -n 12
+#SBATCH --account=reserved
+#SBATCH --partition=reserved
 
 source ~scemama/environment.sh                                                               
 
