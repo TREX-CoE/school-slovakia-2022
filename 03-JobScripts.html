@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 13:28 -->
+<!-- 2022-06-20 Mon 13:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts</title>
@@ -244,20 +244,20 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9f98767">1. Environment</a></li>
-<li><a href="#org2706904">2. Example of a QP job script</a></li>
-<li><a href="#org35dea86">3. Example of a CHAMP job script</a>
+<li><a href="#org5dc7b29">1. Environment</a></li>
+<li><a href="#orga94c624">2. Example of a QP job script</a></li>
+<li><a href="#orgaced33c">3. Example of a CHAMP job script</a>
 <ul>
-<li><a href="#orgfd7631a">3.1. Variational Monte Carlo run</a></li>
-<li><a href="#orgcca86eb">3.2. Diffusion Monte Carlo run</a></li>
+<li><a href="#orgfb69f2c">3.1. Variational Monte Carlo run</a></li>
+<li><a href="#org6a20255">3.2. Diffusion Monte Carlo run</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org9f98767" class="outline-2">
-<h2 id="org9f98767"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-org5dc7b29" class="outline-2">
+<h2 id="org5dc7b29"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
 <div class="important">
 <p>
@@ -299,8 +299,8 @@ pip install resultsFile
 </div>
 </div>
 
-<div id="outline-container-org2706904" class="outline-2">
-<h2 id="org2706904"><span class="section-number-2">2</span> Example of a QP job script</h2>
+<div id="outline-container-orga94c624" class="outline-2">
+<h2 id="orga94c624"><span class="section-number-2">2</span> Example of a QP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP uses one process, and all possible threads on the node. You
@@ -320,11 +320,21 @@ qp run fci &gt; COH2.fci.out
 
 </pre>
 </div>
+
+<div class="important">
+<p>
+  When you work with SLURM, you should use <code>sbatch</code> to submit your scripts:
+#+begin<sub>src</sub> bash
+  sbatch job.sh
+#+end<sub>src</sub> bash
+</p>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-org35dea86" class="outline-2">
-<h2 id="org35dea86"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+<div id="outline-container-orgaced33c" class="outline-2">
+<h2 id="orgaced33c"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 CHAMP is parallelized with MPI, and doesn't use multi-threading. You
@@ -333,8 +343,8 @@ cores per node).
 </p>
 </div>
 
-<div id="outline-container-orgfd7631a" class="outline-3">
-<h3 id="orgfd7631a"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
+<div id="outline-container-orgfb69f2c" class="outline-3">
+<h3 id="orgfb69f2c"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
@@ -353,8 +363,8 @@ mpirun -np 12 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d
 </div>
 </div>
 
-<div id="outline-container-orgcca86eb" class="outline-3">
-<h3 id="orgcca86eb"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
+<div id="outline-container-org6a20255" class="outline-3">
+<h3 id="org6a20255"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
@@ -374,7 +384,7 @@ mpirun -np 12 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-20 Mon 13:28</p>
+<p class="date">Created: 2022-06-20 Mon 13:42</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
