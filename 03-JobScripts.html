@@ -244,20 +244,20 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org40c618c">1. Environment</a></li>
-<li><a href="#org8759930">2. Example of a QP job script</a></li>
-<li><a href="#orgb012c16">3. Example of a CHAMP job script</a>
+<li><a href="#org94a4949">1. Environment</a></li>
+<li><a href="#orgbdf3b4b">2. Example of a QP job script</a></li>
+<li><a href="#org593e03c">3. Example of a CHAMP job script</a>
 <ul>
-<li><a href="#org3101b43">3.1. Variational Monte Carlo run</a></li>
-<li><a href="#orgad2a1b4">3.2. Diffusion Monte Carlo run</a></li>
+<li><a href="#org9665e7c">3.1. Variational Monte Carlo run</a></li>
+<li><a href="#orgf1b5b28">3.2. Diffusion Monte Carlo run</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org40c618c" class="outline-2">
-<h2 id="org40c618c"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-org94a4949" class="outline-2">
+<h2 id="org94a4949"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
 <div class="important">
 <p>
@@ -299,8 +299,8 @@ pip install resultsFile
 </div>
 </div>
 
-<div id="outline-container-org8759930" class="outline-2">
-<h2 id="org8759930"><span class="section-number-2">2</span> Example of a QP job script</h2>
+<div id="outline-container-orgbdf3b4b" class="outline-2">
+<h2 id="orgbdf3b4b"><span class="section-number-2">2</span> Example of a QP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP uses one process, and all possible threads on the node. You
@@ -333,8 +333,8 @@ qp run fci &gt; COH2.fci.out
 </div>
 </div>
 
-<div id="outline-container-orgb012c16" class="outline-2">
-<h2 id="orgb012c16"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+<div id="outline-container-org593e03c" class="outline-2">
+<h2 id="org593e03c"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 CHAMP is parallelized with MPI, and doesn't use multi-threading. You
@@ -343,8 +343,8 @@ cores per node).
 </p>
 </div>
 
-<div id="outline-container-org3101b43" class="outline-3">
-<h3 id="org3101b43"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
+<div id="outline-container-org9665e7c" class="outline-3">
+<h3 id="org9665e7c"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
@@ -363,8 +363,8 @@ mpirun -np 16 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d
 </div>
 </div>
 
-<div id="outline-container-orgad2a1b4" class="outline-3">
-<h3 id="orgad2a1b4"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
+<div id="outline-container-orgf1b5b28" class="outline-3">
+<h3 id="orgf1b5b28"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>

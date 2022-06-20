@@ -266,13 +266,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3e214bb">1. Introduction</a></li>
-<li><a href="#org745f35e">2. CIPSI 2-state calculations</a></li>
-<li><a href="#org3fb78a0">3. Export wave functions to CHAMP</a></li>
-<li><a href="#org9db578f">4. QMC wave function optimizations</a>
+<li><a href="#org5028e7a">1. Introduction</a></li>
+<li><a href="#org6bd7002">2. CIPSI 2-state calculations</a></li>
+<li><a href="#orga87f5e9">3. Export wave functions to CHAMP</a></li>
+<li><a href="#org2a53ce2">4. QMC wave function optimizations</a>
 <ul>
-<li><a href="#org4eddd5e">4.1. Optimization of the ground state</a></li>
-<li><a href="#org9442a2e">4.2. Optimization of the excited state</a></li>
+<li><a href="#org345c211">4.1. Optimization of the ground state</a></li>
+<li><a href="#org194e374">4.2. Optimization of the excited state</a></li>
 </ul>
 </li>
 </ul>
@@ -285,8 +285,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-org3e214bb" class="outline-2">
-<h2 id="org3e214bb"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org5028e7a" class="outline-2">
+<h2 id="org5028e7a"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -307,8 +307,8 @@ extrapolation from coupled cluster calculations) is 3.97 eV.
 </div>
 </div>
 
-<div id="outline-container-org745f35e" class="outline-2">
-<h2 id="org745f35e"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-org6bd7002" class="outline-2">
+<h2 id="org6bd7002"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -402,8 +402,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-org3fb78a0" class="outline-2">
-<h2 id="org3fb78a0"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-orga87f5e9" class="outline-2">
+<h2 id="orga87f5e9"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -494,8 +494,8 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-org9db578f" class="outline-2">
-<h2 id="org9db578f"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-org2a53ce2" class="outline-2">
+<h2 id="org2a53ce2"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In this section, we will optimize a Jastrow factor for each state, and
@@ -512,8 +512,8 @@ Here, we have 12 electrons, 6 up and 6 down.
 </div>
 </div>
 
-<div id="outline-container-org4eddd5e" class="outline-3">
-<h3 id="org4eddd5e"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div id="outline-container-org345c211" class="outline-3">
+<h3 id="org345c211"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Create a new directory, and copy the <code>COH2_GS.trexio</code> TREXIO file inside it.
@@ -590,7 +590,7 @@ contains the parameters for such a "quick" optimization.
 </pre>
 
 <p>
-Move the <code>jastrow_optimal.1.iter10</code> file to <code>jastrow_optimal.rough_GS</code> and 
+Move the <code>jastrow_optimal.1.iter10</code> file to <code>jastrow_optimal.rough_GS</code> and
 load this optimized Jastrow factor. You can now optimize also the CI
 coefficients together with the Jastrow factor by setting:
 </p>
@@ -618,15 +618,15 @@ In your directory, you will now have <code>jastrow_optimal.1.iterX</code> and
 </p>
 
 <p>
-Set up a DMC calculation where you use the optimal Jastrow and 
+Set up a DMC calculation where you use the optimal Jastrow and
 CI coefficients. Adjust the <code>etrial</code> to be a bit below the VMC energy.
 Recall that you will have to generate the <code>mc_configs</code> file.
 </p>
 
 <div class="tip">
 <p>
-Note: You could have also optimized the orbitals but we did not 
-do it here to keep the calculations short. If you are setting 
+Note: You could have also optimized the orbitals but we did not
+do it here to keep the calculations short. If you are setting
 <code>optorb=1</code>, load also the symmetry file.
 </p>
 
@@ -638,8 +638,8 @@ load champ_v2_COH2_GS_symmetry.sym
 </div>
 </div>
 
-<div id="outline-container-org9442a2e" class="outline-3">
-<h3 id="org9442a2e"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div id="outline-container-org194e374" class="outline-3">
+<h3 id="org194e374"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
@@ -649,7 +649,7 @@ Apply the same procedure as for the ground state.
 <p>
 Repeat what you have done for the ground state. Start to perform
 a quick optimization of the Jastrow factor but do not start from
-zero's: start from the Jastrow factor you have for the ground 
+zero's: start from the Jastrow factor you have for the ground
 state, namely, <code>jastrow_optimal.rough_GS</code>.
 </p>
 
@@ -658,16 +658,16 @@ Do all step until when you obtain the DMC energy.
 </p>
 
 <p>
-Compute the VMC and DMC excitation energies. Recall that if your 
+Compute the VMC and DMC excitation energies. Recall that if your
 energies are
 \[
   E_{\rm GS}+\delta E_{\rm GS}  \text{ and } E_{\rm ES}+\delta E_{\rm ES},
   \]
-where \(\delta E\) is the statistical error, 
+where \(\delta E\) is the statistical error,
 the error on \(\Delta E= E_{\rm ES}-E_{\rm GS}\)
 is given by
 \[
-  \sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2.
+  \sqrt{\delta E_{\text{GS}}^2+\delta E_{\text{ES}}^2}.
   \]
 </p>
 </div>
