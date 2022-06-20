@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 09:46 -->
+<!-- 2022-06-20 Mon 15:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts</title>
@@ -233,22 +233,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1e0020e">1. Environment</a></li>
-<li><a href="#org7a74281">2. Example of a QP job script</a></li>
-<li><a href="#orgae605a2">3. Example of a CHAMP job script</a>
+<li><a href="#orgaf109be">1. Environment</a></li>
+<li><a href="#org1b62b5f">2. Example of a QP job script</a></li>
+<li><a href="#orgf930a2e">3. Example of a CHAMP job script</a>
 <ul>
-<li><a href="#org7d4e54c">3.1. Variational Monte Carlo run</a></li>
-<li><a href="#org8797f4f">3.2. Diffusion Monte Carlo run</a></li>
+<li><a href="#orgbb98ad3">3.1. Variational Monte Carlo run</a></li>
+<li><a href="#orgf456ba2">3.2. Diffusion Monte Carlo run</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org1e0020e" class="outline-2">
-<h2 id="org1e0020e"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-orgaf109be" class="outline-2">
+<h2 id="orgaf109be"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
-<div class="important" id="org112f4f2">
+<div class="important" id="org134f4c9">
 <p>
 Some environment variables should be set for the codes to run
 properly. To set up the environment, you should source the
@@ -273,7 +273,7 @@ This file contains the following commands:
 </pre>
 </div>
 
-<div class="important" id="orgf31208d">
+<div class="important" id="org19f212a">
 <p>
 It is important also that you install the following Python packages
 </p>
@@ -288,8 +288,8 @@ pip install resultsFile
 </div>
 </div>
 
-<div id="outline-container-org7a74281" class="outline-2">
-<h2 id="org7a74281"><span class="section-number-2">2</span> Example of a QP job script</h2>
+<div id="outline-container-org1b62b5f" class="outline-2">
+<h2 id="org1b62b5f"><span class="section-number-2">2</span> Example of a QP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP uses one process, and all possible threads on the node. You
@@ -299,6 +299,8 @@ should request an exclusive node with one process:
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
 #<span style="color: #b22222;">SBATCH -N 1 -n 1  --exclusive</span>
+#<span style="color: #b22222;">SBATCH --account=reserved</span>
+#<span style="color: #b22222;">SBATCH --partition=reserved</span>
 
 <span style="color: #483d8b;">source</span> ~scemama/environment.sh
 
@@ -310,8 +312,8 @@ qp run fci &gt; COH2.fci.out
 </div>
 </div>
 
-<div id="outline-container-orgae605a2" class="outline-2">
-<h2 id="orgae605a2"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+<div id="outline-container-orgf930a2e" class="outline-2">
+<h2 id="orgf930a2e"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 CHAMP is parallelized with MPI, and doesn't use multi-threading. You
@@ -320,12 +322,14 @@ cores per node).
 </p>
 </div>
 
-<div id="outline-container-org7d4e54c" class="outline-3">
-<h3 id="org7d4e54c"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
+<div id="outline-container-orgbb98ad3" class="outline-3">
+<h3 id="orgbb98ad3"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
 #<span style="color: #b22222;">SBATCH -N 1 -n 12</span>
+#<span style="color: #b22222;">SBATCH --account=reserved</span>
+#<span style="color: #b22222;">SBATCH --partition=reserved</span>
 
 <span style="color: #483d8b;">source</span> ~scemama/environment.sh
 
@@ -338,8 +342,8 @@ mpirun -np 12 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d
 </div>
 </div>
 
-<div id="outline-container-org8797f4f" class="outline-3">
-<h3 id="org8797f4f"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
+<div id="outline-container-orgf456ba2" class="outline-3">
+<h3 id="orgf456ba2"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
@@ -359,7 +363,7 @@ mpirun -np 12 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-20 Mon 09:46</p>
+<p class="date">Created: 2022-06-20 Mon 15:26</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
