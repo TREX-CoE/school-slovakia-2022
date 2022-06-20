@@ -54,6 +54,14 @@ qp run fci > COH2.fci.out
 
 #+end_src
 
+#+begin_important
+  When you work with SLURM, you should use =sbatch= to submit your scripts:
+#+begin_src bash
+  sbatch job.sh
+#+end_src bash
+
+#+end_important
+
 * Example of a CHAMP job script
 
   CHAMP is parallelized with MPI, and doesn't use multi-threading. You
