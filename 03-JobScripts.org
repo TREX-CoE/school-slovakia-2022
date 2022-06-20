@@ -11,9 +11,11 @@
   Some environment variables should be set for the codes to run
   properly. To set up the environment, you should source the
   =~scemama/environment.sh= file in your shell when you log in:
+
   #+begin_src bash
 source ~scemama/environment.sh
   #+end_src
+
   #+end_important
 
   This file contains the following commands:
@@ -24,12 +26,15 @@ source ~scemama/qp2/quantum_package.rc      # QP environment
 source ~filippi/intel/oneapi/setvars.sh     # Intel libraries for CHAMP
 #+end_src
 
+  #+begin_important
  It is important also that you install the following Python packages
 
  #+begin_src bash
 pip install trexio
 pip install resultsFile
  #+end_src
+
+  #+end_important
  
 * Example of a QP job script
 

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-20 Mon 09:15 -->
+<!-- 2022-06-20 Mon 09:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Quantum Package</title>
@@ -255,20 +255,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0bd1145">1. Environment</a></li>
-<li><a href="#org1412304">2. The EZFIO database</a></li>
-<li><a href="#org862e5a1">3. qp commands</a></li>
+<li><a href="#orgc4bc30f">1. Environment</a></li>
+<li><a href="#orgdc41eaf">2. The EZFIO database</a></li>
+<li><a href="#orgfb568db">3. qp commands</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org59e8710" class="figure">
+<div id="org6f57fa7" class="figure">
 <p><img src="./images/QP.png" alt="QP.png" width="100px" />
 </p>
 </div>
 
-<div id="outline-container-org0bd1145" class="outline-2">
-<h2 id="org0bd1145"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-orgc4bc30f" class="outline-2">
+<h2 id="orgc4bc30f"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://quantumpackage.github.io/qp2">Quantum Package (QP)</a> is an open-source environment for developing
@@ -276,31 +276,39 @@ easily quantum chemistry programs. It was initially designed for code
 developers, but it is relatively simple to use.
 </p>
 
-
+<div class="important" id="org4e16049">
 <p>
 Before doing anything with quantum package, the environment needs to
 be set up
 </p>
+
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #483d8b;">source</span> $<span style="color: #a0522d;">QP_ROOT</span>/quantum_package.rc
 </pre>
 </div>
+
 <p>
 where <code>$QP_ROOT</code> is the path to the <code>qp2</code> directory.
 </p>
 
+</div>
+
+<div class="tip" id="orga3f65d3">
 <p>
 An alternative, when using QP interactively is to run the QP shell:
 </p>
+
 <div class="org-src-container">
 <pre class="src src-bash">$<span style="color: #a0522d;">QP_ROOT</span>/bin/qpsh
 </pre>
 </div>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-org1412304" class="outline-2">
-<h2 id="org1412304"><span class="section-number-2">2</span> The EZFIO database</h2>
+<div id="outline-container-orgdc41eaf" class="outline-2">
+<h2 id="orgdc41eaf"><span class="section-number-2">2</span> The EZFIO database</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP stores input and output data in a database, called the <i>EZFIO directory</i>.
@@ -344,7 +352,7 @@ To switch to another EZFIO database, use
 </pre>
 </div>
 
-<div class="note" id="orgd02cc8b">
+<div class="note" id="orgc035f5d">
 <p>
 When running interactively with <code>qpsh</code>, the current EZFIO database
 is displayed in the terminal. You should see <code>|h2o.ezfio&gt;</code> in green
@@ -357,8 +365,8 @@ will become red, meaning that the EZFIO database in inaccessible.
 </div>
 
 
-<div id="outline-container-org862e5a1" class="outline-2">
-<h2 id="org862e5a1"><span class="section-number-2">3</span> qp commands</h2>
+<div id="outline-container-orgfb568db" class="outline-2">
+<h2 id="orgfb568db"><span class="section-number-2">3</span> qp commands</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 To get the documentation of the <code>qp</code> command, you can use
@@ -368,9 +376,9 @@ To get the documentation of the <code>qp</code> command, you can use
 </pre>
 </div>
 
-<div class="tip" id="org7d4905f">
+<div class="tip" id="orgba38f21">
 <p>
-Note: all QP commands come with a <code>--help</code> option for documentaion.
+Note: all QP commands come with a <code>--help</code> option for documentation.
 </p>
 
 </div>
@@ -385,10 +393,10 @@ QP. To run a QP program, use <code>qp run</code>:
 </pre>
 </div>
 
-<div class="tip" id="org66c832c">
+<div class="tip" id="org7544736">
 <p>
 Here, we have copied the standard output into the file
-<code>h2o.scf.out</code> using the <code>tee</code> linux command.
+<code>h2o.scf.out</code> using the <code>tee</code> Linux command.
 </p>
 
 </div>
@@ -430,7 +438,7 @@ filled-in with data coming from the EZFIO database. When the file
 is saved and the editor is exited, the data is saved back into the EZFIO.
 </p>
 
-<div class="tip" id="org645b57d">
+<div class="tip" id="org480c940">
 <p>
 You can change the text editor used by <code>qp_edit</code> by setting the
 <code>$EDITOR</code> environment variable. For example:
@@ -461,18 +469,19 @@ The parameters can be set in the shell using <code>qp set</code>:
 </pre>
 </div>
 
+<div class="tip" id="orgb1a78e9">
 <p>
-#+begin<sub>tip</sub>
 You can use Tab-completion with the <code>qp</code> command, which makes
 the shell interaction more user-friendly.
-#+end<sub>note</sub>
 </p>
+
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-20 Mon 09:15</p>
+<p class="date">Created: 2022-06-20 Mon 09:46</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

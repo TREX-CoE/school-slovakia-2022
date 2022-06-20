@@ -140,7 +140,7 @@ qp run export_trexio
 qp create_ezfio --pseudo=PSEUDO --basis=BASIS h2o.xyz --output=h2o_dft
 #+end_src
 
-  Specifiy you want to use the PBE functional.
+  Specify that you want to use the PBE functional.
 
 #+begin_src  bash
 qp set dft_keywords exchange_functional pbe
@@ -193,7 +193,7 @@ qp run print_energy
  CHAMP:
 
  #+begin_important
- You need the resultsFile and trexio Python packages. They can be
+ You need the ~resultsFile~ and ~trexio~ Python packages. They can be
  installed with pip as described in [[./03-JobScripts.org][section 3]].
  #+end_important
 
@@ -269,7 +269,7 @@ end
 
  This files implies that there is no Jastrow factor ($\exp(J)=1$).
 
- Create the sumission script as presented in [[./03-JobScripts.org][section 3]], and submit
+ Create the submission script as presented in [[./03-JobScripts.org][section 3]], and submit
  the job. You should obtain the Hartree-Fock energy.
 
  Now reproduce the same steps for the TREXIO file containing the DFT
@@ -283,10 +283,9 @@ end
  The Jastrow factor depends on the electronic ($\mathbf{r}$) and
   nuclear ($\mathbf{R}$) coordinates. Its defined as $\exp(J(\mathbf{r},\mathbf{R}))$, where
 
- \begin{eqnarray*}
- J &=& J_{en}J_{ee}J_{een} \\
-   &=& \exp \Big[ f_{en}(R_{i\alpha})+f_{ee}(R_{ij})+f_{een}(R_{i\alpha},R_{j\alpha},R_{ij}) \Big]
- \end{eqnarray*}
+ \[
+ J = f_{en} + f_{ee} + f_{een}
+ \]
 
  Electron-nucleus and electron-electron: $R={1-e^{-\kappa r} \over \kappa}$
 
@@ -299,7 +298,7 @@ end
  f_{ee} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \left( {b_1 R_{ij} \over 1+b_2R_{ij}} + \sum_{p=2}^{N^b_{\rm ord}} b_{p+1} R_{ij}^p \right)
  \]
 
- Electron-electron-nucleus: $\displaystyle R=e^{-\kappa r}$
+ Electron-electron-nucleus: $R=\exp\left(-\kappa r \right)$
 
  \[
  f_{een} = \sum_{i=2}^{N_{\rm elec}} \sum_{j=1}^{i-1} \sum_{\alpha=1}^{N_{\rm nuc}} \sum_{p=2}^{N^c_{\rm ord}} \sum_{k=p-1}^0 \sum_{l=l_{\rm max}}^0 c_n R_{ij}^k (R_{i\alpha}^l+R_{j\alpha}^l) (R_{i\alpha}R_{j\alpha})^m
@@ -412,7 +411,7 @@ load jastrow_der     jastrow.der
    Let us start to run a DMC simulation with the HF orbitals and the optimal
    Jastrow factor you have just generated.
 
-   Create a new directory and copy the wave function trexio info and the
+   Create a new directory and copy the wave function TREXIO info and the
    optimal Jastrow factor (for simplicity, pick the last one).
 
    First, generate an input file as before where you read the wave function

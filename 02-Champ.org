@@ -36,7 +36,7 @@ sudo apt-get install -y cmake
     #+end_src
      or
 
-     Download and extract the latest cmake for the precompiled binary
+     Download and extract the latest cmake for the pre-compiled binary
  #+begin_src bash
 wget https://github.com/Kitware/CMake/releases/download/v3.24.0-rc1/cmake-3.24.0-rc1-linux-x86_64.tar.gz
 tar -xzvf cmake-3.24.0-rc1-linux-x86_64.tar.gz
@@ -58,7 +58,7 @@ chmod a+x ./l_HPCKit_p_2022.2.0.191.sh
 sh ./l_HPCKit_p_2022.2.0.191.sh
      #+end_src
 
-     After installation export the path to your bashrc.
+     After installation export the path to your =~/.bashrc=.
 
 **** Prerequisites for Intel oneAPI with sudo access
 
@@ -92,7 +92,7 @@ cmake --build build -j 8
 *** Installation using GNU Compiler
 
     #+begin_warning
-  - Make sure that the installed version of cmake is higher than 3.20
+  - Make sure that the installed version of Cmake is higher than 3.20
   - Make sure that the installed version of gfortran/mpif90 is higher than 9.3.0
     #+end_warning
 
@@ -145,7 +145,7 @@ cmake --build build -j 8
  13. =example11_COH2_excited_state=
 
  Each example directory will contain a setup folder, where you can
- generate the necessary input files for CHAMP from a single trexio
+ generate the necessary input files for CHAMP from a single TREXIO
  file (in HDF5 format)
 
  The scripts for conversion are also included in the folder.
