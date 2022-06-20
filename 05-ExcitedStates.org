@@ -34,7 +34,7 @@ qp_import_trexio.py COH2.trexio -o COH2
 qp set_file COH2
   #+end_src
 
-  Specify you want to run a two-state calculation:
+  Specify that you want to run a two-state calculation:
 
   #+begin_src bash
 qp set determinants n_states 2
@@ -61,6 +61,7 @@ qp run fci | tee COH2.fci.out
 
   To obtain a solution from another symmetry, we need to put at least
   one determinant of each symmetry.
+
   #+end_note
 
   #+begin_tip
@@ -92,7 +93,7 @@ qp run fci | tee COH2.fci.out
 
   The excited states are of different symmetries, so we will generate
   two different setups in CHAMP, one for each state. To do that, we will
-  save two different files, one with each state, and containing only
+  save two different files, one for each state, and containing only
   the non-zero determinants.
 
   First, copy the =COH2= directory into =COH2_GS= and =COH2_ES=, one
@@ -115,7 +116,7 @@ qp edit --state=2
   #+end_src
 
   The states have been extracted, but the EZFIO databases still
-  contain the determinants with zero coefficients. We can remove them
+  contain the determinants with almost zero coefficients. We can remove them
   by running
 
   #+begin_src bash
@@ -183,7 +184,8 @@ python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py \
 
   H_{2}CO has three different atom types, so the jastrow factow file
   will be slightly different from the file for water with one extra
-  line for $a$ parameters. You can start with:
+  line for $a$ parameters. You can start by saving the following in a file
+  called =jastrow.simple=:
 
   #+begin_example
 jastrow_parameter   1
@@ -200,7 +202,10 @@ end
   #+end_example
 
   Start by optimizing the Jastrow factor and perform a ``quick'' optimization.
+  The following champ input file (=vmc_quick.inp=) contains the parameters for such a ``quick''
+  optimization.
 
+#+begin_example
 %module optwf
     ioptwf        1
     ioptci        0
@@ -225,34 +230,43 @@ end
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule
+  #+end_example
 
   Move the jastrow_optimal.1.iter10 to jastrow_optimal.rough_GS and 
   load this optimized Jastrow factor. You can now optimize also the CI
   coefficients together with the Jastrow factor by setting:
 
+#+begin_example
     ioptci        1
+#+end_example
 
   Use some more MC steps to perform a stricter optimization.
 
+#+begin_example
 %module blocking_vmc
     vmc_nstep     20
     vmc_nblk      500
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule
+#+end_example
 
-   In your directory, you will now have jastrow_optimal.1.iterX and
-det_optimal.1.iterX files.
+   In your directory, you will now have =jastrow_optimal.1.iterX= and
+   =det_optimal.1.iterX= files.
 
    Set up a DMC calculations where you use the optimal Jastrow and 
-   CI coefficients. Adjust the etrial to be a bit below the VMC energy.
-   Recall that you will have to generate the mc_configs file.
+   CI coefficients. Adjust the ~etrial~ to be a bit below the VMC energy.
+   Recall that you will have to generate the ~mc_configs~ file.
 
+  #+begin_tip
    Note: You could have also optimized the orbitals but we did not 
    do it here to keep the calculations short. If you are setting 
-   optorb=1, load also the symmetry file
+   ~optorb=1~, load also the symmetry file
+  #+end_tip
 
+#+begin_example
 load champ_v2_COH2_GS_symmetry.sym
+#+end_example
 
 ** Optimization of the excited state
 
