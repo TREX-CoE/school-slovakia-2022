@@ -186,10 +186,10 @@ python3 /lustre/home/filippi/Tutorial-QMC-School/trex2champ.py \
                         --det
   #+end_src
 
-  H_{2}CO has three different atom types, so the jastrow factow file
+  H_{2}CO has three different atom types, so the Jastrow factor file
   will be slightly different from the file for water with one extra
-  line for $a$ parameters. You can start by saving the following in a file
-  called =jastrow.simple=:
+  line for $a$ parameters. You can start by creating a file
+  called =jastrow.start=:
 
   #+begin_example
 jastrow_parameter   1
@@ -205,9 +205,9 @@ jastrow_parameter   1
 end
   #+end_example
 
-  Start by optimizing the Jastrow factor and perform a ``quick'' optimization.
-  The following champ input file (=vmc_quick.inp=) contains the parameters for such a ``quick''
-  optimization.
+  Start by optimizing the Jastrow factor and perform a "quick"
+  optimization.  The following champ input file (=vmc_quick.inp=)
+  contains the parameters for such a "quick" optimization.
 
 #+begin_example
 %module optwf
@@ -236,7 +236,7 @@ end
 %endmodule
   #+end_example
 
-  Move the jastrow_optimal.1.iter10 to jastrow_optimal.rough_GS and 
+  Move the =jastrow_optimal.1.iter10= file to =jastrow_optimal.rough_GS= and 
   load this optimized Jastrow factor. You can now optimize also the CI
   coefficients together with the Jastrow factor by setting:
 
@@ -244,7 +244,7 @@ end
     ioptci        1
 #+end_example
 
-  Use some more MC steps to perform a stricter optimization.
+  Use some more Monte Carlo steps to perform a more strict optimization.
 
 #+begin_example
 %module blocking_vmc
@@ -258,19 +258,20 @@ end
    In your directory, you will now have =jastrow_optimal.1.iterX= and
    =det_optimal.1.iterX= files.
 
-   Set up a DMC calculations where you use the optimal Jastrow and 
+   Set up a DMC calculation where you use the optimal Jastrow and 
    CI coefficients. Adjust the ~etrial~ to be a bit below the VMC energy.
-   Recall that you will have to generate the ~mc_configs~ file.
+   Recall that you will have to generate the =mc_configs= file.
 
   #+begin_tip
    Note: You could have also optimized the orbitals but we did not 
    do it here to keep the calculations short. If you are setting 
-   ~optorb=1~, load also the symmetry file
-  #+end_tip
+   ~optorb=1~, load also the symmetry file.
 
 #+begin_example
 load champ_v2_COH2_GS_symmetry.sym
 #+end_example
+
+  #+end_tip
 
 ** Optimization of the excited state
 
@@ -280,12 +281,15 @@ load champ_v2_COH2_GS_symmetry.sym
   Repeat what you have done for the ground state. Start to perform
   a quick optimization of the Jastrow factor but do not start from
   zero's: start from the Jastrow factor you have for the ground 
-  state, namely, jastrow_optimal.rough_GS.
+  state, namely, =jastrow_optimal.rough_GS=.
 
   Do all step until when you obtain the DMC energy.
 
   Compute the VMC and DMC excitation energies. Recall that if your 
-  energies are $E_{\rm GS}+\delta E_{\rm GS}$ and 
-  $E_{\rm ES}+\delta E_{\rm ES}$, the error on $\Delta E= E_{\rm ES}-E_{\rm GS}$
+  energies are
+  \[
+  E_{\rm GS}+\delta E_{\rm GS}  \text{ and } E_{\rm ES}+\delta E_{\rm ES},
+  \]
+  the error on $\Delta E= E_{\rm ES}-E_{\rm GS}$
   is given by $\sqrt{\delta E_{\rm GS}^2+\delta E_{\rm ES}^2$.
 
