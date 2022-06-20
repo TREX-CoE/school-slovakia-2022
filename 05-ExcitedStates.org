@@ -33,7 +33,7 @@ qp_import_trexio.py COH2.trexio -o COH2
 qp set_file COH2
   #+end_src
 
-  Specify you want to run a two-state calculation:
+  Specify that you want to run a two-state calculation:
 
   #+begin_src bash
 qp set determinants n_states 2
@@ -46,6 +46,7 @@ qp set determinants n_det_max 1000
   #+end_src
 
   #+begin_note
+
   The excitation energy is around 8 eV. This is because the
   orbitals in the TREXIO file are symmetry adapted, so it is
   impossible to make a determinant from another symmetry enter in the
@@ -53,6 +54,7 @@ qp set determinants n_det_max 1000
 
   To obtain a solution from another symmetry, we need to put at least
   one determinant of each symmetry.
+
   #+end_note
 
   #+begin_tip
@@ -84,7 +86,7 @@ qp run fci | tee COH2.fci.out
 
   The excited states are of different symmetries, so we will generate
   two different setups in CHAMP, one for each state. To do that, we will
-  save two different files, one with each state, and containing only
+  save two different files, one for each state, and containing only
   the non-zero determinants.
 
   First, copy the =COH2= directory into =COH2_GS= and =COH2_ES=, one
@@ -107,7 +109,7 @@ qp edit --state=2
   #+end_src
 
   The states have been extracted, but the EZFIO databases still
-  contain the determinants with zero coefficients. We can remove them
+  contain the determinants with almost zero coefficients. We can remove them
   by running
 
   #+begin_src bash
