@@ -203,6 +203,7 @@ end
 
   Start by optimizing the Jastrow factor and perform a ``quick'' optimization.
 
+#+begin_example
 %module optwf
     ioptwf        1
     ioptci        0
@@ -227,6 +228,7 @@ end
     vmc_nblkeq    1
     vmc_nconf_new 0
 %endmodule
+  #+end_example
 
   Move the jastrow_optimal.1.iter10 to jastrow_optimal.rough_GS and 
   load this optimized Jastrow factor. You can now optimize also the CI
