@@ -42,11 +42,11 @@ qp set determinants n_states 2
   Tell QP to stop when the number of determinants is larger than 5000
 
   #+begin_src bash
-qp set determinants n_det_max 5000
+qp set determinants n_det_max 1000
   #+end_src
 
   #+begin_note
-  The excitation energy is around 10 eV. This is because the
+  The excitation energy is around 8 eV. This is because the
   orbitals in the TREXIO file are symmetry adapted, so it is
   impossible to make a determinant from another symmetry enter in the
   determinant space.
@@ -60,7 +60,15 @@ qp set determinants n_det_max 5000
   continue with a CIPSI in the FCI space.
   #+end_tip
 
-    #+begin_src bash
+  By default, at every iteration QP tries to double the size of the wave function.
+  In QMC, we will use a small number of determinants, so we should tell QP to
+  add less determinants at each iteration to have a finer selection.
+
+  #+begin_src bash
+qp set determinants selection_factor 0.5
+  #+end_src bash
+
+  #+begin_src bash
 qp run cis | tee COH2.cis.out
 qp set determinants read_wf true
 qp run fci | tee COH2.fci.out
