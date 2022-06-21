@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-21 Tue 12:47 -->
+<!-- 2022-06-21 Tue 13:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Submitting job scripts</title>
@@ -244,20 +244,20 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgee12f01">1. Environment</a></li>
-<li><a href="#orge84a75c">2. Example of a QP job script</a></li>
-<li><a href="#org2b1f998">3. Example of a CHAMP job script</a>
+<li><a href="#org5d3db7a">1. Environment</a></li>
+<li><a href="#org16a848a">2. Example of a QP job script</a></li>
+<li><a href="#orgc6a5436">3. Example of a CHAMP job script</a>
 <ul>
-<li><a href="#org6e5c0fa">3.1. Variational Monte Carlo run</a></li>
-<li><a href="#org2a31ef3">3.2. Diffusion Monte Carlo run</a></li>
+<li><a href="#orge5b555b">3.1. Variational Monte Carlo run</a></li>
+<li><a href="#org8cf0cb6">3.2. Diffusion Monte Carlo run</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgee12f01" class="outline-2">
-<h2 id="orgee12f01"><span class="section-number-2">1</span> Environment</h2>
+<div id="outline-container-org5d3db7a" class="outline-2">
+<h2 id="org5d3db7a"><span class="section-number-2">1</span> Environment</h2>
 <div class="outline-text-2" id="text-1">
 <div class="important">
 <p>
@@ -299,8 +299,8 @@ pip install resultsFile
 </div>
 </div>
 
-<div id="outline-container-orge84a75c" class="outline-2">
-<h2 id="orge84a75c"><span class="section-number-2">2</span> Example of a QP job script</h2>
+<div id="outline-container-org16a848a" class="outline-2">
+<h2 id="org16a848a"><span class="section-number-2">2</span> Example of a QP job script</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 QP uses one process, and all possible threads on the node. You
@@ -333,8 +333,8 @@ qp run fci &gt; COH2.fci.out
 </div>
 </div>
 
-<div id="outline-container-org2b1f998" class="outline-2">
-<h2 id="org2b1f998"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
+<div id="outline-container-orgc6a5436" class="outline-2">
+<h2 id="orgc6a5436"><span class="section-number-2">3</span> Example of a CHAMP job script</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 CHAMP is parallelized with MPI, and doesn't use multi-threading. You
@@ -343,8 +343,8 @@ cores per node).
 </p>
 </div>
 
-<div id="outline-container-org6e5c0fa" class="outline-3">
-<h3 id="org6e5c0fa"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
+<div id="outline-container-orge5b555b" class="outline-3">
+<h3 id="orge5b555b"><span class="section-number-3">3.1</span> Variational Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
@@ -363,8 +363,8 @@ mpirun -np 16 ~filippi/champ-2.1.0/bin/vmc.mov1  -i $<span style="color: #a0522d
 </div>
 </div>
 
-<div id="outline-container-org2a31ef3" class="outline-3">
-<h3 id="org2a31ef3"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
+<div id="outline-container-org8cf0cb6" class="outline-3">
+<h3 id="org8cf0cb6"><span class="section-number-3">3.2</span> Diffusion Monte Carlo run</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-bash">#<span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
@@ -384,7 +384,7 @@ mpirun -np 16 ~filippi/champ-2.1.0/bin/dmc.mov1  -i $<span style="color: #a0522d
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama</p>
-<p class="date">Created: 2022-06-21 Tue 12:47</p>
+<p class="date">Created: 2022-06-21 Tue 13:14</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
