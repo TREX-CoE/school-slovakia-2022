@@ -40,10 +40,10 @@ qp set_file COH2
 qp set determinants n_states 2
   #+end_src
 
-  Tell QP to stop when the number of determinants is larger than 5000
+  Tell QP to stop when the number of determinants is larger than 2000
 
   #+begin_src bash
-qp set determinants n_det_max 1000
+qp set determinants n_det_max 2000
   #+end_src
 
   and run the CIPSI in the Full-CI space:
