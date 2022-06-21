@@ -125,7 +125,7 @@ qp run truncate_wf
   #+end_src
 
   This last program is interactive and asks for the minimum weight of
-  the kept configurations. Answer =1.e-10= to this question.
+  the kept configurations. Answer =1.d-10= to this question.
 
   Similarly, remove the negligible determinants from the excited
   state:
