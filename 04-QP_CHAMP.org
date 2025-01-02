@@ -228,7 +228,7 @@ mv *.xyz *bfinfo BFD-* ECP* pool
     pool            './pool/'
     pseudopot       ECP
     basis           BFD-cc-pVDZ
-    mode            'vmc_one_mpi1'
+    mode            'vmc_one_mpi'
 %endmodule
 
 

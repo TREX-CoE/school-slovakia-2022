@@ -193,7 +193,7 @@ The input file `vmc_h2o_hf.inp` looks like:
     pool            './pool/'
     pseudopot       ECP
     basis           GRID
-    mode            'vmc_one_mpi1'
+    mode            'vmc_one_mpi'
 %endmodule
 
 
