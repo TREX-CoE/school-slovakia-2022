@@ -3,14 +3,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-21 Tue 13:14 -->
+<!-- 2025-01-06 Mon 12:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excited states with Quantum Package and CHAMP</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Anthony Scemama, Claudia Filippi" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -31,8 +31,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -40,22 +41,22 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
+    overflow: auto;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -161,6 +162,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -177,8 +191,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
+  .org-svg { }
 </style>
 <link rel="stylesheet" type="text/css" href="org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
@@ -186,93 +199,57 @@
 <script type="text/javascript" src="org-html-themes/src/lib/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2019 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
 
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
  <a accesskey="h" href="04-QP_CHAMP.org"> UP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">Excited states with Quantum Package and CHAMP</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org154eee8">1. Introduction</a></li>
-<li><a href="#orgf10d9f2">2. CIPSI 2-state calculations</a></li>
-<li><a href="#orgeb21507">3. Export wave functions to CHAMP</a></li>
-<li><a href="#org23a0e65">4. QMC wave function optimizations</a>
+<li><a href="#orge5a39ca">1. Introduction</a></li>
+<li><a href="#orgac76720">2. CIPSI 2-state calculations</a></li>
+<li><a href="#org4721191">3. Export wave functions to CHAMP</a></li>
+<li><a href="#orge422bcd">4. QMC wave function optimizations</a>
 <ul>
-<li><a href="#org2e6bb2f">4.1. Optimization of the ground state</a></li>
-<li><a href="#orgfc20cec">4.2. Optimization of the excited state</a></li>
+<li><a href="#orgcc6de02">4.1. Optimization of the ground state</a></li>
+<li><a href="#orgf2bdd84">4.2. Optimization of the excited state</a></li>
 </ul>
 </li>
 </ul>
@@ -285,8 +262,8 @@ for the JavaScript code in this tag.
  <img src="./images/Champ.png" height="80px" /> 
 </p>
 
-<div id="outline-container-org154eee8" class="outline-2">
-<h2 id="org154eee8"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orge5a39ca" class="outline-2">
+<h2 id="orge5a39ca"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We will import a Hartree-Fock wavefunction for the formaldehyde
@@ -297,7 +274,7 @@ and we will run wave function optimization in CHAMP, followed by a
 Diffusion Monte Carlo calculation.
 </p>
 
-<div class="tip">
+<div class="tip" id="org9ead082">
 <p>
 The theoretical best estimate of the excitation energy (complete basis set
 extrapolation from coupled cluster calculations) is 3.97 eV.
@@ -307,8 +284,8 @@ extrapolation from coupled cluster calculations) is 3.97 eV.
 </div>
 </div>
 
-<div id="outline-container-orgf10d9f2" class="outline-2">
-<h2 id="orgf10d9f2"><span class="section-number-2">2</span> CIPSI 2-state calculations</h2>
+<div id="outline-container-orgac76720" class="outline-2">
+<h2 id="orgac76720"><span class="section-number-2">2.</span> CIPSI 2-state calculations</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You can import the single-determinant wave function from the
@@ -348,7 +325,7 @@ and run the CIPSI in the Full-CI space:
 </pre>
 </div>
 
-<div class="note">
+<div class="note" id="orgc0ffc4f">
 <p>
 The extrapolated excitation energy is around 8 eV and we expect 4 ev, so
 we did not catch the correct state.  This is because the
@@ -364,7 +341,7 @@ one determinant of each symmetry.
 
 </div>
 
-<div class="tip">
+<div class="tip" id="orgaafdf37">
 <p>
 The simplest practical solution is to first perform a CIS, and then
 continue with a CIPSI in the FCI space.
@@ -402,8 +379,8 @@ eV. We are now ready to export the data for CHAMP.
 </div>
 </div>
 
-<div id="outline-container-orgeb21507" class="outline-2">
-<h2 id="orgeb21507"><span class="section-number-2">3</span> Export wave functions to CHAMP</h2>
+<div id="outline-container-org4721191" class="outline-2">
+<h2 id="org4721191"><span class="section-number-2">3.</span> Export wave functions to CHAMP</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The excited states are of different symmetries, so we will generate
@@ -494,8 +471,8 @@ Now, we are ready to run the QMC calculations for each state.
 </div>
 
 
-<div id="outline-container-org23a0e65" class="outline-2">
-<h2 id="org23a0e65"><span class="section-number-2">4</span> QMC wave function optimizations</h2>
+<div id="outline-container-orge422bcd" class="outline-2">
+<h2 id="orge422bcd"><span class="section-number-2">4.</span> QMC wave function optimizations</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In this section, we will optimize a Jastrow factor for each state, and
@@ -504,7 +481,7 @@ The setup of the CHAMP files is similar to what we have done in
 <a href="./04-QP_CHAMP.html">section 4</a>.
 </p>
 
-<div class="warning">
+<div class="warning" id="org2a53dc2">
 <p>
 Here, we have 12 electrons, 6 up and 6 down.
 </p>
@@ -512,8 +489,8 @@ Here, we have 12 electrons, 6 up and 6 down.
 </div>
 </div>
 
-<div id="outline-container-org2e6bb2f" class="outline-3">
-<h3 id="org2e6bb2f"><span class="section-number-3">4.1</span> Optimization of the ground state</h3>
+<div id="outline-container-orgcc6de02" class="outline-3">
+<h3 id="orgcc6de02"><span class="section-number-3">4.1.</span> Optimization of the ground state</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Create a new directory, and copy the <code>COH2_GS.trexio</code> TREXIO file inside it.
@@ -542,7 +519,7 @@ line for \(a\) parameters. You can start by creating a file
 called <code>jastrow.start</code>:
 </p>
 
-<pre class="example">
+<pre class="example" id="org7abf242">
 jastrow_parameter   1
   5  5  0           norda,nordb,nordc
    0.60000000   0.00000000     scalek,a21
@@ -562,7 +539,7 @@ optimization.  The following champ input file (<code>vmc_quick.inp</code>)
 contains the parameters for such a "quick" optimization.
 </p>
 
-<pre class="example">
+<pre class="example" id="orgfb86b9c">
 %module optwf
     ioptwf        1
     ioptci        0
@@ -595,7 +572,7 @@ load this optimized Jastrow factor. You can now optimize also the CI
 coefficients together with the Jastrow factor by setting:
 </p>
 
-<pre class="example">
+<pre class="example" id="orge533516">
 ioptci        1
 </pre>
 
@@ -603,7 +580,7 @@ ioptci        1
 Use some more Monte Carlo steps to perform a more strict optimization.
 </p>
 
-<pre class="example">
+<pre class="example" id="orged60646">
 %module blocking_vmc
     vmc_nstep     20
     vmc_nblk      500
@@ -623,14 +600,14 @@ CI coefficients. Adjust the <code>etrial</code> to be a bit below the VMC energy
 Recall that you will have to generate the <code>mc_configs</code> file.
 </p>
 
-<div class="tip">
+<div class="tip" id="org47fd49e">
 <p>
 Note: You could have also optimized the orbitals but we did not
 do it here to keep the calculations short. If you are setting
 <code>optorb=1</code>, load also the symmetry file.
 </p>
 
-<pre class="example">
+<pre class="example" id="org02f9516">
 load champ_v2_COH2_GS_symmetry.sym
 </pre>
 
@@ -638,8 +615,8 @@ load champ_v2_COH2_GS_symmetry.sym
 </div>
 </div>
 
-<div id="outline-container-orgfc20cec" class="outline-3">
-<h3 id="orgfc20cec"><span class="section-number-3">4.2</span> Optimization of the excited state</h3>
+<div id="outline-container-orgf2bdd84" class="outline-3">
+<h3 id="orgf2bdd84"><span class="section-number-3">4.2.</span> Optimization of the excited state</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Create a new directory, and copy the <code>COH2_ES.trexio</code> TREXIO file inside it.
@@ -676,8 +653,8 @@ is given by
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Anthony Scemama, Claudia Filippi</p>
-<p class="date">Created: 2022-06-21 Tue 13:14</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2025-01-06 Mon 12:31</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
